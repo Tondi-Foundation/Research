@@ -5,9 +5,9 @@ Traditional blockchain transparency exposes transaction graphs. This architectur
 \subsection{Threat Model and Anonymity Set}
 
 \begin{definition}[Anonymity Set]
-For a payment $p$ routed through CSP set $\mathcal{H}$, the anonymity set size is defined as the Cartesian product of channel sets:
-$$ |\mathcal{AS}(p)| = \prod_{h \in \mathcal{H}} |\mathrm{Channels}_h| $$
-Payment $p$ is \textbf{$k$-anonymous} iff $|\mathcal{AS}(p)| \geq k$.
+For a payment $p$ routed through $n$ CSP hops $\mathcal{H} = \{h_1, \dots, h_n\}$, the anonymity set size is the product of each hop's indistinguishable channel count:
+$$ |\mathcal{AS}(p)| = \prod_{i=1}^{n} |\mathrm{Channels}_{h_i}| $$
+For example, routing through 3 CSPs with 100 channels each yields $|\mathcal{AS}| = 100^3 = 10^6$. Payment $p$ is \textbf{$k$-anonymous} iff $|\mathcal{AS}(p)| \geq k$.
 \end{definition}
 
 \begin{table}[htbp]
@@ -108,7 +108,9 @@ $$ P_{\mathrm{onion}} = \Enc_{pk_1}(r_1, \Enc_{pk_2}(r_2, \dots, \Enc_{pk_n}(r_n
 \subsection{Privacy-Performance Tradeoff}
 
 \begin{theorem}[Privacy Cost]
-$$ T_{\mathrm{latency}} = T_{\mathrm{base}} + \alpha \cdot \log |\mathcal{AS}| $$
+Privacy enhancement incurs latency overhead that scales with the routing path length $n$ and network-layer protection:
+$$ T_{\mathrm{latency}} = T_{\mathrm{base}} + n \cdot T_{\mathrm{hop}} + T_{\mathrm{overlay}} $$
+where $T_{\mathrm{base}} \approx 100$ms is the direct payment latency, $T_{\mathrm{hop}} \approx 50$ms is the per-hop PTLC overhead, and $T_{\mathrm{overlay}}$ is the network anonymization cost (0 for clearnet, $\sim$3s for Tor).
 \end{theorem}
 
 \begin{table}[htbp]
@@ -116,14 +118,14 @@ $$ T_{\mathrm{latency}} = T_{\mathrm{base}} + \alpha \cdot \log |\mathcal{AS}| $
 \caption{Privacy Mode Tradeoffs}
 \label{tab:privacy_modes}
 \small
-\begin{tabularx}{\linewidth}{@{}lXl@{}}
+\begin{tabularx}{\linewidth}{@{}lXll@{}}
 \toprule
-\textbf{Mode} & \textbf{Latency} & \textbf{Anonymity Set} \\
+\textbf{Mode} & \textbf{Description} & \textbf{Latency} & \textbf{Anonymity Set} \\
 \midrule
-Direct & $\sim$100ms & $1$ (None) \\
-Single CSP & $\sim$200ms & $10^3$ \\
-Multi CSP & $\sim$500ms & $10^5$ \\
-Tor + Multi & $\sim$2.0s & $10^6$ (Max) \\
+Direct & Single-hop, no mixing & $\sim$100ms & $1$ (None) \\
+Single CSP & 1-hop through CSP ($\sim$100 channels) & $\sim$150ms & $\sim 10^2$ \\
+Multi CSP & 3-hop through CSPs & $\sim$250ms & $\sim 10^6$ \\
+Tor + Multi & 3-hop + Tor overlay & $\sim$3.5s & $>10^8$ \\
 \bottomrule
 \end{tabularx}
 \end{table}
