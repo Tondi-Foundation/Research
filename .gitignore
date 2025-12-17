@@ -1,0 +1,15 @@
+# Ignore LaTeX auxiliary files
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# Except the final paper PDF
+!Native Eltoo Yellow Paper.pdf
