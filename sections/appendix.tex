@@ -50,10 +50,10 @@ The elliptic curve used in this paper is secp256k1, defined over the finite fiel
 \end{definition}
 
 \begin{definition}[Schnorr Signature]
-Schnorr signature is a digital signature scheme based on the discrete logarithm problem. Given elliptic curve group $(G, g, n)$, private key $x \in \mathbb{Z}_n$, public key $P = x \cdot g$, the signing process for message $m$ is:
+Schnorr signature is a digital signature scheme based on the discrete logarithm problem. Given elliptic curve group with generator $G$ and order $n$, private key $x \in \mathbb{Z}_n$, and public key $P = x \cdot G$, the signing process for message $m$ is:
 \begin{enumerate}
-    \item Choose random number $k$, compute $R = k \cdot g$
-    \item Compute $e = H(R \| P \| m)$
+    \item Choose random nonce $k \in \mathbb{Z}_n$, compute $R = k \cdot G$
+    \item Compute challenge $e = H(R \| P \| m)$
     \item Compute $s = k + e \cdot x \mod n$
     \item Signature is $(R, s)$
 \end{enumerate}
@@ -116,9 +116,9 @@ Core parameters of the GhostDAG protocol:
     \item \textbf{$k$ (blue set parameter)}: Determines protocol's security-liveness tradeoff
 \end{itemize}
 
-The protocol achieves total ordering through defining ``blue sets'' between blocks:
-$$\forall b_1, b_2 \in DAG: b_1 \prec_{blue} b_2 \iff \text{Blue}(b_1) < \text{Blue}(b_2)$$
-where $\text{Blue}(b)$ is the blue score of block $b$, computed by a recursive algorithm.
+The protocol achieves total ordering by defining ``blue sets'' for blocks:
+$$\forall b_1, b_2 \in \text{DAG}: b_1 \prec_{\text{blue}} b_2 \iff \text{BlueScore}(b_1) < \text{BlueScore}(b_2)$$
+where $\text{BlueScore}(b)$ is computed recursively based on the block's position in the DAG and its relationship to the ``blue'' (honest) cluster.
 \end{definition}
 
 \subsection{Finite State Machine Foundations}

@@ -49,7 +49,7 @@ We propose connecting multiple AMM pools via dynamic channel networks to enable 
 
 \textbf{Advantages}:
 \begin{itemize}
-    \item \textbf{Capital Efficiency}: $N$ pairs share $\sqrt{N}$ pools.
+    \item \textbf{Capital Efficiency}: With $\sqrt{N}$ liquidity pools, one can serve $N$ trading pairs (e.g., 10 pools $\to$ 100 pairs).
     \item \textbf{Atomicity}: $\tau_{\mathrm{swap}}: \{\mathrm{USDT}_{\mathrm{in}}\} \xrightarrow{\mathrm{BTC}} \{\mathrm{ETH}_{\mathrm{out}}\}$.
     \item \textbf{MEV Resistance}: Off-chain matching prevents front-running.
 \end{itemize}
@@ -73,15 +73,17 @@ For services like video streaming or API calls:
 \small
 \begin{tabularx}{\linewidth}{@{}l r r r@{}}
 \toprule
-\textbf{Metric} & \textbf{Traditional} & \textbf{Channel DEX} & \textbf{Improvement} \\
+\textbf{Metric} & \textbf{On-Chain DEX} & \textbf{Channel DEX} & \textbf{Improvement} \\
 \midrule
-Latency & 10--60~s & 15~ms & $1000\times$ \\
-Cost/Trade & \$5--50 & \$0.001 & $10,\!000\times$ \\
+Latency & 10--60~s\textsuperscript{*} & $<$100~ms & $100\text{--}600\times$ \\
+Cost/Trade & \$5--50 & $<$\$0.01 & $500\text{--}5000\times$ \\
 MEV Risk & High & \textbf{None} & Eliminated \\
-Throughput & 10 TPS & 20k TPS & $2000\times$ \\
+Throughput & $\sim$10 TPS & $>$10k TPS\textsuperscript{$\dagger$} & $>1000\times$ \\
 \bottomrule
 \end{tabularx}
 \end{table}
+
+\noindent\textsuperscript{*}Depends on L1 block time. \textsuperscript{$\dagger$}Per-channel; network aggregate scales linearly with channel count.
 
 \subsection{Gaming and Virtual Economies}
 

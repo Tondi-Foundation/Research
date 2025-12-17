@@ -37,8 +37,9 @@ An adversary broadcasts an outdated state $U_{\mathrm{state}}^{(n-k)}$ ($k > 0$)
 \end{enumerate}
 
 \begin{theorem}[Rollback Resistance]
-The probability of a successful rollback is bounded by:
-$$ P_{\mathrm{rollback}} \le P_{\mathrm{51\%}} \times P_{\mathrm{victim\_offline}} $$
+The probability of a successful rollback attack is bounded by:
+$$ \Pr[\text{rollback}] \le \Pr[\text{51\% attack}] \times \Pr[\text{victim offline}] $$
+Since both factors are small under normal network conditions, successful rollback is negligible.
 \end{theorem}
 
 \subsection{Topology Obfuscation}
@@ -65,14 +66,14 @@ To prevent malicious topology churn (e.g., for money laundering):
 
 \subsection{Resource Exhaustion via Channel Proliferation}
 
-Attackers may create deep recursive factories ($\sum k^d$) to bloat the UTXO set.
+Attackers may create deep recursive factories to bloat the UTXO set. A factory of depth $d$ with branching factor $k$ creates up to $k^d$ leaf channels.
 
 \subsubsection{Economic Countermeasures: State Rent}
 We introduce a depth-weighted rent function:
 \begin{equation}
 R_{\mathrm{total}} = R_{\mathrm{base}} \cdot (1 + \alpha \cdot d) \cdot \Delta t_{\mathrm{age}}
 \end{equation}
-where $d$ is the topology depth and $\alpha \approx 0.1$ is the depth penalty. Unpaid rent can be claimed by any searcher via a \textbf{Merge Transaction}, incentivizing state pruning.
+where $d$ is the topology depth, $\alpha = 0.1$ is the depth penalty coefficient, and $\Delta t_{\mathrm{age}}$ is the channel age in DAA units. Unpaid rent can be claimed by any searcher via a \textbf{Merge Transaction}, incentivizing state pruning.
 
 \subsection{Cross-Channel Replay}
 
@@ -144,8 +145,9 @@ In legacy LN, attackers use Child-Pays-For-Parent (CPFP) or RBF rules to ``pin''
 \end{figure}
 
 \begin{theorem}[Pinning Immunity]
-Under STPC, the expected confirmation time for the highest state is bounded:
-$$ E[\mathrm{Confirm}] \le \frac{1}{\lambda_{\mathrm{block}}} \cdot (1 + \epsilon_{\mathrm{jitter}}) $$
+Under STPC, the expected confirmation time for the highest-sequence state is bounded by:
+$$ \mathbb{E}[T_{\mathrm{confirm}}] \le \frac{1}{\lambda_{\mathrm{block}}} \cdot (1 + \epsilon_{\mathrm{jitter}}) $$
+where $\lambda_{\mathrm{block}}$ is the block arrival rate ($\sim$1 block/second for Kaspa) and $\epsilon_{\mathrm{jitter}} \approx 0.1$ accounts for network propagation variance.
 \end{theorem}
 
 \subsection{Griefing Attack Cost Analysis}
