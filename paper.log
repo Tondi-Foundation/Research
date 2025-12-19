@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.15)  20 DEC 2025 00:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.15)  20 DEC 2025 00:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1616,10 +1616,6 @@ nal-ity en-ables high-frequency off-chain state up-dates. Since
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package rerunfilecheck Info: File `paper.out' has not changed.
 (rerunfilecheck)             Checksum: 8B4A910F2605A3F690EB4E91B825B46F;34341.
  ) 
@@ -1698,7 +1694,7 @@ ve/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/t
 exlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></us
 r/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10
 .pfb>
-Output written on paper.pdf (71 pages, 905410 bytes).
+Output written on paper.pdf (71 pages, 905408 bytes).
 PDF statistics:
  3413 PDF objects out of 3580 (max. 8388607)
  1910 compressed objects within 20 object streams
