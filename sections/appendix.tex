@@ -1,0 +1,196 @@
+\appendix
+
+\section{Glossary and Preliminaries}
+\label{appendix:glossary}
+
+This appendix provides formal definitions of cryptographic primitives, consensus mechanisms, and notation conventions used throughout this paper.
+
+\subsection{Ledger Model and Transaction Structure}
+
+\begin{definition}[UTXO (Unspent Transaction Output)]
+The ledger model used by Bitcoin and its derivatives. Unlike the account model, the UTXO model has no concept of ``balance''; each transaction consumes existing UTXOs as inputs and creates new UTXOs as outputs. Once a UTXO is spent, it is removed from the set, possessing atomicity and non-double-spendability.
+\end{definition}
+
+\begin{definition}[Transaction Malleability]
+A vulnerability where a transaction's identifier (TxID) could be modified by a third party after signing. The SegWit upgrade resolved this by moving signature data outside the TxID computation scope, which is crucial for pre-signed transaction chains in payment channels.
+\end{definition}
+
+\subsection{Payment Channel Fundamentals}
+
+\begin{definition}[Payment Channel]
+An off-chain payment mechanism established between two or more parties, requiring on-chain transactions only for channel opening (Funding) and closing (Settlement), with intermediate state updates completed entirely off-chain.
+\end{definition}
+
+\begin{definition}[State Channel]
+A generalization of payment channels supporting arbitrary state transitions rather than just payment balance updates.
+\end{definition}
+
+\begin{definition}[Channel Factory]
+A shared on-chain funding pool created by multiple parties that can dynamically spawn multiple bilateral or multilateral sub-channels without requiring on-chain transactions for sub-channel opening and closing.
+\end{definition}
+
+\begin{definition}[Watchtower]
+A proxy node that monitors on-chain activity on behalf of offline users and broadcasts penalty or update transactions to prevent counterparties from broadcasting stale states.
+\end{definition}
+
+\subsection{Conditional Payment Primitives}
+
+\begin{definition}[HTLC (Hash Time-Locked Contract)]
+A conditional payment primitive where the recipient must provide preimage $r$ such that $H(r) = h$ before the timelock expires to claim funds; otherwise, funds are refunded to the sender. HTLCs form the foundation of Lightning Network multi-hop payments.
+\end{definition}
+
+\begin{definition}[PTLC (Point Time-Locked Contract)]
+A privacy-enhanced version of HTLC using elliptic curve point $R = r \cdot G$ instead of hash values. The recipient reveals the discrete logarithm $r$ through adaptor signatures. PTLCs eliminate cross-channel payment correlation.
+\end{definition}
+
+\subsection{Cryptographic Foundations}
+
+\begin{definition}[Elliptic Curve Group]
+The elliptic curve used in this paper is secp256k1, defined over the finite field $\mathbb{F}_p$. Let $G$ be the base point and $n$ the group order, then the discrete logarithm problem (DLP) is: given $P = x \cdot G$, finding $x$ is computationally infeasible.
+\end{definition}
+
+\begin{definition}[Schnorr Signature]
+Schnorr signature is a digital signature scheme based on the discrete logarithm problem. Given elliptic curve group with generator $G$ and order $n$, private key $x \in \mathbb{Z}_n$, and public key $P = x \cdot G$, the signing process for message $m$ is:
+\begin{enumerate}
+    \item Choose random nonce $k \in \mathbb{Z}_n$, compute $R = k \cdot G$
+    \item Compute challenge $e = H(R \| P \| m)$
+    \item Compute $s = k + e \cdot x \mod n$
+    \item Signature is $(R, s)$
+\end{enumerate}
+The \textbf{linearity property} of Schnorr signatures ($s_1 + s_2$ corresponds to $P_1 + P_2$) is the mathematical foundation for multi-signature aggregation (MuSig2) and adaptor signatures.
+\end{definition}
+
+\begin{definition}[MuSig2 Multi-Party Signature]
+MuSig2 is an interactive multi-party signature protocol that allows $n$ participants to jointly generate a single aggregated signature. Let the set of participant public keys be $\{P_1, \ldots, P_n\}$, the aggregated public key is:
+$$P_{agg} = \sum_{i=1}^{n} a_i \cdot P_i, \quad \text{where } a_i = H(L \| P_i), L = H(P_1 \| \cdots \| P_n)$$
+MuSig2 reduces one round of interaction compared to the original MuSig, requiring only two rounds to complete signing.
+\end{definition}
+
+\begin{definition}[Adaptor Signature]
+Adaptor signature is an ``incomplete'' pre-signature $\tilde{\sigma}$ that requires knowledge of a secret value $t$ to be converted into a valid signature $\sigma$:
+$$\sigma = \text{Adapt}(\tilde{\sigma}, t)$$
+Conversely, anyone observing $(\tilde{\sigma}, \sigma)$ can extract the secret value:
+$$t = \text{Extract}(\tilde{\sigma}, \sigma)$$
+Adaptor signatures achieve ``atomic revelation'': when one party claims funds, they necessarily reveal the secret value, which is the cryptographic basis for PTLCs and cross-chain atomic swaps.
+\end{definition}
+
+\begin{definition}[Hash Function and Commitment]
+The hash function $H: \{0,1\}^* \to \{0,1\}^{256}$ used in this paper satisfies the following security properties:
+\begin{itemize}
+    \item \textbf{Preimage resistance}: Given $h$, finding $m$ such that $H(m) = h$ is computationally infeasible
+    \item \textbf{Collision resistance}: Finding $m_1 \neq m_2$ such that $H(m_1) = H(m_2)$ is computationally infeasible
+\end{itemize}
+Hash commitment $c = H(m \| r)$ possesses hiding and binding properties, widely used in HTLCs and state commitments.
+\end{definition}
+
+\subsection{Timelock Mechanisms}
+
+\begin{definition}[Timelock]
+Timelock is a consensus mechanism that renders a transaction invalid before a specific time or block height. This paper involves two types of timelocks:
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}llll@{}}
+\toprule
+Type & Mechanism Name & Lock Basis & Application Scenario \\
+\midrule
+Absolute & nLocktime & Block height or Unix timestamp & HTLC timeout refund \\
+Relative & CSV (BIP-112) & Blocks after UTXO confirmation & Channel dispute period \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{definition}
+
+\begin{definition}[DAA Score]
+In GhostDAG consensus, the Difficulty Adjustment Algorithm Score provides a globally monotonically increasing logical clock. Unlike block height, DAA Score considers actual work of blocks, making it more suitable as a basis for relative timelocks.
+\end{definition}
+
+\subsection{Directed Acyclic Graph Consensus}
+
+\begin{definition}[GhostDAG Protocol]
+Traditional blockchains adopt linear chain structures, producing ``orphan blocks'' under network delay. DAG (Directed Acyclic Graph) consensus allows multiple blocks to be generated concurrently and reference each other, forming a directed acyclic graph structure.
+
+Core parameters of the GhostDAG protocol:
+\begin{itemize}
+    \item \textbf{$D$ (network delay bound)}: Maximum propagation delay between honest nodes
+    \item \textbf{$k$ (blue set parameter)}: Determines protocol's security-liveness tradeoff
+\end{itemize}
+
+The protocol achieves total ordering by defining ``blue sets'' for blocks:
+$$\forall b_1, b_2 \in \text{DAG}: b_1 \prec_{\text{blue}} b_2 \iff \text{BlueScore}(b_1) < \text{BlueScore}(b_2)$$
+where $\text{BlueScore}(b)$ is computed recursively based on the block's position in the DAG and its relationship to the ``blue'' (honest) cluster.
+\end{definition}
+
+\subsection{Finite State Machine Foundations}
+
+\begin{definition}[Finite State Machine]
+A finite state machine (FSM) is a five-tuple $M = (Q, \Sigma, \delta, q_0, F)$:
+\begin{itemize}
+    \item $Q$: Finite set of states
+    \item $\Sigma$: Input alphabet (set of events/inputs)
+    \item $\delta: Q \times \Sigma \to Q$: State transition function
+    \item $q_0 \in Q$: Initial state
+    \item $F \subseteq Q$: Set of final states
+\end{itemize}
+\end{definition}
+
+\begin{definition}[State Machine Determinism]
+If for any state $q \in Q$ and input $\sigma \in \Sigma$, $\delta(q, \sigma)$ has at most one result, then $M$ is a deterministic finite automaton (DFA). The channel state machines in this paper strictly satisfy the determinism condition.
+\end{definition}
+
+\subsection{Covenants and Script Extensions}
+
+\begin{definition}[Covenant]
+A covenant is a mechanism that imposes constraints on how a UTXO can be spent in the future. Formally, a covenant is a predicate $C: \text{Tx} \to \{0, 1\}$, where spending transaction $\tau$ must satisfy $C(\tau) = 1$.
+
+Covenant classification:
+\begin{itemize}
+    \item \textbf{Non-recursive covenants}: Constraints apply only to direct spending transactions, e.g., CLTV, CSV
+    \item \textbf{Recursive covenants}: Constraints can propagate to subsequent transactions, e.g., CTV (BIP-119), APO (BIP-118)
+\end{itemize}
+\end{definition}
+
+\begin{definition}[SIGHASH Flags]
+SIGHASH flags determine which parts of a transaction are covered by a Schnorr/ECDSA signature:
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Flag} & \textbf{Covers Inputs} & \textbf{Covers Outputs} & \textbf{Use Case} \\
+\midrule
+\texttt{SIGHASH\_ALL} & All & All & Standard transactions \\
+\texttt{SIGHASH\_NONE} & All & None & Allow receiver to add outputs \\
+\texttt{SIGHASH\_SINGLE} & All & Matching index & Multi-party tx construction \\
+\texttt{SIGHASH\_ANYONECANPAY} & Current only & Per other flags & Crowdfunding \\
+\texttt{SIGHASH\_ANYPREVOUT} & None (pubkey only) & All & Eltoo state replacement \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{definition}
+
+\subsection{Notation Conventions}
+
+This paper uses the following notation conventions:
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Symbol} & \textbf{Meaning} \\
+\midrule
+$\calU$ & UTXO set \\
+$U_{fund}$ & Fund UTXO (funding anchor) \\
+$U_{state}^{(n)}$ & State UTXO with sequence number $n$ \\
+$\tau$ & Transaction \\
+$\delta$ & State transition function \\
+$\RefOp(\cdot)$ & Read-only reference operation \\
+$\Spend(\cdot)$ & Spend operation \\
+$\prec$ & Partial order relation \\
+$\cong$ & Isomorphism relation \\
+$\perp$ & Orthogonality/Independence \\
+\bottomrule
+\end{tabular}
+\end{table}

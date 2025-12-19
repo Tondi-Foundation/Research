@@ -1,0 +1,164 @@
+\section{Market Design and Incentive Mechanisms}
+
+This architecture follows the \textbf{Minimal Intervention Principle}: the protocol defines the rules, while fees are determined by market competition. Fees serve as signal carriers for liquidity distribution.
+
+\subsection{CSP Fee Structure}
+
+\begin{definition}[Service Fee Model]
+A CSP's revenue function is defined as:
+$$ \Rcsp = \sum_{s \in \mathcal{S}} f_s \cdot V_s $$
+where $f_s$ is the fee rate and $V_s$ is the transaction volume for service $s$.
+\end{definition}
+
+\begin{table}[htbp]
+\centering
+\caption{CSP Fee Schedule Structure}
+\label{tab:fee_structure}
+\small
+\begin{tabularx}{\linewidth}{@{}l l X@{}}
+\toprule
+\textbf{Service} & \textbf{Fee Model} & \textbf{Economic Rationale} \\
+\midrule
+Channel Open & Fixed + 0.01\% & Overhead allocation \\
+Routing & 0.1\% of value & Marginal cost pricing \\
+JIT Liquidity & 0.5\% per use & Capital rental for instant inbound \\
+Swap & 0.3--1.0\% & Market risk premium \\
+Mixing & 0.1\% & Anonymity premium \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Liquidity Provider Economics}
+
+\begin{definition}[LP Utility Function]
+$$ \Ulp = r_{\mathrm{APY}} \cdot V_{\mathrm{dep}} - \rho \cdot \sigma^2_{\mathrm{slip}} - C_{\mathrm{opp}} $$
+where:
+\begin{itemize}
+    \item $r_{\mathrm{APY}}$: Annualized yield from routing fees
+    \item $V_{\mathrm{dep}}$: Deposited capital
+    \item $\sigma^2_{\mathrm{slip}}$: Variance of slippage losses due to imbalanced flows
+    \item $\rho \in [0.5, 2.0]$: Risk aversion coefficient
+    \item $C_{\mathrm{opp}}$: Opportunity cost (e.g., DeFi staking yields)
+\end{itemize}
+\end{definition}
+
+\begin{theorem}[Competitive Equilibrium]
+In a market with $N \ge 3$ CSPs and free entry, fees converge to marginal cost over time:
+$$ \lim_{\text{rounds} \to \infty} \Fee_{\mathrm{CSP}_i} \to \Cmarg + \epsilon $$
+where $\epsilon > 0$ is an arbitrarily small profit margin.
+\end{theorem}
+\begin{proof}
+If $\Fee > \Cmarg + \epsilon$, arbitrageurs enter at $\Fee' = \Fee - \delta$, capturing market share. This forces incumbents to lower prices, converging to marginal cost.
+\end{proof}
+
+\subsection{Anti-Collusion: L1 Fallback}
+
+\begin{theorem}[Fee Upper Bound]
+CSP fees are capped by the Layer 1 fallback cost:
+$$ \Fee_{\mathrm{CSP}} \le \CLone + P_{\mathrm{privacy}} $$
+\end{theorem}
+This creates a \textbf{credible threat}: if $\Fee_{\mathrm{cartel}}$ exceeds this bound, users exit to L1 via the ``Right to Exit'' mechanism, making collusion unsustainable.
+
+\subsection{Dynamic Fee Adjustment}
+
+To manage congestion, we implement a multi-stage pricing curve.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    scale=0.9,
+    font=\sffamily\scriptsize,
+    >=Stealth
+]
+    % Axes
+    \draw[->] (0,0) -- (8,0) node[right] {Utilization $U$};
+    \draw[->] (0,0) -- (0,4.5) node[above] {Fee Multiplier};
+    
+    % Grid lines
+    \draw[gray!30] (0,1) -- (8,1);
+    \draw[gray!30] (0,2) -- (8,2);
+    \draw[gray!30] (0,3) -- (8,3);
+    \draw[gray!30] (0,4) -- (8,4);
+    
+    % X-axis labels
+    \node[below] at (0,0) {0};
+    \node[below] at (4.9,0) {0.7};
+    \node[below] at (6.3,0) {0.9};
+    \node[below] at (7,0) {1.0};
+    
+    % Y-axis labels
+    \node[left] at (0,1) {1x};
+    \node[left] at (0,2) {2x};
+    \node[left] at (0,4) {4x};
+    
+    % Pricing curve
+    \draw[blue, very thick] (0,1) -- (4.9,1);  % Base: 0-0.7
+    \draw[blue, very thick] (4.9,1) -- (6.3,2);  % Linear: 0.7-0.9
+    \draw[blue, very thick] (6.3,2) -- (7,4);  % Exponential: 0.9-1.0
+    
+    % Critical zone markers
+    \draw[red, dashed] (4.9,0) -- (4.9,4.2);
+    \draw[red, dashed] (6.3,0) -- (6.3,4.2);
+    
+    % Zone labels
+    \node[above, font=\tiny] at (2.5,1.1) {Base Fee};
+    \node[above, font=\tiny] at (5.6,1.4) {Linear};
+    \node[right, font=\tiny] at (6.5,3) {Exp.};
+    
+    % Threshold annotations
+    \node[below, font=\tiny, red] at (4.9,-0.3) {Surge};
+    \node[below, font=\tiny, red] at (6.3,-0.3) {Congest.};
+\end{tikzpicture}
+\caption{Congestion Pricing Curve. Fees remain flat until 70\% utilization, then rise linearly, and finally exponentially to prevent resource exhaustion.}
+\label{fig:congestion_curve}
+\end{figure}
+
+\begin{lstlisting}[caption={Dynamic Fee Calculation Logic}, label={lst:dynamic_fee}]
+pub fn compute_dynamic_fee(utilization: f64) -> Fee {
+    let base_fee = 100; // sompi
+    let multiplier = if utilization > 0.9 {
+        2.0 + (utilization - 0.9) * 20.0  // Exponential: 2x at 0.9, 4x at 1.0
+    } else if utilization > 0.7 {
+        1.0 + (utilization - 0.7) * 5.0   // Linear: 1x at 0.7, 2x at 0.9
+    } else {
+        1.0  // Base: flat 1x below 70%
+    };
+    Fee::new((base_fee as f64 * multiplier) as u64)
+}
+\end{lstlisting}
+
+\subsection{Incentive Compatibility}
+
+\begin{theorem}[Dominant Strategy]
+Honest behavior is the dominant strategy for CSPs.
+\end{theorem}
+
+\begin{table}[htbp]
+\centering
+\caption{CSP Strategy Payoff Matrix}
+\label{tab:payoff}
+\small
+\begin{tabularx}{\linewidth}{@{}l l X@{}}
+\toprule
+\textbf{Strategy} & \textbf{Net Benefit} & \textbf{Outcome Analysis} \\
+\midrule
+Honest & \textcolor{green!60!black}{\textbf{Positive}} & Earns fees + Reputation growth. \\
+Delay & \textcolor{red}{\textbf{Negative}} & User churn $>$ Time value of locked funds. \\
+Steal & \textcolor{red}{\textbf{Very Negative}} & Impossible (PTLC) + Slashing/Ban. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{proof}
+Let $S = \{\text{Honest}, \text{Delay}, \text{Steal}\}$.
+Since PTLCs cryptographically prevent theft ($\Pr[\text{Success}|\text{Steal}] = 0$) and the L1 fallback option bounds the ``Delay'' utility ($U_{\text{delay}} < \text{ReputationCost}$), we have $U_{\text{honest}} > U_{\text{delay}} > U_{\text{steal}}$. Thus, Honest is the Nash Equilibrium.
+\end{proof}
+
+\subsection{Summary}
+
+This mechanism achieves:
+\begin{enumerate}
+    \item \textbf{Competitive Pricing}: $\Fee \to \Cmarg$.
+    \item \textbf{User Sovereignty}: Guaranteed by L1 fallback.
+    \item \textbf{Dynamic Efficiency}: Prices reflect real-time scarcity via the congestion curve.
+\end{enumerate}

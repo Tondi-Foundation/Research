@@ -1,0 +1,149 @@
+\section{Privacy and Anonymity Framework}
+
+Traditional blockchain transparency exposes transaction graphs. This architecture implements \textbf{Selective Disclosure}, allowing users to autonomously control information scope.
+
+\subsection{Threat Model and Anonymity Set}
+
+\begin{definition}[Anonymity Set]
+For a payment $p$ routed through $n$ CSP hops $\mathcal{H} = \{h_1, \dots, h_n\}$, the anonymity set size is the product of each hop's indistinguishable channel count:
+$$ |\mathcal{AS}(p)| = \prod_{i=1}^{n} |\mathrm{Channels}_{h_i}| $$
+For example, routing through 3 CSPs with 100 channels each yields $|\mathcal{AS}| = 100^3 = 10^6$. Payment $p$ is \textbf{$k$-anonymous} iff $|\mathcal{AS}(p)| \geq k$.
+\end{definition}
+
+\begin{table}[htbp]
+\centering
+\caption{Threat Model Classification}
+\label{tab:threat_model}
+\small
+\begin{tabularx}{\linewidth}{@{}lXl@{}}
+\toprule
+\textbf{Adversary} & \textbf{Capability} & \textbf{Defense} \\
+\midrule
+Passive L1 & Graph Analysis & Mixing + Stealth Addr. \\
+Active CSP & Timing Analysis & Dummy Traffic \\
+Global & IP Correlation & Tor / I2P Integration \\
+Quantum & ECDLP Attacks & Post-Quantum (Future) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Payment Layer Privacy Analysis}
+
+\subsubsection{PTLC vs.\ HTLC}
+
+\begin{theorem}[PTLC Path Unlinkability]
+Under the PTLC protocol, the probability of linking hops $(i, j)$ is negligible:
+$$ \forall i \neq j: \Pr[\Link(\mathrm{hop}_i, \mathrm{hop}_j)] \le \epsilon_{\mathrm{negl}} $$
+\end{theorem}
+
+\begin{proof}
+Each hop uses an independent scalar $r_i \in \mathbb{Z}_q$. An observer sees point locks $Q_i = r_i \cdot G$. Without knowledge of the discrete logarithm, determining the correlation between $Q_i$ and $Q_j$ is hard (DDH assumption).
+\end{proof}
+
+\begin{table}[htbp]
+\centering
+\caption{Privacy Comparison: PTLC vs.\ HTLC}
+\label{tab:ptlc_vs_htlc}
+\small
+\begin{tabularx}{\linewidth}{@{}lXX@{}}
+\toprule
+\textbf{Feature} & \textbf{HTLC (Legacy)} & \textbf{PTLC (Proposed)} \\
+\midrule
+Linkability & \textbf{High} (Same Preimage) & \textbf{None} (Blind Scalar) \\
+Amt.\ Hiding & Plaintext & Plaintext \\
+Route Disc. & Exposed & Blinded \\
+Math Basis & Hash Function & ECC Homomorphism \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Network Layer Privacy: Onion Routing}
+
+Even with payment unlinkability, IP metadata remains a risk. We utilize the \textbf{SPHINX-Lite} protocol.
+
+\subsubsection{Onion Packet Structure}
+The packet is constructed recursively:
+$$ P_{\mathrm{onion}} = \Enc_{pk_1}(r_1, \Enc_{pk_2}(r_2, \dots, \Enc_{pk_n}(r_n, m)\dots)) $$
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    scale=0.85, transform shape,
+    font=\sffamily\scriptsize,
+    layer/.style={rectangle, draw, rounded corners, minimum height=0.6cm, align=center},
+    >=Stealth
+]
+    % Layers (nested boxes)
+    \node[layer, fill=blue!30, minimum width=6cm, minimum height=3cm] (l1) at (0,0) {};
+    \node[above] at (l1.north) {$\Enc_{pk_1}(r_1, \dots)$};
+    
+    \node[layer, fill=blue!20, minimum width=4.5cm, minimum height=2cm] (l2) at (0,-0.2) {};
+    \node[above] at (l2.north) {$\Enc_{pk_2}(r_2, \dots)$};
+    
+    \node[layer, fill=blue!10, minimum width=3cm, minimum height=1cm] (l3) at (0,-0.4) {};
+    \node[above] at (l3.north) {$\Enc_{pk_3}(r_3, \dots)$};
+    
+    \node[layer, fill=green!20, minimum width=1.5cm, minimum height=0.5cm] (payload) at (0,-0.5) {Payload $m$};
+    
+    % Annotations
+    \node[right=0.3cm of l1.east, align=left, font=\tiny] {Hop 1 Peels};
+    \node[right=0.3cm of l2.east, align=left, font=\tiny] {Hop 2 Peels};
+    \node[right=0.3cm of l3.east, align=left, font=\tiny] {Hop 3 Delivers};
+    
+    \draw[->, dashed] (l1.east) ++(0.1,0) -- ++(0.2,0);
+    \draw[->, dashed] (l2.east) ++(0.1,0) -- ++(0.2,0);
+    \draw[->, dashed] (l3.east) ++(0.1,0) -- ++(0.2,0);
+
+\end{tikzpicture}
+\caption{SPHINX-Lite Onion Structure. Each hop ``peels'' one layer of encryption, revealing only the next hop's routing info $(r_i)$, ensuring forward secrecy.}
+\label{fig:onion_routing}
+\end{figure}
+
+\textbf{Key Properties:}
+\begin{itemize}
+    \item \textbf{Forward Secrecy}: Ephemeral keys per hop.
+    \item \textbf{Bitwise Unlinkability}: Packet size remains constant at every hop via padding, preventing length analysis.
+\end{itemize}
+
+\subsection{Privacy-Performance Tradeoff}
+
+\begin{theorem}[Privacy Cost]
+Privacy enhancement incurs latency overhead that scales with the routing path length $n$ and network-layer protection:
+$$ T_{\mathrm{latency}} = T_{\mathrm{base}} + n \cdot T_{\mathrm{hop}} + T_{\mathrm{overlay}} $$
+where $T_{\mathrm{base}} \approx 100$ms is the direct payment latency, $T_{\mathrm{hop}} \approx 50$ms is the per-hop PTLC overhead, and $T_{\mathrm{overlay}}$ is the network anonymization cost (0 for clearnet, $\sim$3s for Tor).
+\end{theorem}
+
+\begin{table}[htbp]
+\centering
+\caption{Privacy Mode Tradeoffs}
+\label{tab:privacy_modes}
+\small
+\begin{tabularx}{\linewidth}{@{}lXll@{}}
+\toprule
+\textbf{Mode} & \textbf{Description} & \textbf{Latency} & \textbf{Anonymity Set} \\
+\midrule
+Direct & Single-hop, no mixing & $\sim$100ms & $1$ (None) \\
+Single CSP & 1-hop through CSP ($\sim$100 channels) & $\sim$150ms & $\sim 10^2$ \\
+Multi CSP & 3-hop through CSPs & $\sim$250ms & $\sim 10^6$ \\
+Tor + Multi & 3-hop + Tor overlay & $\sim$3.5s & $>10^8$ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Stealth Addresses}
+
+To protect receiver identity ($A, B$), sender generates a one-time destination $P_{\mathrm{stealth}}$:
+\begin{equation}
+P_{\mathrm{stealth}} = H(r \cdot B) \cdot G + A
+\end{equation}
+where $r$ is a random nonce. Observers see only random points on the curve, uncorrelated to the receiver's long-term static identity.
+
+\subsection{Summary}
+
+The architecture provides a spectrum of privacy defenses:
+\begin{enumerate}
+    \item \textbf{Payment}: PTLC Unlinkability.
+    \item \textbf{Network}: Onion Routing (IP Hiding).
+    \item \textbf{Identity}: Stealth Addresses.
+    \item \textbf{Balance}: Confidential Transactions (Pedersen).
+\end{enumerate}
