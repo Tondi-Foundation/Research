@@ -1,0 +1,53 @@
+\contentsline {section}{\numberline {1}Introduction}{4}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Our Contributions}{5}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Paper Organization}{6}{subsection.1.2}%
+\contentsline {section}{\numberline {2}Background and Motivation}{6}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Blockchain Transaction Ordering and Proofs}{6}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Merkle Mountain Ranges (MMR)}{6}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Kaspa DAG, Selected Chain, and Canonical Transaction Order}{8}{subsection.2.3}%
+\contentsline {section}{\numberline {3}MMR-Based Sequencing Commitment Design}{9}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Block Header Modifications}{9}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Canonical Order and OrderRoot Computation}{10}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}MMR Leaf and Internal Hashing Scheme}{10}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Consensus Validation Rules}{12}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Handling Reorganizations and Forks}{13}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Reorg Rollback and Recompute}{13}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}MMR Node Storage (Enabling Proof Generation)}{13}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Pruning and Checkpointing}{14}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Inclusion Proofs and Verification}{14}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Proof Composition}{14}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Proof Size and Efficiency}{15}{subsection.5.2}%
+\contentsline {section}{\numberline {6}Applications and Benefits}{17}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Trustless Bridges and L2 Rollups}{17}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Light Clients and Fast Synchronization}{18}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Data Availability and Disaster Recovery}{19}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Auditing and Data Availability}{19}{subsection.6.4}%
+\contentsline {section}{\numberline {7}Overhead Analysis}{19}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Bandwidth Overhead}{19}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Storage Overhead}{20}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Computation Overhead}{20}{subsection.7.3}%
+\contentsline {section}{\numberline {8}Comparison with Alternative Approaches}{20}{section.8}%
+\contentsline {subsection}{\numberline {8.1}KIP-15: Linear Sequencing Commitment}{20}{subsection.8.1}%
+\contentsline {subsubsection}{\numberline {8.1.1}Design Philosophy and Mechanism}{20}{subsubsection.8.1.1}%
+\contentsline {subsubsection}{\numberline {8.1.2}Strengths}{21}{subsubsection.8.1.2}%
+\contentsline {subsubsection}{\numberline {8.1.3}Limitations}{21}{subsubsection.8.1.3}%
+\contentsline {subsection}{\numberline {8.2}KIP-6: Proof of Chain Membership (PoChM)}{21}{subsection.8.2}%
+\contentsline {subsubsection}{\numberline {8.2.1}Design Philosophy and Mechanism}{21}{subsubsection.8.2.1}%
+\contentsline {subsubsection}{\numberline {8.2.2}Proof Construction Algorithm}{22}{subsubsection.8.2.2}%
+\contentsline {subsubsection}{\numberline {8.2.3}Strengths}{22}{subsubsection.8.2.3}%
+\contentsline {subsubsection}{\numberline {8.2.4}Limitations}{23}{subsubsection.8.2.4}%
+\contentsline {subsection}{\numberline {8.3}Comparative Analysis: Deep Insights}{23}{subsection.8.3}%
+\contentsline {subsubsection}{\numberline {8.3.1}The Fundamental Tension}{23}{subsubsection.8.3.1}%
+\contentsline {subsubsection}{\numberline {8.3.2}The Architectural Incompatibility}{23}{subsubsection.8.3.2}%
+\contentsline {subsubsection}{\numberline {8.3.3}Why MMR is the Natural Synthesis}{24}{subsubsection.8.3.3}%
+\contentsline {subsubsection}{\numberline {8.3.4}Quantitative Analysis: Gas Cost Comparison}{24}{subsubsection.8.3.4}%
+\contentsline {subsubsection}{\numberline {8.3.5}Architectural Elegance: The MMR Advantage}{25}{subsubsection.8.3.5}%
+\contentsline {subsection}{\numberline {8.4}Summary: Why Unification Matters}{26}{subsection.8.4}%
+\contentsline {section}{\numberline {9}Implementation and Deployment}{26}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Activation via Network Upgrade}{26}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Miner Integration}{27}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Data Structures and APIs}{27}{subsection.9.3}%
+\contentsline {subsection}{\numberline {9.4}Security Considerations}{27}{subsection.9.4}%
+\contentsline {section}{\numberline {10}Conclusion}{27}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Summary of Results}{27}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}Future Work}{28}{subsection.10.2}%

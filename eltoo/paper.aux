@@ -1,0 +1,404 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction and Motivation}{6}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Problem Background}{6}{subsection.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}The Layer Inversion Insight}{6}{subsection.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Design Principles}{7}{subsection.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4}Trust Model Analysis}{8}{subsection.1.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Trust Model Comparison}}{8}{table.caption.2}\protected@file@percent }
+\citation{poon2016lightning}
+\citation{decker2018eltoo}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Related Work and Technical Background}{9}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Protocol Evolution: From Penalty to Replacement}{9}{subsection.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.1}Lightning Network's Penalty Mechanism}{9}{subsubsection.2.1.1}\protected@file@percent }
+\citation{bip118}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.2}Eltoo Protocol and State Replacement}{10}{subsubsection.2.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.3}Engineering Compromise of BIP-118}{10}{subsubsection.2.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}The Recursive Covenant Dilemma}{11}{subsection.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}BIP-118 Security Boundary Analysis}{11}{subsection.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces BIP-118 Security Boundary Leakage. The consensus layer correctly verifies APO signatures, but security ultimately depends on correct key derivation paths implemented in wallets. Key reuse between standard and APO contexts enables replay attacks despite sound protocol logic. The ``Engineering Gap'' represents the trust assumption that applications will not make mistakes.}}{12}{figure.caption.3}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:bip118}{{1}{12}{BIP-118 Security Boundary Leakage. The consensus layer correctly verifies APO signatures, but security ultimately depends on correct key derivation paths implemented in wallets. Key reuse between standard and APO contexts enables replay attacks despite sound protocol logic. The ``Engineering Gap'' represents the trust assumption that applications will not make mistakes}{figure.caption.3}{}}
+\newlabel{fig:bip118@cref}{{[figure][1][]1}{[1][11][]12}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Structural Defect Analysis}{12}{subsection.2.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Structural Defects of Script-Based Payment Channel Solutions}}{13}{table.caption.4}\protected@file@percent }
+\newlabel{tab:defects}{{2}{13}{Structural Defects of Script-Based Payment Channel Solutions}{table.caption.4}{}}
+\newlabel{tab:defects@cref}{{[table][2][]2}{[1][12][]13}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Comparison of Revocation Mechanisms}{13}{subsection.2.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces State Revocation Mechanisms: Original Eltoo vs.\ Native Eltoo (Proposed Architecture)}}{13}{table.caption.5}\protected@file@percent }
+\newlabel{tab:comparison}{{3}{13}{State Revocation Mechanisms: Original Eltoo vs.\ Native Eltoo (Proposed Architecture)}{table.caption.5}{}}
+\newlabel{tab:comparison@cref}{{[table][3][]3}{[1][13][]13}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6}Proposed Solution: UTXO-Native Semantics}{14}{subsection.2.6}\protected@file@percent }
+\citation{sompolinsky2015ghostdag}
+\citation{kaspa2021}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Core Axiom System for Dual-Track State Channels}}{15}{table.caption.6}\protected@file@percent }
+\newlabel{tab:axioms}{{4}{15}{Core Axiom System for Dual-Track State Channels}{table.caption.6}{}}
+\newlabel{tab:axioms@cref}{{[table][4][]4}{[1][14][]15}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.7}Axiom System}{15}{subsection.2.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.8}DAG Consensus Compatibility}{15}{subsection.2.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.9}Economic Efficiency Boundary}{16}{subsection.2.9}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Economic Positioning of Layer 2 Protocols in the $\Omega $ Design Space}}{17}{table.caption.7}\protected@file@percent }
+\newlabel{tab:economics}{{5}{17}{Economic Positioning of Layer 2 Protocols in the $\Omega $ Design Space}{table.caption.7}{}}
+\newlabel{tab:economics@cref}{{[table][5][]5}{[1][16][]17}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Research Contributions}{18}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Main Contributions}{18}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Theoretical Significance}{18}{subsection.3.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Paradigm Shift in Design Philosophy}}{18}{table.caption.8}\protected@file@percent }
+\newlabel{tab:paradigm}{{6}{18}{Paradigm Shift in Design Philosophy}{table.caption.8}{}}
+\newlabel{tab:paradigm@cref}{{[table][6][]6}{[1][18][]18}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Architectural Advantages}{18}{subsection.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Comparison with Existing Solutions}{18}{subsection.3.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Comprehensive Architecture Comparison}}{19}{table.caption.9}\protected@file@percent }
+\newlabel{tab:arch-comparison}{{7}{19}{Comprehensive Architecture Comparison}{table.caption.9}{}}
+\newlabel{tab:arch-comparison@cref}{{[table][7][]7}{[1][18][]19}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Information-Theoretic Analysis of State Determinism}{19}{subsection.3.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Verification Causality Graph. Lightning validators (left) face linear complexity due to historical dependencies. Native Eltoo validators (right) only verify the latest state against the static Fund anchor.}}{19}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:verification_causality}{{2}{19}{Verification Causality Graph. Lightning validators (left) face linear complexity due to historical dependencies. Native Eltoo validators (right) only verify the latest state against the static Fund anchor}{figure.caption.10}{}}
+\newlabel{fig:verification_causality@cref}{{[figure][2][]2}{[1][19][]19}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Theoretical Framework: Dual-Track State Machines}{21}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Finite State Machine Formalization}{21}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}State Transition Rules}{22}{subsection.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Channel State Machine Transitions.}}{23}{figure.caption.11}\protected@file@percent }
+\newlabel{fig:state-machine}{{3}{23}{Channel State Machine Transitions}{figure.caption.11}{}}
+\newlabel{fig:state-machine@cref}{{[figure][3][]3}{[1][23][]23}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}UTXO Materialization Layer}{24}{subsection.4.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Dual-Track State Machine. Separation of static funding capability from dynamic state evolution.}}{24}{figure.caption.12}\protected@file@percent }
+\newlabel{fig:dual-track}{{4}{24}{Dual-Track State Machine. Separation of static funding capability from dynamic state evolution}{figure.caption.12}{}}
+\newlabel{fig:dual-track@cref}{{[figure][4][]4}{[1][24][]24}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Dual-Track Model Components}}{25}{table.caption.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.1}State-Fund Coupling Invariant}{25}{subsubsection.4.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Consensus-Layer Embedded Verification Mechanism}{26}{subsection.4.4}\protected@file@percent }
+\newlabel{sec:tx-types}{{4.4}{26}{Consensus-Layer Embedded Verification Mechanism}{subsection.4.4}{}}
+\newlabel{sec:tx-types@cref}{{[subsection][4][4]4.4}{[1][26][]26}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.1}Transaction Type Enumeration and Pattern Matching}{26}{subsubsection.4.4.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Transaction Type Enumeration System}}{26}{table.caption.14}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Transaction Type Enumeration System. The consensus layer classifies transactions via $\mathcal  {O}(1)$ pattern matching on I/O topology.}}{27}{figure.caption.15}\protected@file@percent }
+\newlabel{fig:tx-types}{{5}{27}{Transaction Type Enumeration System. The consensus layer classifies transactions via $\mathcal {O}(1)$ pattern matching on I/O topology}{figure.caption.15}{}}
+\newlabel{fig:tx-types@cref}{{[figure][5][]5}{[1][26][]27}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.2}State Monotonicity Theorem and Consensus Implementation}{27}{subsubsection.4.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.3}Consensus Verification Performance Analysis}{27}{subsubsection.4.4.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces Consensus Verification Latency}}{28}{table.caption.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.4}Ref-UTXO Atomicity and Ordering in GhostDAG}{28}{subsubsection.4.4.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces Concurrent Safety Analysis}}{29}{table.caption.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.5}Temporal Decoupling of Cross-Block State References}{29}{subsubsection.4.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.6}Algebraic Data Type Definition of Transaction Classification}{29}{subsubsection.4.4.6}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {12}{\ignorespaces Type System Implementation Mapping}}{30}{table.caption.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Transaction Semantics Mapping}{30}{subsection.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Formal Safety Properties}{31}{subsection.4.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7}Evolution of Conditional Payment Primitives: From HTLC to PTLC}{33}{subsection.4.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.7.1}Historical Evolution}{33}{subsubsection.4.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.7.2}Technical Principle Comparison}{33}{subsubsection.4.7.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Multi-Hop Blinding Comparison. HTLC exposes the same hash $H(R)$ globally, while PTLC blinds the lock $Q_i$ at each hop via homomorphic addition.}}{34}{figure.caption.19}\protected@file@percent }
+\newlabel{fig:multi_hop_blinding}{{6}{34}{Multi-Hop Blinding Comparison. HTLC exposes the same hash $H(R)$ globally, while PTLC blinds the lock $Q_i$ at each hop via homomorphic addition}{figure.caption.19}{}}
+\newlabel{fig:multi_hop_blinding@cref}{{[figure][6][]6}{[1][33][]34}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {13}{\ignorespaces HTLC vs. PTLC Feature Comparison}}{34}{table.caption.20}\protected@file@percent }
+\newlabel{tab:htlc_ptlc}{{13}{34}{HTLC vs. PTLC Feature Comparison}{table.caption.20}{}}
+\newlabel{tab:htlc_ptlc@cref}{{[table][13][]13}{[1][33][]34}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.7.3}Core Properties Comparison}{34}{subsubsection.4.7.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.7.4}Formal Security Analysis}{34}{subsubsection.4.7.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.7.5}Implementation Considerations}{34}{subsubsection.4.7.5}\protected@file@percent }
+\newlabel{lst:ptlc_claim}{{1}{35}{PTLC Claim Verification Logic}{lstlisting.1}{}}
+\newlabel{lst:ptlc_claim@cref}{{[lstlisting][1][]1}{[1][34][]35}{}{}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}{\ignorespaces PTLC Claim Verification Logic}}{35}{lstlisting.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.8}TLA+ Specification Fragment}{35}{subsection.4.8}\protected@file@percent }
+\newlabel{lst:tla_spec}{{2}{35}{TLA+ Specification of Channel Monotonicity}{lstlisting.2}{}}
+\newlabel{lst:tla_spec@cref}{{[lstlisting][2][]2}{[1][35][]35}{}{}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {2}{\ignorespaces TLA+ Specification of Channel Monotonicity}}{35}{lstlisting.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.9}Cost and Parameter Analysis}{36}{subsection.4.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.9.1}Cost Model}{36}{subsubsection.4.9.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.9.2}GhostDAG Confirmation Parameters}{37}{subsubsection.4.9.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.9.3}Ref-UTXO Security Depth}{37}{subsubsection.4.9.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {14}{\ignorespaces Security Confirmation Time}}{38}{table.caption.21}\protected@file@percent }
+\newlabel{tab:confirm_time}{{14}{38}{Security Confirmation Time}{table.caption.21}{}}
+\newlabel{tab:confirm_time@cref}{{[table][14][]14}{[1][37][]38}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Topological Primitives for Complex Structures}{38}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Recursive Channel Factories}{38}{subsection.5.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Recursive Channel Factory Structure. The architecture supports arbitrary nesting depths while preserving total liquidity conservation.}}{38}{figure.caption.22}\protected@file@percent }
+\newlabel{fig:recursive-factory}{{7}{38}{Recursive Channel Factory Structure. The architecture supports arbitrary nesting depths while preserving total liquidity conservation}{figure.caption.22}{}}
+\newlabel{fig:recursive-factory@cref}{{[figure][7][]7}{[1][38][]38}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.1}Fractal Topology and Self-Similarity}{38}{subsubsection.5.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Dynamic Mesh Reconfiguration}{38}{subsection.5.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Fractal Channel Tree. Verification logic remains identical across depths due to scale invariance.}}{39}{figure.caption.23}\protected@file@percent }
+\newlabel{fig:fractal_tree}{{8}{39}{Fractal Channel Tree. Verification logic remains identical across depths due to scale invariance}{figure.caption.23}{}}
+\newlabel{fig:fractal_tree@cref}{{[figure][8][]8}{[1][38][]39}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Atomic Topology Reconfiguration.}}{39}{figure.caption.24}\protected@file@percent }
+\newlabel{fig:topology-reconfig}{{9}{39}{Atomic Topology Reconfiguration}{figure.caption.24}{}}
+\newlabel{fig:topology-reconfig@cref}{{[figure][9][]9}{[1][38][]39}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Topological Homotopy}{39}{subsubsection.5.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Atomic Rebalancing Operator}{39}{subsection.5.3}\protected@file@percent }
+\newlabel{inv:conservation}{{5.1}{39}{Strong Value Conservation}{invariant.5.1}{}}
+\newlabel{inv:conservation@cref}{{[invariant][1][5]5.1}{[1][39][]39}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Atomic Splicing Protocol}{39}{subsection.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Liquidity Dynamics in Star Topologies}{39}{subsection.5.5}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Deterministic Sub-channel ID Derivation}}{40}{algorithm.1}\protected@file@percent }
+\newlabel{alg:id_derivation}{{1}{40}{Deterministic Sub-channel ID Derivation}{algorithm.1}{}}
+\newlabel{alg:id_derivation@cref}{{[algorithm][1][]1}{[1][39][]40}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {15}{\ignorespaces Non-blocking Splicing Protocol Phases}}{40}{table.caption.25}\protected@file@percent }
+\newlabel{tab:protocol}{{15}{40}{Non-blocking Splicing Protocol Phases}{table.caption.25}{}}
+\newlabel{tab:protocol@cref}{{[table][15][]15}{[1][39][]40}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Atomic Rebalance. Minimizing liquidity fragmentation via $\tau _{\mathrm  {rebalance}}$.}}{40}{figure.caption.26}\protected@file@percent }
+\newlabel{fig:liquidity}{{10}{40}{Atomic Rebalance. Minimizing liquidity fragmentation via $\tau _{\mathrm {rebalance}}$}{figure.caption.26}{}}
+\newlabel{fig:liquidity@cref}{{[figure][10][]10}{[1][39][]40}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Safety Analysis}{41}{section.6}\protected@file@percent }
+\newlabel{sec:safety}{{6}{41}{Safety Analysis}{section.6}{}}
+\newlabel{sec:safety@cref}{{[section][6][]6}{[1][41][]41}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Isolation Theorem}{41}{subsection.6.1}\protected@file@percent }
+\newlabel{thm:isolation}{{6.1}{41}{Channel Isolation}{theorem.6.1}{}}
+\newlabel{thm:isolation@cref}{{[theorem][1][6]6.1}{[1][41][]41}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}State Monotonicity and Anti-Replay}{41}{subsection.6.2}\protected@file@percent }
+\newlabel{thm:anti_replay}{{6.2}{41}{Cross-Topology Anti-Replay}{theorem.6.2}{}}
+\newlabel{thm:anti_replay@cref}{{[theorem][2][6]6.2}{[1][41][]41}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Anti-DoS Equilibrium under STPC Strategy}{41}{subsection.6.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces STPC (Single-Tip-Per-Channel) Strategy. Limits mempool DoS exposure.}}{41}{figure.caption.27}\protected@file@percent }
+\newlabel{fig:stpc}{{11}{41}{STPC (Single-Tip-Per-Channel) Strategy. Limits mempool DoS exposure}{figure.caption.27}{}}
+\newlabel{fig:stpc@cref}{{[figure][11][]11}{[1][41][]41}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.3.1}Mempool Entropy Bound}{41}{subsubsection.6.3.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {16}{\ignorespaces Mempool Entropy and DoS Analysis}}{42}{table.caption.28}\protected@file@percent }
+\newlabel{tab:entropy}{{16}{42}{Mempool Entropy and DoS Analysis}{table.caption.28}{}}
+\newlabel{tab:entropy@cref}{{[table][16][]16}{[1][41][]42}{}{}{}}
+\newlabel{thm:dos}{{6.4}{42}{DoS Cost Escalation}{theorem.6.4}{}}
+\newlabel{thm:dos@cref}{{[theorem][4][6]6.4}{[1][42][]42}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}PTLC Atomicity and Deadlock Freedom}{42}{subsection.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.4.1}PTLC Atomicity Theorem}{42}{subsubsection.6.4.1}\protected@file@percent }
+\newlabel{thm:ptlc}{{6.5}{42}{PTLC Atomicity}{theorem.6.5}{}}
+\newlabel{thm:ptlc@cref}{{[theorem][5][6]6.5}{[1][42][]42}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces PTLC Multi-Hop Atomic Payment.}}{42}{figure.caption.29}\protected@file@percent }
+\newlabel{fig:ptlc-payment}{{12}{42}{PTLC Multi-Hop Atomic Payment}{figure.caption.29}{}}
+\newlabel{fig:ptlc-payment@cref}{{[figure][12][]12}{[1][42][]42}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.4.2}Deadlock Freedom}{42}{subsubsection.6.4.2}\protected@file@percent }
+\newlabel{thm:deadlock}{{6.6}{42}{Deadlock Freedom}{theorem.6.6}{}}
+\newlabel{thm:deadlock@cref}{{[theorem][6][6]6.6}{[1][42][]42}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Consistency of Topological Reconfiguration}{43}{subsection.6.5}\protected@file@percent }
+\newlabel{thm:splice}{{6.7}{43}{Splicing Consistency}{theorem.6.7}{}}
+\newlabel{thm:splice@cref}{{[theorem][7][6]6.7}{[1][42][]43}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Conflict resolution for concurrent Splicing via GhostDAG weight.}}{43}{figure.caption.30}\protected@file@percent }
+\newlabel{fig:splice_conflict}{{13}{43}{Conflict resolution for concurrent Splicing via GhostDAG weight}{figure.caption.30}{}}
+\newlabel{fig:splice_conflict@cref}{{[figure][13][]13}{[1][43][]43}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.6}Security Margin Analysis}{43}{subsection.6.6}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {17}{\ignorespaces Security Margin Comparison}}{43}{table.caption.31}\protected@file@percent }
+\newlabel{tab:security_margin}{{17}{43}{Security Margin Comparison}{table.caption.31}{}}
+\newlabel{tab:security_margin@cref}{{[table][17][]17}{[1][43][]43}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Registry-Free Architecture}{44}{section.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Limitations of Global Registries}{44}{subsection.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Self-Sovereign Channel Discovery}{44}{subsection.7.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces UTXO-to-State Projection. The discovery function $\Phi $ acts as a lens, filtering raw blockchain data into a logical channel view without external registries.}}{44}{figure.caption.32}\protected@file@percent }
+\newlabel{fig:utxo_projection}{{14}{44}{UTXO-to-State Projection. The discovery function $\Phi $ acts as a lens, filtering raw blockchain data into a logical channel view without external registries}{figure.caption.32}{}}
+\newlabel{fig:utxo_projection@cref}{{[figure][14][]14}{[1][44][]44}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Privacy Enhancement}{44}{subsection.7.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.3.1}Ephemeral Identity}{44}{subsubsection.7.3.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {18}{\ignorespaces Registry Model Comparison}}{45}{table.caption.33}\protected@file@percent }
+\newlabel{tab:registry_comparison}{{18}{45}{Registry Model Comparison}{table.caption.33}{}}
+\newlabel{tab:registry_comparison@cref}{{[table][18][]18}{[1][44][]45}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4}Comparison with Centralized Models}{45}{subsection.7.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.5}Economic Incentive Alignment}{45}{subsection.7.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.6}PTLC Verification: $\mathcal  {O}(1)$ Implementation}{45}{subsection.7.6}\protected@file@percent }
+\newlabel{lst:ptlc_verify}{{3}{45}{Constant-Time PTLC Verification Logic}{lstlisting.3}{}}
+\newlabel{lst:ptlc_verify@cref}{{[lstlisting][3][]3}{[1][45][]45}{}{}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {3}{\ignorespaces Constant-Time PTLC Verification Logic}}{45}{lstlisting.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {19}{\ignorespaces Verification Complexity Comparison}}{45}{table.caption.34}\protected@file@percent }
+\newlabel{tab:complexity}{{19}{45}{Verification Complexity Comparison}{table.caption.34}{}}
+\newlabel{tab:complexity@cref}{{[table][19][]19}{[1][45][]45}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.7}Case Study: Atomic Liquidation in DeFi}{45}{subsection.7.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.7.1}Traditional vs.\ Atomic Approach}{46}{subsubsection.7.7.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {20}{\ignorespaces Liquidation Efficiency Comparison (100 Users)}}{46}{table.caption.35}\protected@file@percent }
+\newlabel{tab:liquidation}{{20}{46}{Liquidation Efficiency Comparison (100 Users)}{table.caption.35}{}}
+\newlabel{tab:liquidation@cref}{{[table][20][]20}{[1][46][]46}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Implementation Architecture}{47}{section.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}System Architecture Overview}{47}{subsection.8.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {21}{\ignorespaces Layered Architecture Components}}{47}{table.caption.36}\protected@file@percent }
+\newlabel{tab:architecture}{{21}{47}{Layered Architecture Components}{table.caption.36}{}}
+\newlabel{tab:architecture@cref}{{[table][21][]21}{[1][47][]47}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Transaction Topology Flow. Dashed lines indicate non-consuming references ($\operatorname  {Ref}$), solid lines indicate value consumption ($\operatorname  {Spend}$).}}{47}{figure.caption.37}\protected@file@percent }
+\newlabel{fig:tx_topology}{{15}{47}{Transaction Topology Flow. Dashed lines indicate non-consuming references ($\RefOp $), solid lines indicate value consumption ($\Spend $)}{figure.caption.37}{}}
+\newlabel{fig:tx_topology@cref}{{[figure][15][]15}{[1][47][]47}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Consensus Layer Implementation}{47}{subsection.8.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.2.1}Transaction Type Enumeration}{47}{subsubsection.8.2.1}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4}{\ignorespaces Rust Enum for Transaction Types}}{47}{lstlisting.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.2.2}Validation Pipeline}{47}{subsubsection.8.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}State Machine \& UTXO Indexing}{47}{subsection.8.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.3.1}State Transition}{47}{subsubsection.8.3.1}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {5}{\ignorespaces Monotonicity Validation Logic}}{48}{lstlisting.5}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {6}{\ignorespaces State Transition Implementation}}{48}{lstlisting.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.3.2}Incremental Indexing}{48}{subsubsection.8.3.2}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {7}{\ignorespaces UTXO Indexer Structure}}{48}{lstlisting.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4}Cryptographic Primitives}{48}{subsection.8.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.4.1}MuSig2 Aggregation}{48}{subsubsection.8.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.5}Partially Signed Transaction Template (PSTT)}{48}{subsection.8.5}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {8}{\ignorespaces MuSig2 Signature Aggregation}}{49}{lstlisting.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.5.1}Domain Separation}{49}{subsubsection.8.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.5.2}PSTT Envelope}{49}{subsubsection.8.5.2}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {9}{\ignorespaces PSTT Envelope Structure}}{49}{lstlisting.9}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {22}{\ignorespaces Communication Complexity}}{49}{table.caption.44}\protected@file@percent }
+\newlabel{tab:impl-complexity}{{22}{49}{Communication Complexity}{table.caption.44}{}}
+\newlabel{tab:impl-complexity@cref}{{[table][22][]22}{[1][49][]49}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.6}Implementation Statistics}{49}{subsection.8.6}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {23}{\ignorespaces Codebase Statistics (Rust)}}{50}{table.caption.45}\protected@file@percent }
+\newlabel{tab:loc}{{23}{50}{Codebase Statistics (Rust)}{table.caption.45}{}}
+\newlabel{tab:loc@cref}{{[table][23][]23}{[1][49][]50}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Attack Surface Analysis and Defense}{50}{section.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Attack Classification}{50}{subsection.9.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {24}{\ignorespaces Attack Classification and Defense Mechanisms}}{50}{table.caption.46}\protected@file@percent }
+\newlabel{tab:attack_matrix}{{24}{50}{Attack Classification and Defense Mechanisms}{table.caption.46}{}}
+\newlabel{tab:attack_matrix@cref}{{[table][24][]24}{[1][50][]50}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}State Rollback Attack Analysis}{50}{subsection.9.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.2.1}Attack Vector}{50}{subsubsection.9.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.2.2}Defense Mechanisms}{50}{subsubsection.9.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Topology Obfuscation}{50}{subsection.9.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.3.1}Mitigation}{50}{subsubsection.9.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.4}PTLC Hijacking}{51}{subsection.9.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.4.1}Defense Strategy}{51}{subsubsection.9.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.5}Resource Exhaustion via Channel Proliferation}{51}{subsection.9.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.5.1}Economic Countermeasures: State Rent}{51}{subsubsection.9.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.6}Cross-Channel Replay}{51}{subsection.9.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.6.1}Domain Separation}{51}{subsubsection.9.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.7}Pinning Attack Analysis}{51}{subsection.9.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.7.1}Mechanism Comparison}{51}{subsubsection.9.7.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces Pinning Attack Defense. Left: Legacy RBF rules allow attackers to pin transactions using heavy child descendants (Rule 3 blocking). Right: STPC enforces unconditional replacement based on state sequence ($n+1 > n$), ignoring descendant weight.}}{52}{figure.caption.47}\protected@file@percent }
+\newlabel{fig:pinning_defense}{{16}{52}{Pinning Attack Defense. Left: Legacy RBF rules allow attackers to pin transactions using heavy child descendants (Rule 3 blocking). Right: STPC enforces unconditional replacement based on state sequence ($n+1 > n$), ignoring descendant weight}{figure.caption.47}{}}
+\newlabel{fig:pinning_defense@cref}{{[figure][16][]16}{[1][51][]52}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.8}Griefing Attack Cost Analysis}{52}{subsection.9.8}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {25}{\ignorespaces Griefing Cost Comparison}}{52}{table.caption.48}\protected@file@percent }
+\newlabel{tab:griefing}{{25}{52}{Griefing Cost Comparison}{table.caption.48}{}}
+\newlabel{tab:griefing@cref}{{[table][25][]25}{[1][51][]52}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.9}Security Summary}{52}{subsection.9.9}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {26}{\ignorespaces Security Architecture Comparison}}{52}{table.caption.49}\protected@file@percent }
+\newlabel{tab:sec_comparison}{{26}{52}{Security Architecture Comparison}{table.caption.49}{}}
+\newlabel{tab:sec_comparison@cref}{{[table][26][]26}{[1][52][]52}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {10}Application Scenarios}{53}{section.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}DeFi Liquidity Mesh}{53}{subsection.10.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {10.1.1}Problem Statement}{53}{subsubsection.10.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {10.1.2}Proposed Solution: Dynamic Liquidity Grid}{53}{subsubsection.10.1.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces DeFi Liquidity Grid. AMM pools act as nodes in a channel network, enabling atomic cross-asset swaps via multi-hop routing.}}{53}{figure.caption.50}\protected@file@percent }
+\newlabel{fig:liquidity_grid}{{17}{53}{DeFi Liquidity Grid. AMM pools act as nodes in a channel network, enabling atomic cross-asset swaps via multi-hop routing}{figure.caption.50}{}}
+\newlabel{fig:liquidity_grid@cref}{{[figure][17][]17}{[1][53][]53}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.2}Micropayment Streaming}{53}{subsection.10.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.3}Decentralized Exchange (DEX)}{54}{subsection.10.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {27}{\ignorespaces DEX Performance Comparison}}{54}{table.caption.51}\protected@file@percent }
+\newlabel{tab:dex_perf}{{27}{54}{DEX Performance Comparison}{table.caption.51}{}}
+\newlabel{tab:dex_perf@cref}{{[table][27][]27}{[1][53][]54}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.4}Gaming and Virtual Economies}{54}{subsection.10.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{MMORPG Economy}{54}{section*.52}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.5}IoT Microtransactions}{54}{subsection.10.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.6}CDN Incentivization}{54}{subsection.10.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.7}Supply Chain Finance}{54}{subsection.10.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.8}Summary}{54}{subsection.10.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {11}Evaluation and Performance Analysis}{55}{section.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.1}Experimental Setup}{55}{subsection.11.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.2}Transaction Validation Performance}{55}{subsection.11.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {11.2.1}Single Transaction Latency}{55}{subsubsection.11.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces Validation Latency Comparison. Native type enumeration achieves $\approx 3\text  {--}5\times $ speedup by eliminating Script VM overhead.}}{55}{figure.caption.53}\protected@file@percent }
+\newlabel{fig:latency_chart}{{18}{55}{Validation Latency Comparison. Native type enumeration achieves $\approx 3\text {--}5\times $ speedup by eliminating Script VM overhead}{figure.caption.53}{}}
+\newlabel{fig:latency_chart@cref}{{[figure][18][]18}{[1][55][]55}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {28}{\ignorespaces Transaction Validation Performance}}{55}{table.caption.54}\protected@file@percent }
+\newlabel{tab:validation_perf}{{28}{55}{Transaction Validation Performance}{table.caption.54}{}}
+\newlabel{tab:validation_perf@cref}{{[table][28][]28}{[1][55][]55}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {11.2.2}Batch Verification}{55}{subsubsection.11.2.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {29}{\ignorespaces Storage Cost (for $N=1000$ updates)}}{56}{table.caption.55}\protected@file@percent }
+\newlabel{tab:storage_cost}{{29}{56}{Storage Cost (for $N=1000$ updates)}{table.caption.55}{}}
+\newlabel{tab:storage_cost@cref}{{[table][29][]29}{[1][55][]56}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.3}Storage Efficiency}{56}{subsection.11.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {11.3.1}State Storage Cost}{56}{subsubsection.11.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.4}Network Discovery Performance}{56}{subsection.11.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {30}{\ignorespaces Discovery Mechanism Comparison}}{56}{table.caption.56}\protected@file@percent }
+\newlabel{tab:discovery}{{30}{56}{Discovery Mechanism Comparison}{table.caption.56}{}}
+\newlabel{tab:discovery@cref}{{[table][30][]30}{[1][56][]56}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.5}Towards Asynchronous Payments: Ark Integration}{56}{subsection.11.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {11.5.1}Merkleized State}{56}{subsubsection.11.5.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces Merkleized vTXO Pool. Users hold ``virtual UTXOs'' inside the state commitment. Receiver offline capability is achieved by atomic Merkle leaf swaps.}}{56}{figure.caption.57}\protected@file@percent }
+\newlabel{fig:merkle_vtxo}{{19}{56}{Merkleized vTXO Pool. Users hold ``virtual UTXOs'' inside the state commitment. Receiver offline capability is achieved by atomic Merkle leaf swaps}{figure.caption.57}{}}
+\newlabel{fig:merkle_vtxo@cref}{{[figure][19][]19}{[1][56][]56}{}{}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {10}{\ignorespaces Virtual UTXO Structure}}{57}{lstlisting.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {11.5.2}Native Lift \& Finalize}{57}{subsubsection.11.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.6}Performance Summary}{57}{subsection.11.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {12}Privacy and Anonymity Framework}{58}{section.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.1}Threat Model and Anonymity Set}{58}{subsection.12.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {31}{\ignorespaces Threat Model Classification}}{58}{table.caption.59}\protected@file@percent }
+\newlabel{tab:threat_model}{{31}{58}{Threat Model Classification}{table.caption.59}{}}
+\newlabel{tab:threat_model@cref}{{[table][31][]31}{[1][58][]58}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.2}Payment Layer Privacy Analysis}{58}{subsection.12.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {12.2.1}PTLC vs.\ HTLC}{58}{subsubsection.12.2.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {32}{\ignorespaces Privacy Comparison: PTLC vs.\ HTLC}}{58}{table.caption.60}\protected@file@percent }
+\newlabel{tab:ptlc_vs_htlc}{{32}{58}{Privacy Comparison: PTLC vs.\ HTLC}{table.caption.60}{}}
+\newlabel{tab:ptlc_vs_htlc@cref}{{[table][32][]32}{[1][58][]58}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.3}Network Layer Privacy: Onion Routing}{58}{subsection.12.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {12.3.1}Onion Packet Structure}{59}{subsubsection.12.3.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {20}{\ignorespaces SPHINX-Lite Onion Structure. Each hop ``peels'' one layer of encryption, revealing only the next hop's routing info $(r_i)$, ensuring forward secrecy.}}{59}{figure.caption.61}\protected@file@percent }
+\newlabel{fig:onion_routing}{{20}{59}{SPHINX-Lite Onion Structure. Each hop ``peels'' one layer of encryption, revealing only the next hop's routing info $(r_i)$, ensuring forward secrecy}{figure.caption.61}{}}
+\newlabel{fig:onion_routing@cref}{{[figure][20][]20}{[1][58][]59}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.4}Privacy-Performance Tradeoff}{59}{subsection.12.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {33}{\ignorespaces Privacy Mode Tradeoffs}}{59}{table.caption.62}\protected@file@percent }
+\newlabel{tab:privacy_modes}{{33}{59}{Privacy Mode Tradeoffs}{table.caption.62}{}}
+\newlabel{tab:privacy_modes@cref}{{[table][33][]33}{[1][59][]59}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.5}Stealth Addresses}{59}{subsection.12.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.6}Summary}{60}{subsection.12.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {13}Market Design and Incentive Mechanisms}{61}{section.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.1}CSP Fee Structure}{61}{subsection.13.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {34}{\ignorespaces CSP Fee Schedule Structure}}{61}{table.caption.63}\protected@file@percent }
+\newlabel{tab:fee_structure}{{34}{61}{CSP Fee Schedule Structure}{table.caption.63}{}}
+\newlabel{tab:fee_structure@cref}{{[table][34][]34}{[1][61][]61}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.2}Liquidity Provider Economics}{61}{subsection.13.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.3}Anti-Collusion: L1 Fallback}{62}{subsection.13.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.4}Dynamic Fee Adjustment}{62}{subsection.13.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {21}{\ignorespaces Congestion Pricing Curve. Fees remain flat until 70\% utilization, then rise linearly, and finally exponentially to prevent resource exhaustion.}}{62}{figure.caption.64}\protected@file@percent }
+\newlabel{fig:congestion_curve}{{21}{62}{Congestion Pricing Curve. Fees remain flat until 70\% utilization, then rise linearly, and finally exponentially to prevent resource exhaustion}{figure.caption.64}{}}
+\newlabel{fig:congestion_curve@cref}{{[figure][21][]21}{[1][61][]62}{}{}{}}
+\newlabel{lst:dynamic_fee}{{11}{62}{Dynamic Fee Calculation Logic}{lstlisting.11}{}}
+\newlabel{lst:dynamic_fee@cref}{{[lstlisting][11][]11}{[1][62][]62}{}{}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {11}{\ignorespaces Dynamic Fee Calculation Logic}}{62}{lstlisting.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.5}Incentive Compatibility}{62}{subsection.13.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {35}{\ignorespaces CSP Strategy Payoff Matrix}}{62}{table.caption.65}\protected@file@percent }
+\newlabel{tab:payoff}{{35}{62}{CSP Strategy Payoff Matrix}{table.caption.65}{}}
+\newlabel{tab:payoff@cref}{{[table][35][]35}{[1][62][]62}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.6}Summary}{63}{subsection.13.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {14}Conclusion and Future Work}{64}{section.14}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {14.1}Summary of Contributions}{64}{subsection.14.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {14.1.1}Theoretical Foundations}{64}{subsubsection.14.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {14.1.2}System Architecture}{64}{subsubsection.14.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {14.1.3}Empirical Validation}{64}{subsubsection.14.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {14.2}Paradigm Shifts}{64}{subsection.14.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {36}{\ignorespaces Paradigm Shifts in Channel Design}}{64}{table.caption.66}\protected@file@percent }
+\newlabel{tab:paradigms}{{36}{64}{Paradigm Shifts in Channel Design}{table.caption.66}{}}
+\newlabel{tab:paradigms@cref}{{[table][36][]36}{[1][64][]64}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {14.3}Limitations and Mitigation Strategies}{64}{subsection.14.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {37}{\ignorespaces Limitations and Mitigation Strategies}}{65}{table.caption.67}\protected@file@percent }
+\newlabel{tab:limitations}{{37}{65}{Limitations and Mitigation Strategies}{table.caption.67}{}}
+\newlabel{tab:limitations@cref}{{[table][37][]37}{[1][64][]65}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {14.4}Future Research Directions}{65}{subsection.14.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {14.4.1}Short-Term Extensions}{65}{subsubsection.14.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {14.4.2}Long-Term Vision}{65}{subsubsection.14.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {14.5}Open Questions}{65}{subsection.14.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {14.6}Broader Impact}{65}{subsection.14.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Scalability}{65}{section*.68}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Decentralization}{65}{section*.69}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Privacy}{65}{section*.70}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {14.7}Concluding Remarks}{66}{subsection.14.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {A}Glossary and Preliminaries}{67}{appendix.A}\protected@file@percent }
+\newlabel{appendix:glossary}{{A}{67}{Glossary and Preliminaries}{appendix.A}{}}
+\newlabel{appendix:glossary@cref}{{[section][1][]A}{[1][67][]67}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Ledger Model and Transaction Structure}{67}{subsection.A.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Payment Channel Fundamentals}{67}{subsection.A.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.3}Conditional Payment Primitives}{67}{subsection.A.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.4}Cryptographic Foundations}{67}{subsection.A.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.5}Timelock Mechanisms}{68}{subsection.A.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.6}Directed Acyclic Graph Consensus}{69}{subsection.A.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.7}Finite State Machine Foundations}{69}{subsection.A.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.8}Covenants and Script Extensions}{69}{subsection.A.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.9}Notation Conventions}{69}{subsection.A.9}\protected@file@percent }
+\bibcite{nakamoto2008bitcoin}{1}
+\bibcite{poon2016lightning}{2}
+\bibcite{decker2018eltoo}{3}
+\bibcite{bip118}{4}
+\bibcite{sompolinsky2015ghostdag}{5}
+\bibcite{kaspa2021}{6}
+\bibcite{maxwell2018musig}{7}
+\bibcite{nick2021musig2}{8}
+\bibcite{poelstra2016mimblewimble}{9}
+\bibcite{malavolta2019adaptor}{10}
+\bibcite{aumayr2021bitcoin}{11}
+\bibcite{miller2017sprites}{12}
+\bibcite{dziembowski2019perun}{13}
+\bibcite{lamport1982tla}{14}
+\bibcite{coquand1988coq}{15}
+\gdef \@abspage@last{71}

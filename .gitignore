@@ -1,11 +1,2 @@
-# Ignore all files
-*
-
-# But do not ignore the specific file we want to push
-!Native Eltoo Yellow Paper.pdf
-
-# Also don't ignore the .gitignore file itself
 !.gitignore
 
-# If you want to include files in subdirectories, you might need this
-!*/
