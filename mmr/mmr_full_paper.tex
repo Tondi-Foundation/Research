@@ -156,16 +156,14 @@ Kaspa is a high-throughput blockDAG (Directed Acyclic Graph) protocol where bloc
     \draw[arrow, blue!60, line width=1pt] (b2) -- (m4);
     \draw[arrow, blue!60, line width=1pt] (m4) -- (b4);
     
-    % Legend box
-    \begin{scope}[shift={(11.5,0.5)}]
-        \node[draw, rounded corners=5pt, fill=gray!5, minimum width=2.8cm, minimum height=2cm] at (0,0) {};
-        \node[selected, scale=0.6, minimum width=0.8cm] at (-0.5,0.5) {};
-        \node[right, font=\footnotesize] at (0,0.5) {Selected Chain};
-        \node[block, scale=0.6, minimum width=0.8cm] at (-0.5,-0.3) {};
-        \node[right, font=\footnotesize] at (0,-0.3) {Merge Blocks};
-    \end{scope}
+    % Legend box - positioned below the diagram
+    \node[draw, rounded corners=5pt, fill=gray!5, minimum width=6cm, minimum height=1cm] at (5,-2.5) {};
+    \node[selected, scale=0.5, minimum width=0.6cm] at (2.5,-2.5) {};
+    \node[right, font=\footnotesize] at (3,-2.5) {Selected Parent Chain};
+    \node[block, scale=0.5, minimum width=0.6cm] at (6,-2.5) {};
+    \node[right, font=\footnotesize] at (6.5,-2.5) {Mergeset Blocks};
 \end{tikzpicture}
-\caption{Kaspa BlockDAG Structure. The green blocks form the selected parent chain (backbone), while blue blocks are merge-set blocks that get ordered relative to the selected chain.}
+\caption{Kaspa BlockDAG Structure. The green blocks form the \emph{selected parent chain} (the canonical backbone determined by GHOSTDAG). Blue blocks are \emph{mergeset blocks}---parallel blocks whose transactions are merged into the ledger when a selected-chain block references them as additional parents.}
 \label{fig:blockdag}
 \end{figure}
 
@@ -365,30 +363,34 @@ Kaspa's node implementation computes, for each block $B$, the set of \emph{accep
 \textbf{Detailed Example:} Consider a simple DAG scenario for illustration. Suppose block $B_1$ is the genesis, and two blocks $B_2$ and $B_3$ are mined concurrently on $B_1$. Then a block $B_4$ comes selecting $B_2$ as its parent, and another $B_5$ selecting $B_3$, and finally $B_6$ selecting $B_4$ and also referencing $B_5$:
 \begin{center}
 \begin{tikzpicture}[
-    block/.style={rectangle, draw=blue!50, fill=blue!15, minimum width=0.9cm, minimum height=0.55cm, font=\small, rounded corners=2pt},
-    selected/.style={rectangle, draw=green!60!black, fill=green!20, minimum width=0.9cm, minimum height=0.55cm, font=\small, line width=1.2pt, rounded corners=2pt},
-    arrow/.style={->, >=Stealth, thick},
-    scale=0.9, transform shape
+    block/.style={rectangle, draw=blue!60, fill=blue!15, minimum width=1cm, minimum height=0.6cm, font=\small, rounded corners=3pt},
+    selected/.style={rectangle, draw=green!60!black, fill=green!25, minimum width=1cm, minimum height=0.6cm, font=\small, line width=1.5pt, rounded corners=3pt},
+    selarrow/.style={->, >=Stealth, line width=2pt, green!60!black},
+    mergearrow/.style={->, >=Stealth, line width=1pt, blue!50, dashed},
+    scale=0.95, transform shape
 ]
+    % Nodes
     \node[selected] (b1) at (0,0) {$B_1$};
-    \node[selected] (b2) at (2.2,0.9) {$B_2$};
-    \node[block] (b3) at (2.2,-0.9) {$B_3$};
-    \node[selected] (b4) at (4.4,0.9) {$B_4$};
-    \node[block] (b5) at (4.4,-0.9) {$B_5$};
-    \node[selected] (b6) at (6.6,0) {$B_6$};
+    \node[selected] (b2) at (2.5,1) {$B_2$};
+    \node[block] (b3) at (2.5,-1) {$B_3$};
+    \node[selected] (b4) at (5,1) {$B_4$};
+    \node[block] (b5) at (5,-1) {$B_5$};
+    \node[selected] (b6) at (7.5,0) {$B_6$};
     
-    \draw[arrow, blue!50] (b1) -- (b2);
-    \draw[arrow, blue!50] (b1) -- (b3);
-    \draw[arrow, blue!50] (b2) -- (b4);
-    \draw[arrow, blue!50] (b3) -- (b5);
-    \draw[arrow, line width=2pt, green!60!black] (b4) -- (b6);
-    \draw[arrow, dashed, gray!60] (b5) -- (b6);
+    % Selected parent chain arrows (solid, thick, green)
+    \draw[selarrow] (b1) -- (b2);
+    \draw[selarrow] (b2) -- (b4);
+    \draw[selarrow] (b4) -- (b6);
     
-    \node[font=\tiny, text=gray!70, right] at (6.9,0) {merge};
+    % Other parent arrows (dashed, thinner, blue)
+    \draw[mergearrow] (b1) -- (b3);
+    \draw[mergearrow] (b3) -- (b5);
+    \draw[mergearrow] (b5) -- (b6);
     
-    % Selected chain highlight
-    \draw[line width=3pt, green!30, opacity=0.5, rounded corners=3pt] 
-        (-0.6,-0.4) -- (0.6,-0.4) -- (1.6,0.5) -- (2.8,0.5) -- (3.8,0.5) -- (5,0.5) -- (5.8,-0.1) -- (7.2,-0.1) -- (7.2,0.4) -- (5.8,0.4) -- (5,1.3) -- (3.8,1.3) -- (2.8,1.3) -- (1.6,1.3) -- (0.6,0.4) -- (-0.6,0.4) -- cycle;
+    % Labels
+    \node[font=\scriptsize, text=green!50!black, above] at (1.25,0.7) {selected};
+    \node[font=\scriptsize, text=blue!60, below] at (1.25,-0.7) {parallel};
+    \node[font=\scriptsize, text=blue!60, right] at (6.5,-0.6) {merge parent};
 \end{tikzpicture}
 \end{center}
 
@@ -737,6 +739,64 @@ Kaspa nodes may prune old blocks, but they typically keep all headers (including
 
 A headers-only node can verify inclusion of a transaction from any block, given a correct proof. This is by design: enabling light clients to be almost as secure as full nodes for checking inclusion, without storing everything. The MMR commitment turns the whole history into a \emph{self-authenticating log}: the node can verify any historical data from an untrusted source against the known \code{mmr\_root}.
 
+\subsection{Rolling MMR for Long-Term Scalability}
+\label{sec:rolling-mmr}
+
+While an append-only MMR provides excellent properties for historical verification, the unbounded growth of the MMR poses long-term storage challenges. At 10 BPS, the MMR node store grows at approximately 20 GB per year. Over decades, this becomes significant even for well-resourced nodes. We propose a \textbf{Rolling MMR} mechanism to address this:
+
+\subsubsection{Checkpoint-Based MMR Rolling}
+
+Rather than maintaining the complete MMR from genesis indefinitely, nodes can periodically ``roll forward'' the MMR base:
+
+\begin{enumerate}
+    \item \textbf{Checkpoint Selection:} At regular intervals (e.g., every pruning epoch, approximately 24 hours), designate a checkpoint block $B_c$ on the selected parent chain
+    \item \textbf{MMR State Snapshot:} Store the complete MMR peaks at $B_c$ as a \emph{frozen checkpoint}
+    \item \textbf{Prefix Pruning:} Old MMR nodes (those corresponding to leaves before $B_c$) can be pruned, keeping only:
+    \begin{itemize}
+        \item The frozen checkpoint state (peaks and size at $B_c$)
+        \item Recent MMR nodes (from $B_c$ onward)
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{Proof Generation with Rolling MMR}
+
+For transactions in blocks \emph{after} the checkpoint $B_c$, proof generation works normally using the local MMR store.
+
+For transactions in blocks \emph{before} $B_c$:
+\begin{itemize}
+    \item The proving node must either (a) have retained the full historical MMR, or (b) request the historical proof from an archive node
+    \item The proof can be composed: a proof from the old transaction to the checkpoint's MMR root, plus a proof from the checkpoint to the current tip
+    \item Alternatively, users who need long-term proofs should generate and store them \emph{before} the relevant MMR nodes are pruned
+\end{itemize}
+
+\subsubsection{Storage Trade-offs}
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Strategy} & \textbf{Storage (per year)} & \textbf{Proof Availability} \\
+\midrule
+Full MMR (no rolling) & $\sim$20 GB/year cumulative & All historical proofs \\
+Daily checkpoints & $\sim$500 MB/year & Recent + checkpoint-based \\
+Weekly checkpoints & $\sim$100 MB/year & Recent + archived \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The rolling approach is optional: archive nodes can maintain the complete MMR history, while regular nodes use rolling to bound storage. This mirrors how Kaspa already handles block body pruning---the MMR commitment in headers enables verification even when underlying data is pruned, as long as proofs were generated before pruning.
+
+\subsubsection{Integration with Kaspa's Pruning Mechanism}
+
+Kaspa already prunes block bodies after a configurable period (currently 3 days by default). The rolling MMR can be synchronized with this mechanism:
+
+\begin{itemize}
+    \item \textbf{Pre-pruning proof generation:} Nodes can automatically generate and cache inclusion proofs for their own transactions before pruning
+    \item \textbf{Checkpoint alignment:} MMR checkpoints can align with Kaspa's posterity headers (every $\sim$86,400 blocks)
+    \item \textbf{Archive incentives:} Archive nodes maintaining full MMR history can charge for historical proof generation, creating a sustainable ecosystem
+\end{itemize}
+
+This design ensures that the MMR-based system remains practical at scale while preserving the cryptographic guarantees for any historical data that has been properly archived or proven.
+
 %==============================================================================
 % SECTION 5: PROOFS
 %==============================================================================
@@ -948,50 +1008,66 @@ With the MMR-based sequencing commitment in place, several important use cases b
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
-    chain/.style={rectangle, draw, rounded corners=5pt, minimum width=3cm, minimum height=1.4cm, align=center, font=\small, drop shadow={opacity=0.2}},
-    contract/.style={rectangle, draw, rounded corners=4pt, minimum width=2.4cm, minimum height=1cm, align=center, font=\small, drop shadow={opacity=0.15}},
-    user/.style={circle, draw=yellow!70!black, fill=yellow!25, minimum size=1cm, font=\small\bfseries, drop shadow={opacity=0.15}},
+    chain/.style={rectangle, draw, rounded corners=5pt, minimum width=3cm, minimum height=1.4cm, align=center, font=\small, drop shadow={opacity=0.25}},
+    contract/.style={rectangle, draw, rounded corners=4pt, minimum width=2.4cm, minimum height=1cm, align=center, font=\small, drop shadow={opacity=0.2}},
+    user/.style={circle, draw=yellow!70!black, fill=yellow!25, minimum size=1cm, font=\small\bfseries, drop shadow={opacity=0.2}},
     databox/.style={rectangle, draw, rounded corners=3pt, font=\footnotesize, minimum width=2cm, align=center, minimum height=0.6cm},
     arrow/.style={->, >=Stealth, thick},
     note/.style={font=\scriptsize},
     scale=0.88, transform shape
 ]
+    % === LAYER 1: Background elements (drawn first) ===
+    
     % Left side: Kaspa (blue theme)
     \node[chain, fill=blue!15, draw=blue!50] (kaspa) at (0,0) {\textbf{Kaspa}\\BlockDAG};
     
-    % Right side: Ethereum (purple theme)
-    \node[chain, fill=purple!10, draw=purple!40] (eth) at (8,0) {\textbf{Ethereum}\\(or other L1)};
-    \node[contract, fill=green!15, draw=green!50] (bridge) at (8,2.5) {Bridge Contract};
-    \node[databox, fill=red!15, draw=red!50, font=\footnotesize\ttfamily] (mmr) at (8,-1.8) {mmr\_root};
-    
-    % Center: User and Proof
-    \node[user] (user) at (4,3.2) {User};
+    % Center: Proof box
     \node[databox, fill=orange!15, draw=orange!50] (proof) at (4,0) {Proof ($\sim$1 KB)};
     
-    % Flow arrows with numbered labels in circles
-    \draw[arrow, blue!60, line width=1.2pt] (kaspa.north) -- ++(0,0.8) -| (user.west);
-    \node[circle, fill=blue!20, draw=blue!50, font=\tiny\bfseries, inner sep=2pt] at (1,2.5) {1};
-    \node[note, text=blue!60] at (1,3.2) {Lock funds};
+    % MMR root storage
+    \node[databox, fill=red!15, draw=red!50, font=\footnotesize\ttfamily] (mmr) at (8,-1.8) {mmr\_root};
     
+    % Bridge Contract
+    \node[contract, fill=green!15, draw=green!50] (bridge) at (8,2.5) {Bridge Contract};
+    
+    % User
+    \node[user] (user) at (4,3.2) {User};
+    
+    % === LAYER 2: Background arrows (drawn before Ethereum) ===
+    
+    % MMR sync arrow (gray, background)
+    \draw[arrow, dashed, gray!50, line width=0.8pt] (kaspa.south) -- ++(0,-0.6) -| (mmr.west);
+    \node[note, text=gray!60] at (3.5,-2.2) {periodic sync};
+    
+    % Proof generation flow (dotted, background)
+    \draw[arrow, dotted, blue!40, line width=1pt] (kaspa.east) -- (proof.west);
+    \draw[arrow, dotted, blue!40, line width=1pt] (proof.north) -- ++(0,0.8) -- (bridge.south west);
+    
+    % Step 1: Lock funds on Kaspa
+    \draw[arrow, blue!60, line width=1.2pt] (kaspa.north) -- ++(0,0.8) -| (user.west);
+    \node[circle, fill=blue!20, draw=blue!50, font=\tiny\bfseries, inner sep=2pt] at (1,1.8) {1};
+    \node[note, text=blue!60] at (1,1.4) {Lock funds};
+    
+    % Step 2: Submit proof to bridge
     \draw[arrow, green!60!black, line width=1.2pt] (user.east) to[bend left=8] (bridge.west);
     \node[circle, fill=green!20, draw=green!50, font=\tiny\bfseries, inner sep=2pt] at (6.2,3.5) {2};
     \node[note, text=green!60!black] at (6.2,4) {Submit proof};
     
+    % Step 3: Verify arrow (draw before Ethereum)
     \draw[arrow, purple!60, line width=1.2pt] (bridge.south) -- (mmr.north);
-    \node[circle, fill=purple!20, draw=purple!50, font=\tiny\bfseries, inner sep=2pt] at (8.5,0.5) {3};
-    \node[note, text=purple!60, right] at (8.2,0.5) {Verify};
     
-    \draw[arrow, dashed, orange!60, line width=1.2pt] (bridge.south east) -- (eth.north east);
-    \node[circle, fill=orange!20, draw=orange!50, font=\tiny\bfseries, inner sep=2pt] at (8.8,1.5) {4};
-    \node[note, text=orange!60, right] at (8.5,1.2) {Mint};
+    % === LAYER 3: Ethereum in foreground (drawn on top) ===
+    \node[chain, fill=purple!12, draw=purple!50, line width=1.2pt] (eth) at (8,0) {\textbf{Ethereum}\\(or other L1)};
     
-    % MMR sync (background)
-    \draw[arrow, dashed, gray!60] (kaspa.south) -- ++(0,-0.6) -| (mmr.west);
-    \node[note, text=gray!60] at (3.5,-2.2) {periodic sync};
+    % Step 3 labels: drawn AFTER Ethereum so they appear on top
+    \node[circle, fill=purple!20, draw=purple!50, font=\tiny\bfseries, inner sep=2pt] at (6.4,0.5) {3};
+    \node[note, text=purple!60] at (6.4,0.1) {Verify};
     
-    % Proof generation flow
-    \draw[arrow, dotted, blue!40, line width=1pt] (kaspa.east) -- (proof.west);
-    \draw[arrow, dotted, blue!40, line width=1pt] (proof.north east) -- (bridge.south west);
+    % Step 4: Mint tokens (elegant curved arrow going right)
+    \draw[arrow, orange!70, line width=1.5pt, rounded corners=3pt] 
+        (bridge.east) -- ++(0.8,0) -- ++(0,-1.8) -- (eth.east);
+    \node[circle, fill=orange!20, draw=orange!50, font=\tiny\bfseries, inner sep=2pt] at (10.0,1.5) {4};
+    \node[note, text=orange!70] at (10.0,1.0) {Mint tokens};
 \end{tikzpicture}
 \caption{Trustless bridge architecture using MMR proofs. The bridge contract stores only the latest \code{mmr\_root} and verifies inclusion proofs on-chain with $\sim$30 hash operations.}
 \label{fig:bridge}
