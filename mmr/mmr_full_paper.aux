@@ -4,171 +4,349 @@
 \providecommand\HyField@AuxAddToCoFields[2]{}
 \citation{flyclient}
 \citation{nipopow}
-\citation{kip15}
-\citation{kip6}
-\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{4}{section.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Kaspa BlockDAG Structure. The green blocks form the \emph  {selected parent chain} (the canonical backbone determined by GHOSTDAG). Blue blocks are \emph  {mergeset blocks}---parallel blocks whose transactions are merged into the ledger when a selected-chain block references them as additional parents.}}{4}{figure.caption.2}\protected@file@percent }
+\citation{flyclient}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{5}{section.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces GHOSTDAG PoW DAG Ledger Structure. The green blocks form the \emph  {selected parent chain} (the canonical backbone determined by GHOSTDAG). Blue blocks are \emph  {mergeset blocks}---parallel blocks whose transactions are merged into the ledger when a selected-chain block references them as additional parents.}}{5}{figure.caption.2}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:blockdag}{{1}{4}{Kaspa BlockDAG Structure. The green blocks form the \emph {selected parent chain} (the canonical backbone determined by GHOSTDAG). Blue blocks are \emph {mergeset blocks}---parallel blocks whose transactions are merged into the ledger when a selected-chain block references them as additional parents}{figure.caption.2}{}}
-\newlabel{fig:blockdag@cref}{{[figure][1][]1}{[1][4][]4}{}{}{}}
+\newlabel{fig:blockdag}{{1}{5}{GHOSTDAG PoW DAG Ledger Structure. The green blocks form the \emph {selected parent chain} (the canonical backbone determined by GHOSTDAG). Blue blocks are \emph {mergeset blocks}---parallel blocks whose transactions are merged into the ledger when a selected-chain block references them as additional parents}{figure.caption.2}{}}
+\newlabel{fig:blockdag@cref}{{[figure][1][]1}{[1][5][]5}{}{}{}}
 \citation{merklebelt}
 \citation{todd2012mmr}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Our Contributions}{5}{subsection.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}From Block Ordering to Execution Ordering}{6}{subsection.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Our Contributions}{6}{subsection.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Paper Organization}{8}{subsection.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4}Terminology and Notation}{8}{subsection.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Background and Motivation}{8}{section.2}\protected@file@percent }
+\newlabel{sec:background}{{2}{8}{Background and Motivation}{section.2}{}}
+\newlabel{sec:background@cref}{{[section][2][]2}{[1][8][]8}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Terminology: PoW DAG Ledgers}{8}{subsection.2.1}\protected@file@percent }
 \citation{herodotus}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Paper Organization}{6}{subsection.1.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2}Background and Motivation}{6}{section.2}\protected@file@percent }
-\newlabel{sec:background}{{2}{6}{Background and Motivation}{section.2}{}}
-\newlabel{sec:background@cref}{{[section][2][]2}{[1][6][]6}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Blockchain Transaction Ordering and Proofs}{6}{subsection.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Merkle Mountain Ranges (MMR)}{7}{subsection.2.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Merkle Mountain Range structure with 13 leaves. The structure consists of three ``mountains'' (perfect binary trees) corresponding to the binary representation $13_{10} = 1101_2$. Peaks $P_0$, $P_1$, $P_2$ are hashed together (bagged) to produce the final MMR root.}}{7}{figure.caption.3}\protected@file@percent }
-\newlabel{fig:mmr-structure}{{2}{7}{Merkle Mountain Range structure with 13 leaves. The structure consists of three ``mountains'' (perfect binary trees) corresponding to the binary representation $13_{10} = 1101_2$. Peaks $P_0$, $P_1$, $P_2$ are hashed together (bagged) to produce the final MMR root}{figure.caption.3}{}}
-\newlabel{fig:mmr-structure@cref}{{[figure][2][]2}{[1][7][]7}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Blockchain Transaction Ordering and Proofs}{9}{subsection.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Merkle Mountain Ranges (MMR)}{9}{subsection.2.3}\protected@file@percent }
 \citation{merklebelt}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Kaspa DAG, Selected Chain, and Canonical Transaction Order}{8}{subsection.2.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Construction of the canonical transaction list ($\TxList  $) and $\OrderRoot  $ for block $B$. Transactions are ordered deterministically: selected parent first, then mergeset blocks in consensus order, finally block $B$'s own transactions.}}{8}{figure.caption.4}\protected@file@percent }
-\newlabel{fig:txlist-construction}{{3}{8}{Construction of the canonical transaction list ($\TxList $) and $\OrderRoot $ for block $B$. Transactions are ordered deterministically: selected parent first, then mergeset blocks in consensus order, finally block $B$'s own transactions}{figure.caption.4}{}}
-\newlabel{fig:txlist-construction@cref}{{[figure][3][]3}{[1][8][]8}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}MMR-Based Sequencing Commitment Design}{9}{section.3}\protected@file@percent }
-\newlabel{sec:design}{{3}{9}{MMR-Based Sequencing Commitment Design}{section.3}{}}
-\newlabel{sec:design@cref}{{[section][3][]3}{[1][9][]9}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Block Header Modifications}{9}{subsection.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Canonical Order and OrderRoot Computation}{9}{subsection.3.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Block Header Field Modifications}}{10}{table.caption.5}\protected@file@percent }
-\newlabel{tab:header-fields}{{1}{10}{Block Header Field Modifications}{table.caption.5}{}}
-\newlabel{tab:header-fields@cref}{{[table][1][]1}{[1][9][]10}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}MMR Leaf and Internal Hashing Scheme}{10}{subsection.3.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces MMR leaf computation and state update flow. The leaf is computed from parent hash and $\OrderRoot  $, then appended to the parent's MMR state to produce the new MMR root stored in the block header.}}{11}{figure.caption.6}\protected@file@percent }
-\newlabel{fig:mmr-computation}{{4}{11}{MMR leaf computation and state update flow. The leaf is computed from parent hash and $\OrderRoot $, then appended to the parent's MMR state to produce the new MMR root stored in the block header}{figure.caption.6}{}}
-\newlabel{fig:mmr-computation@cref}{{[figure][4][]4}{[1][10][]11}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Consensus Validation Rules}{11}{subsection.3.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4}Handling Reorganizations and Forks}{11}{section.4}\protected@file@percent }
-\newlabel{sec:reorg}{{4}{11}{Handling Reorganizations and Forks}{section.4}{}}
-\newlabel{sec:reorg@cref}{{[section][4][]4}{[1][11][]11}{}{}{}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces MMR Append Operation}}{12}{algorithm.1}\protected@file@percent }
-\newlabel{alg:mmr-append}{{1}{12}{MMR Append Operation}{algorithm.1}{}}
-\newlabel{alg:mmr-append@cref}{{[algorithm][1][]1}{[1][11][]12}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Reorg Rollback and Recompute}{12}{subsection.4.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Chain reorganization handling. MMR state is retrieved from common ancestor $C$, and new chain blocks have their MMR states recomputed forward.}}{12}{figure.caption.7}\protected@file@percent }
-\newlabel{fig:reorg}{{5}{12}{Chain reorganization handling. MMR state is retrieved from common ancestor $C$, and new chain blocks have their MMR states recomputed forward}{figure.caption.7}{}}
-\newlabel{fig:reorg@cref}{{[figure][5][]5}{[1][12][]12}{}{}{}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Block Validation with MMR Commitments}}{13}{algorithm.2}\protected@file@percent }
-\newlabel{alg:validation}{{2}{13}{Block Validation with MMR Commitments}{algorithm.2}{}}
-\newlabel{alg:validation@cref}{{[algorithm][2][]2}{[1][11][]13}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}MMR Node Storage (Enabling Proof Generation)}{14}{subsection.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Pruning and Checkpointing}{14}{subsection.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Rolling MMR for Long-Term Scalability}{14}{subsection.4.4}\protected@file@percent }
-\newlabel{sec:rolling-mmr}{{4.4}{14}{Rolling MMR for Long-Term Scalability}{subsection.4.4}{}}
-\newlabel{sec:rolling-mmr@cref}{{[subsection][4][4]4.4}{[1][14][]14}{}{}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.1}Checkpoint-Based MMR Rolling}{15}{subsubsection.4.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.2}Proof Generation with Rolling MMR}{15}{subsubsection.4.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.3}Storage Trade-offs}{15}{subsubsection.4.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.4}Integration with Kaspa's Pruning Mechanism}{15}{subsubsection.4.4.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5}Inclusion Proofs and Verification}{16}{section.5}\protected@file@percent }
-\newlabel{sec:proofs}{{5}{16}{Inclusion Proofs and Verification}{section.5}{}}
-\newlabel{sec:proofs@cref}{{[section][5][]5}{[1][16][]16}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Proof Composition}{16}{subsection.5.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Two-step proof verification process. Step 1 verifies the transaction is in block $B$ via Merkle proof. Step 2 verifies block $B$ is in the MMR via MMR proof.}}{16}{figure.caption.8}\protected@file@percent }
-\newlabel{fig:proof-verification}{{6}{16}{Two-step proof verification process. Step 1 verifies the transaction is in block $B$ via Merkle proof. Step 2 verifies block $B$ is in the MMR via MMR proof}{figure.caption.8}{}}
-\newlabel{fig:proof-verification@cref}{{[figure][6][]6}{[1][16][]16}{}{}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}{\ignorespaces Intra-Block Proof Structure}}{16}{lstlisting.1}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {2}{\ignorespaces MMR Proof Structure}}{17}{lstlisting.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Proof Size and Efficiency}{17}{subsection.5.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Proof Size Estimates for Various Chain Lengths at 10 BPS}}{17}{table.caption.9}\protected@file@percent }
-\newlabel{tab:proof-size}{{2}{17}{Proof Size Estimates for Various Chain Lengths at 10 BPS}{table.caption.9}{}}
-\newlabel{tab:proof-size@cref}{{[table][2][]2}{[1][17][]17}{}{}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Proof Size (Hash Operations) vs Age of Transaction}}{17}{table.caption.10}\protected@file@percent }
-\newlabel{tab:proof-comparison}{{3}{17}{Proof Size (Hash Operations) vs Age of Transaction}{table.caption.10}{}}
-\newlabel{tab:proof-comparison@cref}{{[table][3][]3}{[1][17][]17}{}{}{}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces Complete Proof Verification}}{18}{algorithm.3}\protected@file@percent }
-\newlabel{alg:proof-verify}{{3}{18}{Complete Proof Verification}{algorithm.3}{}}
-\newlabel{alg:proof-verify@cref}{{[algorithm][3][]3}{[1][17][]18}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Merkle Mountain Range structure with 13 leaves. The structure consists of three ``mountains'' (perfect binary trees) corresponding to the binary representation $13_{10} = 1101_2$. Peaks $P_0$, $P_1$, $P_2$ are hashed together (bagged) to produce the final MMR root.}}{10}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:mmr-structure}{{2}{10}{Merkle Mountain Range structure with 13 leaves. The structure consists of three ``mountains'' (perfect binary trees) corresponding to the binary representation $13_{10} = 1101_2$. Peaks $P_0$, $P_1$, $P_2$ are hashed together (bagged) to produce the final MMR root}{figure.caption.3}{}}
+\newlabel{fig:mmr-structure@cref}{{[figure][2][]2}{[1][9][]10}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}GHOSTDAG, Selected Chain, and Consensus-Determined Transaction Sequence}{11}{subsection.2.4}\protected@file@percent }
+\newlabel{sec:consensus-determined-sequence}{{2.4}{11}{GHOSTDAG, Selected Chain, and Consensus-Determined Transaction Sequence}{subsection.2.4}{}}
+\newlabel{sec:consensus-determined-sequence@cref}{{[subsection][4][2]2.4}{[1][10][]11}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.1}Formal Model: Transaction Sequence Derivation}{11}{subsubsection.2.4.1}\protected@file@percent }
+\newlabel{def:ghostdag-ordering}{{2.2}{11}{GHOSTDAG Block Ordering}{theorem.2.2}{}}
+\newlabel{def:ghostdag-ordering@cref}{{[theorem][2][2]2.2}{[1][11][]11}{}{}{}}
+\newlabel{def:intra-block-ordering}{{2.3}{11}{Intra-Block Transaction Ordering}{theorem.2.3}{}}
+\newlabel{def:intra-block-ordering@cref}{{[theorem][3][2]2.3}{[1][11][]11}{}{}{}}
+\newlabel{def:conflict-resolution}{{2.4}{11}{Conflict Resolution Rule}{theorem.2.4}{}}
+\newlabel{def:conflict-resolution@cref}{{[theorem][4][2]2.4}{[1][11][]11}{}{}{}}
+\newlabel{def:canonical-execution-sequence}{{2.5}{11}{Canonical Execution Sequence}{theorem.2.5}{}}
+\newlabel{def:canonical-execution-sequence@cref}{{[theorem][5][2]2.5}{[1][11][]11}{}{}{}}
+\newlabel{prop:consensus-uniqueness}{{2.6}{12}{Consensus Uniqueness}{theorem.2.6}{}}
+\newlabel{prop:consensus-uniqueness@cref}{{[theorem][6][2]2.6}{[1][11][]12}{}{}{}}
+\newlabel{def:exec-root}{{2.7}{12}{Execution Root}{theorem.2.7}{}}
+\newlabel{def:exec-root@cref}{{[theorem][7][2]2.7}{[1][12][]12}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.2}Consensus API Contract}{12}{subsubsection.2.4.2}\protected@file@percent }
+\newlabel{sec:consensus-api-contract}{{2.4.2}{12}{Consensus API Contract}{subsubsection.2.4.2}{}}
+\newlabel{sec:consensus-api-contract@cref}{{[subsubsection][2][2,4]2.4.2}{[1][12][]12}{}{}{}}
+\newlabel{def:consensus-api-contract}{{2.8}{12}{Consensus API Contract}{theorem.2.8}{}}
+\newlabel{def:consensus-api-contract@cref}{{[theorem][8][2]2.8}{[1][12][]12}{}{}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}{\ignorespaces Consensus API Contract binding}}{12}{lstlisting.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Construction of the canonical transaction list ($\AcceptedTxList  $) and $\ExecRoot  $ for block $B$. Transactions are ordered deterministically: selected parent first, then mergeset blocks in consensus order, finally block $B$'s own transactions.}}{13}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:txlist-construction}{{3}{13}{Construction of the canonical transaction list ($\AcceptedTxList $) and $\ExecRoot $ for block $B$. Transactions are ordered deterministically: selected parent first, then mergeset blocks in consensus order, finally block $B$'s own transactions}{figure.caption.4}{}}
+\newlabel{fig:txlist-construction@cref}{{[figure][3][]3}{[1][12][]13}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}MMR Execution-Log Commitment Design}{14}{section.3}\protected@file@percent }
+\newlabel{sec:design}{{3}{14}{MMR Execution-Log Commitment Design}{section.3}{}}
+\newlabel{sec:design@cref}{{[section][3][]3}{[1][13][]14}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Block Header Modifications}{14}{subsection.3.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Block Header Field Modifications}}{14}{table.caption.5}\protected@file@percent }
+\newlabel{tab:header-fields}{{1}{14}{Block Header Field Modifications}{table.caption.5}{}}
+\newlabel{tab:header-fields@cref}{{[table][1][]1}{[1][14][]14}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Consensus Impact Statement}{14}{subsection.3.2}\protected@file@percent }
+\newlabel{sec:consensus-impact}{{3.2}{14}{Consensus Impact Statement}{subsection.3.2}{}}
+\newlabel{sec:consensus-impact@cref}{{[subsection][2][3]3.2}{[1][14][]14}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Consensus Impact Summary}}{14}{table.caption.6}\protected@file@percent }
+\newlabel{tab:consensus-impact-summary}{{2}{14}{Consensus Impact Summary}{table.caption.6}{}}
+\newlabel{tab:consensus-impact-summary@cref}{{[table][2][]2}{[1][14][]14}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1}New Validation Rules}{14}{subsubsection.3.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.2}Impact on Block Hash}{15}{subsubsection.3.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3}Reorg Handling}{15}{subsubsection.3.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.4}Activation and Upgrade Path}{15}{subsubsection.3.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Canonical Execution Order and ExecRoot Computation}{16}{subsection.3.3}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {2}{\ignorespaces ExecRoot Computation (Pseudocode)}}{16}{lstlisting.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}MMR Leaf and Internal Hashing Scheme}{17}{subsection.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.1}Hash Function Specification}{18}{subsubsection.3.4.1}\protected@file@percent }
+\newlabel{sec:hash-spec}{{3.4.1}{18}{Hash Function Specification}{subsubsection.3.4.1}{}}
+\newlabel{sec:hash-spec@cref}{{[subsubsection][1][3,4]3.4.1}{[1][18][]18}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Domain-Separated Hash Specifications}}{18}{table.caption.7}\protected@file@percent }
+\newlabel{tab:hash-spec}{{3}{18}{Domain-Separated Hash Specifications}{table.caption.7}{}}
+\newlabel{tab:hash-spec@cref}{{[table][3][]3}{[1][18][]18}{}{}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {3}{\ignorespaces Leaf hash computation example}}{19}{lstlisting.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces MMR leaf computation and state update flow. The leaf is computed from parent hash and $\ExecRoot  $, then appended to the parent's MMR state to produce the new MMR root stored in the block header.}}{19}{figure.caption.8}\protected@file@percent }
+\newlabel{fig:mmr-computation}{{4}{19}{MMR leaf computation and state update flow. The leaf is computed from parent hash and $\ExecRoot $, then appended to the parent's MMR state to produce the new MMR root stored in the block header}{figure.caption.8}{}}
+\newlabel{fig:mmr-computation@cref}{{[figure][4][]4}{[1][19][]19}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Consensus Validation Rules}{20}{subsection.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6}Integration with Consensus Execution}{20}{subsection.3.6}\protected@file@percent }
+\newlabel{sec:consensus-integration}{{3.6}{20}{Integration with Consensus Execution}{subsection.3.6}{}}
+\newlabel{sec:consensus-integration@cref}{{[subsection][6][3]3.6}{[1][20][]20}{}{}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces MMR Append Operation}}{21}{algorithm.1}\protected@file@percent }
+\newlabel{alg:mmr-append}{{1}{21}{MMR Append Operation}{algorithm.1}{}}
+\newlabel{alg:mmr-append@cref}{{[algorithm][1][]1}{[1][20][]21}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.6.1}Why Auxiliary MMR is Insufficient for L2}{21}{subsubsection.3.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.6.2}Execution Pipeline Integration}{21}{subsubsection.3.6.2}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4}{\ignorespaces Consensus Execution with MMR Validation}}{21}{lstlisting.4}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Block Validation with MMR Commitments}}{22}{algorithm.2}\protected@file@percent }
+\newlabel{alg:validation}{{2}{22}{Block Validation with MMR Commitments}{algorithm.2}{}}
+\newlabel{alg:validation@cref}{{[algorithm][2][]2}{[1][20][]22}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.6.3}Atomicity with Chain State}{23}{subsubsection.3.6.3}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {5}{\ignorespaces Atomic State Commitment}}{23}{lstlisting.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.6.4}Implications for L2 Systems}{23}{subsubsection.3.6.4}\protected@file@percent }
+\citation{ghostdag}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Handling Reorganizations and Forks}{24}{section.4}\protected@file@percent }
+\newlabel{sec:reorg}{{4}{24}{Handling Reorganizations and Forks}{section.4}{}}
+\newlabel{sec:reorg@cref}{{[section][4][]4}{[1][23][]24}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Reorg Rollback and Recompute}{24}{subsection.4.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Chain reorganization handling. MMR state is retrieved from common ancestor $C$, and new chain blocks have their MMR states recomputed forward.}}{24}{figure.caption.9}\protected@file@percent }
+\newlabel{fig:reorg}{{5}{24}{Chain reorganization handling. MMR state is retrieved from common ancestor $C$, and new chain blocks have their MMR states recomputed forward}{figure.caption.9}{}}
+\newlabel{fig:reorg@cref}{{[figure][5][]5}{[1][24][]24}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Reorg Window and Checkpoint Policy}{24}{subsection.4.2}\protected@file@percent }
+\newlabel{sec:reorg-checkpoint}{{4.2}{24}{Reorg Window and Checkpoint Policy}{subsection.4.2}{}}
+\newlabel{sec:reorg-checkpoint@cref}{{[subsection][2][4]4.2}{[1][24][]24}{}{}{}}
+\newlabel{def:protocol-params}{{4.1}{24}{Protocol Parameters}{theorem.4.1}{}}
+\newlabel{def:protocol-params@cref}{{[theorem][1][4]4.1}{[1][24][]24}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Recommended Protocol Parameters (10 BPS)}}{25}{table.caption.10}\protected@file@percent }
+\newlabel{tab:protocol-params}{{4}{25}{Recommended Protocol Parameters (10 BPS)}{table.caption.10}{}}
+\newlabel{tab:protocol-params@cref}{{[table][4][]4}{[1][25][]25}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}MMR Node Storage (Enabling Proof Generation)}{25}{subsection.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Pruning and Checkpointing}{26}{subsection.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Rolling MMR for Long-Term Scalability}{26}{subsection.4.5}\protected@file@percent }
+\newlabel{sec:rolling-mmr}{{4.5}{26}{Rolling MMR for Long-Term Scalability}{subsection.4.5}{}}
+\newlabel{sec:rolling-mmr@cref}{{[subsection][5][4]4.5}{[1][26][]26}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.1}Checkpoint-Based MMR Rolling}{26}{subsubsection.4.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.2}Proof Generation with Rolling MMR}{27}{subsubsection.4.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.3}Node Capability Tiers}{28}{subsubsection.4.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.4}Storage Trade-offs}{28}{subsubsection.4.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.5}Proof Availability: Formal Model}{28}{subsubsection.4.5.5}\protected@file@percent }
+\newlabel{sec:rolling-semantics}{{4.5.5}{28}{Proof Availability: Formal Model}{subsubsection.4.5.5}{}}
+\newlabel{sec:rolling-semantics@cref}{{[subsubsection][5][4,5]4.5.5}{[1][28][]28}{}{}{}}
+\newlabel{def:verify-vs-generate}{{4.2}{28}{Verification vs. Generation}{theorem.4.2}{}}
+\newlabel{def:verify-vs-generate@cref}{{[theorem][2][4]4.2}{[1][28][]28}{}{}{}}
+\newlabel{def:availability-models}{{4.3}{28}{Availability Models}{theorem.4.3}{}}
+\newlabel{def:availability-models@cref}{{[theorem][3][4]4.3}{[1][28][]28}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Proof Availability Guarantees}}{29}{table.caption.11}\protected@file@percent }
+\newlabel{tab:proof-availability}{{5}{29}{Proof Availability Guarantees}{table.caption.11}{}}
+\newlabel{tab:proof-availability@cref}{{[table][5][]5}{[1][28][]29}{}{}{}}
+\newlabel{thm:availability-separation}{{4.4}{29}{Proof Availability Separation}{theorem.4.4}{}}
+\newlabel{thm:availability-separation@cref}{{[theorem][4][4]4.4}{[1][28][]29}{}{}{}}
+\newlabel{cor:rolling-compatible}{{4.5}{29}{Rolling Compatibility}{theorem.4.5}{}}
+\newlabel{cor:rolling-compatible@cref}{{[theorem][5][4]4.5}{[1][29][]29}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.6}Node Capability Tiers}{29}{subsubsection.4.5.6}\protected@file@percent }
+\newlabel{def:node-capabilities}{{4.6}{29}{Node Capability Classes}{theorem.4.6}{}}
+\newlabel{def:node-capabilities@cref}{{[theorem][6][4]4.6}{[1][29][]29}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.7}Minimum Data Retention Requirements}{30}{subsubsection.4.5.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.8}Failure Modes and Mitigations}{30}{subsubsection.4.5.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.9}Economic Incentives (Out of Scope)}{30}{subsubsection.4.5.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Inclusion Proofs and Verification}{30}{section.5}\protected@file@percent }
+\newlabel{sec:proofs}{{5}{30}{Inclusion Proofs and Verification}{section.5}{}}
+\newlabel{sec:proofs@cref}{{[section][5][]5}{[1][30][]30}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Two-Layer Proof Model}{30}{subsection.5.1}\protected@file@percent }
+\newlabel{sec:what-exactly-proven}{{5.1}{30}{Two-Layer Proof Model}{subsection.5.1}{}}
+\newlabel{sec:what-exactly-proven@cref}{{[subsection][1][5]5.1}{[1][30][]30}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.1}What Exactly Is Proven?}{31}{subsubsection.5.1.1}\protected@file@percent }
+\newlabel{prop:execution-position}{{5.1}{31}{Execution Position Proof}{theorem.5.1}{}}
+\newlabel{prop:execution-position@cref}{{[theorem][1][5]5.1}{[1][31][]31}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Two-step proof verification process. Step 1 verifies the transaction is in block $B$ via Merkle proof. Step 2 verifies block $B$ is in the MMR via MMR proof.}}{31}{figure.caption.12}\protected@file@percent }
+\newlabel{fig:proof-verification}{{6}{31}{Two-step proof verification process. Step 1 verifies the transaction is in block $B$ via Merkle proof. Step 2 verifies block $B$ is in the MMR via MMR proof}{figure.caption.12}{}}
+\newlabel{fig:proof-verification@cref}{{[figure][6][]6}{[1][31][]31}{}{}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {6}{\ignorespaces Intra-Block Proof Structure}}{32}{lstlisting.6}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {7}{\ignorespaces MMR Proof Structure}}{32}{lstlisting.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Proof Size and Efficiency}{33}{subsection.5.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Proof Size Estimates for Various Chain Lengths at 10 BPS}}{33}{table.caption.13}\protected@file@percent }
+\newlabel{tab:proof-size}{{6}{33}{Proof Size Estimates for Various Chain Lengths at 10 BPS}{table.caption.13}{}}
+\newlabel{tab:proof-size@cref}{{[table][6][]6}{[1][33][]33}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Proof Size (Hash Operations) vs Age of Transaction}}{33}{table.caption.14}\protected@file@percent }
+\newlabel{tab:proof-comparison}{{7}{33}{Proof Size (Hash Operations) vs Age of Transaction}{table.caption.14}{}}
+\newlabel{tab:proof-comparison@cref}{{[table][7][]7}{[1][33][]33}{}{}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces Complete Proof Verification}}{34}{algorithm.3}\protected@file@percent }
+\newlabel{alg:proof-verify}{{3}{34}{Complete Proof Verification}{algorithm.3}{}}
+\newlabel{alg:proof-verify@cref}{{[algorithm][3][]3}{[1][33][]34}{}{}{}}
 \citation{chainalysis2022}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Applications and Benefits}{19}{section.6}\protected@file@percent }
-\newlabel{sec:applications}{{6}{19}{Applications and Benefits}{section.6}{}}
-\newlabel{sec:applications@cref}{{[section][6][]6}{[1][19][]19}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Trustless Bridges and L2 Rollups}{19}{subsection.6.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Trustless bridge architecture using MMR proofs. The bridge contract stores only the latest \texttt  {mmr\_root} and verifies inclusion proofs on-chain with $\sim $30 hash operations.}}{19}{figure.caption.11}\protected@file@percent }
-\newlabel{fig:bridge}{{7}{19}{Trustless bridge architecture using MMR proofs. The bridge contract stores only the latest \code {mmr\_root} and verifies inclusion proofs on-chain with $\sim $30 hash operations}{figure.caption.11}{}}
-\newlabel{fig:bridge@cref}{{[figure][7][]7}{[1][19][]19}{}{}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces On-Chain Verification Cost Comparison (Ethereum)}}{19}{table.caption.12}\protected@file@percent }
-\newlabel{tab:gas-comparison}{{4}{19}{On-Chain Verification Cost Comparison (Ethereum)}{table.caption.12}{}}
-\newlabel{tab:gas-comparison@cref}{{[table][4][]4}{[1][19][]19}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Light Clients and Fast Synchronization}{20}{subsection.6.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Data Availability and Disaster Recovery}{20}{subsection.6.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Auditing and Data Availability}{21}{subsection.6.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {7}Overhead Analysis}{21}{section.7}\protected@file@percent }
-\newlabel{sec:overhead}{{7}{21}{Overhead Analysis}{section.7}{}}
-\newlabel{sec:overhead@cref}{{[section][7][]7}{[1][21][]21}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Bandwidth Overhead}{21}{subsection.7.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Bandwidth Overhead at 10 BPS}}{21}{table.caption.13}\protected@file@percent }
-\newlabel{tab:bandwidth}{{5}{21}{Bandwidth Overhead at 10 BPS}{table.caption.13}{}}
-\newlabel{tab:bandwidth@cref}{{[table][5][]5}{[1][21][]21}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Storage Overhead}{21}{subsection.7.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Storage growth over time at 10 BPS. Headers grow at $\sim $12.6 GB/year; optional node store for proof generation adds $\sim $20 GB/year. Even after 5 years, total storage remains under 165 GB---manageable for modern hardware.}}{21}{figure.caption.14}\protected@file@percent }
-\newlabel{fig:storage}{{8}{21}{Storage growth over time at 10 BPS. Headers grow at $\sim $12.6 GB/year; optional node store for proof generation adds $\sim $20 GB/year. Even after 5 years, total storage remains under 165 GB---manageable for modern hardware}{figure.caption.14}{}}
-\newlabel{fig:storage@cref}{{[figure][8][]8}{[1][21][]21}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Computation Overhead}{21}{subsection.7.3}\protected@file@percent }
-\citation{kip15}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Comparison with Alternative Approaches}{22}{section.8}\protected@file@percent }
-\newlabel{sec:comparison}{{8}{22}{Comparison with Alternative Approaches}{section.8}{}}
-\newlabel{sec:comparison@cref}{{[section][8][]8}{[1][21][]22}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}KIP-15: Linear Sequencing Commitment}{22}{subsection.8.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.1}Design Philosophy and Mechanism}{22}{subsubsection.8.1.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces KIP-15 Linear Sequencing Commitment. Each block's SC depends on its parent's SC, creating a sequential chain. Verification requires traversing all intermediate commitments.}}{22}{figure.caption.15}\protected@file@percent }
-\newlabel{fig:kip15-chain}{{9}{22}{KIP-15 Linear Sequencing Commitment. Each block's SC depends on its parent's SC, creating a sequential chain. Verification requires traversing all intermediate commitments}{figure.caption.15}{}}
-\newlabel{fig:kip15-chain@cref}{{[figure][9][]9}{[1][22][]22}{}{}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.2}Strengths}{22}{subsubsection.8.1.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.3}Limitations}{22}{subsubsection.8.1.3}\protected@file@percent }
-\citation{kip6}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}KIP-6: Proof of Chain Membership (PoChM)}{23}{subsection.8.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.2.1}Design Philosophy and Mechanism}{23}{subsubsection.8.2.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces KIP-6 PoChM Structure with exponential skip pointers ($2^i$). Each block's PMR contains Merkle proofs of ancestors at distances $2^0, 2^1, 2^2, \ldots  $ The proof path uses binary decomposition of the distance.}}{23}{figure.caption.16}\protected@file@percent }
-\newlabel{fig:kip6-skiplist}{{10}{23}{KIP-6 PoChM Structure with exponential skip pointers ($2^i$). Each block's PMR contains Merkle proofs of ancestors at distances $2^0, 2^1, 2^2, \ldots $ The proof path uses binary decomposition of the distance}{figure.caption.16}{}}
-\newlabel{fig:kip6-skiplist@cref}{{[figure][10][]10}{[1][23][]23}{}{}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.2.2}Proof Construction Algorithm}{23}{subsubsection.8.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.2.3}Strengths}{24}{subsubsection.8.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.2.4}Limitations}{24}{subsubsection.8.2.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}Comparative Analysis: Deep Insights}{24}{subsection.8.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.3.1}The Fundamental Tension}{24}{subsubsection.8.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.3.2}The Architectural Incompatibility}{25}{subsubsection.8.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.3.3}Why MMR is the Natural Synthesis}{25}{subsubsection.8.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.3.4}Quantitative Analysis: Gas Cost Comparison}{25}{subsubsection.8.3.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Detailed Feature Comparison: KIP-6, KIP-15, and MMR-Based Approach}}{26}{table.caption.17}\protected@file@percent }
-\newlabel{tab:detailed-comparison}{{6}{26}{Detailed Feature Comparison: KIP-6, KIP-15, and MMR-Based Approach}{table.caption.17}{}}
-\newlabel{tab:detailed-comparison@cref}{{[table][6][]6}{[1][25][]26}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces On-chain verification gas cost comparison. KIP-15's linear growth makes it impractical beyond $\sim $15,000 blocks (crosses gas limit). Both KIP-6 and MMR remain feasible at any depth, with MMR offering $\sim $40\% lower costs due to simpler proof structure.}}{26}{figure.caption.18}\protected@file@percent }
-\newlabel{fig:gas-deep-comparison}{{11}{26}{On-chain verification gas cost comparison. KIP-15's linear growth makes it impractical beyond $\sim $15,000 blocks (crosses gas limit). Both KIP-6 and MMR remain feasible at any depth, with MMR offering $\sim $40\% lower costs due to simpler proof structure}{figure.caption.18}{}}
-\newlabel{fig:gas-deep-comparison@cref}{{[figure][11][]11}{[1][25][]26}{}{}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.3.5}Architectural Elegance: The MMR Advantage}{27}{subsubsection.8.3.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.4}Summary: Why Unification Matters}{27}{subsection.8.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {9}Implementation and Deployment}{27}{section.9}\protected@file@percent }
-\newlabel{sec:implementation}{{9}{27}{Implementation and Deployment}{section.9}{}}
-\newlabel{sec:implementation@cref}{{[section][9][]9}{[1][27][]27}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Activation via Network Upgrade}{27}{subsection.9.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Summary Comparison of Transaction Commitment Approaches}}{28}{table.caption.19}\protected@file@percent }
-\newlabel{tab:summary-comparison}{{7}{28}{Summary Comparison of Transaction Commitment Approaches}{table.caption.19}{}}
-\newlabel{tab:summary-comparison@cref}{{[table][7][]7}{[1][27][]28}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Miner Integration}{28}{subsection.9.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Data Structures and APIs}{28}{subsection.9.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.4}Security Considerations}{28}{subsection.9.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {10}Conclusion}{28}{section.10}\protected@file@percent }
-\newlabel{sec:conclusion}{{10}{28}{Conclusion}{section.10}{}}
-\newlabel{sec:conclusion@cref}{{[section][10][]10}{[1][28][]28}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}Summary of Results}{29}{subsection.10.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {10.2}Future Work}{29}{subsection.10.2}\protected@file@percent }
-\bibcite{kip15}{1}
-\bibcite{kip6}{2}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Applications and Benefits}{35}{section.6}\protected@file@percent }
+\newlabel{sec:applications}{{6}{35}{Applications and Benefits}{section.6}{}}
+\newlabel{sec:applications@cref}{{[section][6][]6}{[1][35][]35}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Trustless Bridges and L2 Rollups}{35}{subsection.6.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Trustless bridge architecture using MMR proofs. The bridge contract stores only the latest \texttt  {elog\_root} and verifies inclusion proofs on-chain with $\sim $30 hash operations.}}{35}{figure.caption.15}\protected@file@percent }
+\newlabel{fig:bridge}{{7}{35}{Trustless bridge architecture using MMR proofs. The bridge contract stores only the latest \code {elog\_root} and verifies inclusion proofs on-chain with $\sim $30 hash operations}{figure.caption.15}{}}
+\newlabel{fig:bridge@cref}{{[figure][7][]7}{[1][35][]35}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces On-Chain Verification Cost Comparison (Ethereum)}}{35}{table.caption.16}\protected@file@percent }
+\newlabel{tab:gas-comparison}{{8}{35}{On-Chain Verification Cost Comparison (Ethereum)}{table.caption.16}{}}
+\newlabel{tab:gas-comparison@cref}{{[table][8][]8}{[1][35][]35}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Light Clients and Fast Synchronization}{36}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Data Availability and Disaster Recovery}{36}{subsection.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Auditing and Data Availability}{37}{subsection.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}Overhead Analysis}{37}{section.7}\protected@file@percent }
+\newlabel{sec:overhead}{{7}{37}{Overhead Analysis}{section.7}{}}
+\newlabel{sec:overhead@cref}{{[section][7][]7}{[1][37][]37}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Bandwidth Overhead}{37}{subsection.7.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Bandwidth Overhead at 10 BPS}}{37}{table.caption.17}\protected@file@percent }
+\newlabel{tab:bandwidth}{{9}{37}{Bandwidth Overhead at 10 BPS}{table.caption.17}{}}
+\newlabel{tab:bandwidth@cref}{{[table][9][]9}{[1][37][]37}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Storage Overhead}{37}{subsection.7.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Storage growth over time at 10 BPS. Headers grow at $\sim $12.6 GB/year; optional node store for proof generation adds $\sim $20 GB/year. Even after 5 years, total storage remains under 165 GB---manageable for modern hardware.}}{37}{figure.caption.18}\protected@file@percent }
+\newlabel{fig:storage}{{8}{37}{Storage growth over time at 10 BPS. Headers grow at $\sim $12.6 GB/year; optional node store for proof generation adds $\sim $20 GB/year. Even after 5 years, total storage remains under 165 GB---manageable for modern hardware}{figure.caption.18}{}}
+\newlabel{fig:storage@cref}{{[figure][8][]8}{[1][37][]37}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Computation Overhead}{37}{subsection.7.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4}Performance Benchmark Comparison}{38}{subsection.7.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces Performance Benchmark: Verifying Transaction at 100K Blocks Depth}}{38}{table.caption.19}\protected@file@percent }
+\newlabel{tab:performance-benchmark}{{10}{38}{Performance Benchmark: Verifying Transaction at 100K Blocks Depth}{table.caption.19}{}}
+\newlabel{tab:performance-benchmark@cref}{{[table][10][]10}{[1][38][]38}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.5}Performance Under Different Loads}{38}{subsection.7.5}\protected@file@percent }
+\citation{todd2012mmr}
+\citation{grin}
+\citation{nervos}
+\citation{herodotus}
+\citation{flyclient}
+\citation{nipopow}
+\citation{utreexo}
+\citation{ghostdag}
+\@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces MMR Performance Across Different Throughput Levels}}{39}{table.caption.20}\protected@file@percent }
+\newlabel{tab:load-testing}{{11}{39}{MMR Performance Across Different Throughput Levels}{table.caption.20}{}}
+\newlabel{tab:load-testing@cref}{{[table][11][]11}{[1][38][]39}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Related Work}{39}{section.8}\protected@file@percent }
+\newlabel{sec:related-work}{{8}{39}{Related Work}{section.8}{}}
+\newlabel{sec:related-work@cref}{{[section][8][]8}{[1][39][]39}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Merkle Mountain Ranges in Blockchain Systems}{39}{subsection.8.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Logarithmic Proof Protocols}{39}{subsection.8.2}\protected@file@percent }
+\citation{ghostdag}
+\citation{spectre}
+\citation{conflux}
+\citation{verkle}
+\citation{conflux}
+\citation{iota}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}DAG Consensus and Linearization}{40}{subsection.8.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4}Transaction Ordering Commitments}{40}{subsection.8.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.5}Relationship to Ethereum Verkle Trees}{40}{subsection.8.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.6}Other DAG Systems: Conflux and IOTA}{40}{subsection.8.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.7}Post-Quantum Considerations}{41}{subsection.8.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.8}Positioning of Our Contribution}{41}{subsection.8.8}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {12}{\ignorespaces Related Work Comparison}}{41}{table.caption.21}\protected@file@percent }
+\newlabel{tab:related-work}{{12}{41}{Related Work Comparison}{table.caption.21}{}}
+\newlabel{tab:related-work@cref}{{[table][12][]12}{[1][41][]41}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Comparison with Alternative Approaches}{41}{section.9}\protected@file@percent }
+\newlabel{sec:comparison}{{9}{41}{Comparison with Alternative Approaches}{section.9}{}}
+\newlabel{sec:comparison@cref}{{[section][9][]9}{[1][41][]41}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Linear Execution-Log Commitment}{41}{subsection.9.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.1.1}Design Philosophy and Mechanism}{41}{subsubsection.9.1.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Linear Sequencing Commitment. Each block's SC depends on its parent's SC, creating a sequential chain. Verification requires traversing all intermediate commitments.}}{42}{figure.caption.22}\protected@file@percent }
+\newlabel{fig:linear-chain}{{9}{42}{Linear Sequencing Commitment. Each block's SC depends on its parent's SC, creating a sequential chain. Verification requires traversing all intermediate commitments}{figure.caption.22}{}}
+\newlabel{fig:linear-chain@cref}{{[figure][9][]9}{[1][41][]42}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.1.2}Strengths}{42}{subsubsection.9.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.1.3}Limitations}{42}{subsubsection.9.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Skip-List Based Proof of Chain Membership (PoChM)}{42}{subsection.9.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.2.1}Design Philosophy and Mechanism}{42}{subsubsection.9.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Skip-list PoChM Structure with exponential skip pointers ($2^i$). Each block's PMR contains Merkle proofs of ancestors at distances $2^0, 2^1, 2^2, \ldots  $ The proof path uses binary decomposition of the distance.}}{43}{figure.caption.23}\protected@file@percent }
+\newlabel{fig:skiplist}{{10}{43}{Skip-list PoChM Structure with exponential skip pointers ($2^i$). Each block's PMR contains Merkle proofs of ancestors at distances $2^0, 2^1, 2^2, \ldots $ The proof path uses binary decomposition of the distance}{figure.caption.23}{}}
+\newlabel{fig:skiplist@cref}{{[figure][10][]10}{[1][43][]43}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.2.2}Proof Construction Algorithm}{43}{subsubsection.9.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.2.3}Strengths}{43}{subsubsection.9.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.2.4}Limitations}{44}{subsubsection.9.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Comparative Analysis: Deep Insights}{44}{subsection.9.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.3.1}The Fundamental Tension}{44}{subsubsection.9.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.3.2}The Architectural Incompatibility}{44}{subsubsection.9.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.3.3}Why MMR is the Natural Synthesis}{45}{subsubsection.9.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.3.4}The Fundamental Philosophical Difference}{45}{subsubsection.9.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.3.5}Quantitative Analysis: Gas Cost Comparison}{45}{subsubsection.9.3.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {13}{\ignorespaces Detailed Feature Comparison: Linear Sequencing, Skip-List PoChM, and MMR-Based Approach}}{46}{table.caption.24}\protected@file@percent }
+\newlabel{tab:detailed-comparison}{{13}{46}{Detailed Feature Comparison: Linear Sequencing, Skip-List PoChM, and MMR-Based Approach}{table.caption.24}{}}
+\newlabel{tab:detailed-comparison@cref}{{[table][13][]13}{[1][45][]46}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces On-chain verification gas cost comparison. Linear sequencing's growth makes it impractical beyond $\sim $15,000 blocks (crosses gas limit). Both skip-list PoChM and MMR remain feasible at any depth, with MMR offering $\sim $40\% lower costs due to simpler proof structure.}}{46}{figure.caption.25}\protected@file@percent }
+\newlabel{fig:gas-deep-comparison}{{11}{46}{On-chain verification gas cost comparison. Linear sequencing's growth makes it impractical beyond $\sim $15,000 blocks (crosses gas limit). Both skip-list PoChM and MMR remain feasible at any depth, with MMR offering $\sim $40\% lower costs due to simpler proof structure}{figure.caption.25}{}}
+\newlabel{fig:gas-deep-comparison@cref}{{[figure][11][]11}{[1][45][]46}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.3.6}Architectural Elegance: The MMR Advantage}{47}{subsubsection.9.3.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.4}Summary: Why Unification Matters}{47}{subsection.9.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {14}{\ignorespaces Summary Comparison of Transaction Commitment Approaches}}{48}{table.caption.26}\protected@file@percent }
+\newlabel{tab:summary-comparison}{{14}{48}{Summary Comparison of Transaction Commitment Approaches}{table.caption.26}{}}
+\newlabel{tab:summary-comparison@cref}{{[table][14][]14}{[1][47][]48}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {15}{\ignorespaces Consensus Impact Comparison: The Key Distinction}}{48}{table.caption.27}\protected@file@percent }
+\newlabel{tab:consensus-impact}{{15}{48}{Consensus Impact Comparison: The Key Distinction}{table.caption.27}{}}
+\newlabel{tab:consensus-impact@cref}{{[table][15][]15}{[1][47][]48}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.5}Comparison with Kaspa Improvement Proposals}{48}{subsection.9.5}\protected@file@percent }
+\newlabel{subsec:kaspa-comparison}{{9.5}{48}{Comparison with Kaspa Improvement Proposals}{subsection.9.5}{}}
+\newlabel{subsec:kaspa-comparison@cref}{{[subsection][5][9]9.5}{[1][48][]48}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.5.1}Overview of KIP-15 and KIP-6}{48}{subsubsection.9.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.5.2}Comprehensive Comparison Table}{49}{subsubsection.9.5.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {16}{\ignorespaces Comprehensive Comparison: KIP-15+KIP-6 vs. Execution-MMR}}{49}{table.caption.28}\protected@file@percent }
+\newlabel{tab:kaspa-comparison}{{16}{49}{Comprehensive Comparison: KIP-15+KIP-6 vs. Execution-MMR}{table.caption.28}{}}
+\newlabel{tab:kaspa-comparison@cref}{{[table][16][]16}{[1][49][]49}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.5.3}Adversarial Analysis: Why Unified Design Matters}{49}{subsubsection.9.5.3}\protected@file@percent }
+\newlabel{thm:dual-commitment-overhead}{{9.3}{49}{Dual Commitment Overhead}{theorem.9.3}{}}
+\newlabel{thm:dual-commitment-overhead@cref}{{[theorem][3][9]9.3}{[1][49][]49}{}{}{}}
+\newlabel{attack:kip-auxiliary-divergence}{{9.4}{50}{Auxiliary Log Divergence in KIP-15+KIP-6}{theorem.9.4}{}}
+\newlabel{attack:kip-auxiliary-divergence@cref}{{[theorem][4][9]9.4}{[1][50][]50}{}{}{}}
+\newlabel{prop:kip-auxiliary-insufficiency}{{9.5}{50}{Auxiliary Log Insufficiency for KIP-15+KIP-6}{theorem.9.5}{}}
+\newlabel{prop:kip-auxiliary-insufficiency@cref}{{[theorem][5][9]9.5}{[1][50][]50}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.5.4}Deployment Roadmap Analysis}{51}{subsubsection.9.5.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Deployment Roadmap: KIP-15+KIP-6 Combination vs. Unified Execution-MMR. The unified approach significantly accelerates L2 ecosystem availability by reducing implementation complexity and eliminating integration overhead.}}{51}{figure.caption.29}\protected@file@percent }
+\newlabel{fig:deployment-roadmap}{{12}{51}{Deployment Roadmap: KIP-15+KIP-6 Combination vs. Unified Execution-MMR. The unified approach significantly accelerates L2 ecosystem availability by reducing implementation complexity and eliminating integration overhead}{figure.caption.29}{}}
+\newlabel{fig:deployment-roadmap@cref}{{[figure][12][]12}{[1][50][]51}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9.5.5}Strategic Positioning}{51}{subsubsection.9.5.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {10}Implementation and Deployment}{52}{section.10}\protected@file@percent }
+\newlabel{sec:implementation}{{10}{52}{Implementation and Deployment}{section.10}{}}
+\newlabel{sec:implementation@cref}{{[section][10][]10}{[1][52][]52}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}Activation via Network Upgrade}{52}{subsection.10.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.2}Miner Integration}{52}{subsection.10.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.3}Data Structures and APIs}{52}{subsection.10.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.4}Security Analysis and Threat Model}{52}{subsection.10.4}\protected@file@percent }
+\newlabel{sec:security-analysis}{{10.4}{52}{Security Analysis and Threat Model}{subsection.10.4}{}}
+\newlabel{sec:security-analysis@cref}{{[subsection][4][10]10.4}{[1][52][]52}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {10.4.1}Threat Model}{52}{subsubsection.10.4.1}\protected@file@percent }
+\newlabel{def:adversarial-power}{{10.1}{53}{Adversarial Computational Power}{theorem.10.1}{}}
+\newlabel{def:adversarial-power@cref}{{[theorem][1][10]10.1}{[1][52][]53}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {10.4.2}Security Properties: Formal Guarantees}{53}{subsubsection.10.4.2}\protected@file@percent }
+\newlabel{thm:execution-fidelity}{{10.2}{53}{Execution-Fidelity}{theorem.10.2}{}}
+\newlabel{thm:execution-fidelity@cref}{{[theorem][2][10]10.2}{[1][53][]53}{}{}{}}
+\newlabel{thm:reorg-soundness}{{10.3}{54}{Fork/Reorg Soundness}{theorem.10.3}{}}
+\newlabel{thm:reorg-soundness@cref}{{[theorem][3][10]10.3}{[1][53][]54}{}{}{}}
+\newlabel{thm:non-equivocation}{{10.4}{54}{Non-Equivocation / Binding}{theorem.10.4}{}}
+\newlabel{thm:non-equivocation@cref}{{[theorem][4][10]10.4}{[1][54][]54}{}{}{}}
+\newlabel{thm:leaf-replay-resistance}{{10.5}{54}{Leaf Replay Resistance}{theorem.10.5}{}}
+\newlabel{thm:leaf-replay-resistance@cref}{{[theorem][5][10]10.5}{[1][54][]54}{}{}{}}
+\newlabel{prop:forgery-resistance}{{10.6}{55}{History Forgery Resistance}{theorem.10.6}{}}
+\newlabel{prop:forgery-resistance@cref}{{[theorem][6][10]10.6}{[1][55][]55}{}{}{}}
+\newlabel{cor:consensus-equivalent}{{10.7}{55}{Consensus-Equivalent Security}{theorem.10.7}{}}
+\newlabel{cor:consensus-equivalent@cref}{{[theorem][7][10]10.7}{[1][55][]55}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {10.4.3}Specific Attack Vectors}{55}{subsubsection.10.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {10.4.4}Why Consensus-Level, Not Auxiliary: A Counter-Example Model}{56}{subsubsection.10.4.4}\protected@file@percent }
+\newlabel{attack:auxiliary-divergence}{{10.9}{56}{Auxiliary Log Divergence Attack}{theorem.10.9}{}}
+\newlabel{attack:auxiliary-divergence@cref}{{[theorem][9][10]10.9}{[1][56][]56}{}{}{}}
+\newlabel{prop:auxiliary-insufficient}{{10.10}{57}{Auxiliary Log Insufficiency}{theorem.10.10}{}}
+\newlabel{prop:auxiliary-insufficient@cref}{{[theorem][10][10]10.10}{[1][56][]57}{}{}{}}
+\newlabel{cor:consensus-necessity}{{10.11}{57}{Consensus-Level Necessity}{theorem.10.11}{}}
+\newlabel{cor:consensus-necessity@cref}{{[theorem][11][10]10.11}{[1][57][]57}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {10.4.5}Trust Assumptions}{57}{subsubsection.10.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {11}Conclusion}{57}{section.11}\protected@file@percent }
+\newlabel{sec:conclusion}{{11}{57}{Conclusion}{section.11}{}}
+\newlabel{sec:conclusion@cref}{{[section][11][]11}{[1][57][]57}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.1}Summary of Results}{57}{subsection.11.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.2}The Broader Implication}{58}{subsection.11.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.3}Strategic Positioning: Beyond Incremental Improvement}{58}{subsection.11.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.4}Limitations and Future Work}{59}{subsection.11.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {11.4.1}Current Limitations}{59}{subsubsection.11.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {11.4.2}Future Research Directions}{59}{subsubsection.11.4.2}\protected@file@percent }
+\bibcite{linearseq}{1}
+\bibcite{pochm}{2}
 \bibcite{herodotus}{3}
 \bibcite{ghostdag}{4}
 \bibcite{nervos}{5}
 \bibcite{grin}{6}
 \bibcite{todd2012mmr}{7}
-\bibcite{kaspa2021}{8}
+\bibcite{ghostdag2021}{8}
 \bibcite{wood2016}{9}
 \bibcite{nakamoto2008}{10}
 \bibcite{flyclient}{11}
 \bibcite{nipopow}{12}
 \bibcite{merklebelt}{13}
 \bibcite{chainalysis2022}{14}
-\gdef \@abspage@last{31}
+\bibcite{utreexo}{15}
+\bibcite{spectre}{16}
+\bibcite{conflux}{17}
+\bibcite{verkle}{18}
+\bibcite{iota}{19}
+\gdef \@abspage@last{61}

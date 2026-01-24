@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.15)  22 JAN 2026 03:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.15)  24 JAN 2026 21:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1228,24 +1228,24 @@ File: upsy.fd 2001/06/04 font definitions for U/psy.
 (./mmr_full_paper.aux)
 \openout1 = `mmr_full_paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
 
 (/usr/local/texlive/2025basic/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -1271,7 +1271,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 87.
+Package hyperref Info: Link coloring OFF on input line 91.
  (./mmr_full_paper.out) (./mmr_full_paper.out)
 \@outlinefile=\write5
 \openout5 = `mmr_full_paper.out'.
@@ -1317,252 +1317,558 @@ Package caption Info: End \AtBeginDocument code.
 Package pgfplots notification 'compat/show suggested version=true': you might b
 enefit from \pgfplotsset{compat=1.18} (current compat level: 1.17).
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 89.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 93.
 
 (/usr/local/texlive/2025basic/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 89.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 93.
 
 
 (/usr/local/texlive/2025basic/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (4.89351pt too wide) in paragraph at lines 98--99
-[]\T1/cmr/bx/n/10 Keywords: \T1/cmr/m/n/10 Merkle Moun-tain Range, BlockDAG, Tr
-ans-ac-tion Or-der-ing, In-clu-sion Proofs,
- []
-
-
 
 [1
 
 {/usr/local/texlive/2025basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 (./mmr_full_paper.toc
 
-[2])
+[2]
+
+[3])
 \tf@toc=\write6
 \openout6 = `mmr_full_paper.toc'.
 
 
 
-[3]
-
 [4]
 
 [5]
+Overfull \hbox (0.69841pt too wide) in paragraph at lines 208--210
+\T1/cmr/m/n/10.95 Our ap-proach, which we call the \T1/cmr/m/it/10.95 MMR Execu
+tion-Log Com-mit-ment\T1/cmr/m/n/10.95 , in-te-grates with GHOSTDAG
+ []
+
+
+Overfull \hbox (76.75136pt too wide) in paragraph at lines 210--211
+\T1/cmtt/m/n/10.95 accepted_tx_ids \T1/cmr/m/n/10.95 is the de-ter-min-is-tic o
+ut-put of the con-sen-sus ex-e-cu-tion pipeline (\T1/cmtt/m/n/10.95 calculate_u
+txo_state\T1/cmr/m/n/10.95 ).
+ []
+
+
 
 [6]
+Overfull \hbox (7.43607pt too wide) in paragraph at lines 232--233
+\T1/cmr/m/n/10.95 These es-tab-lish that ex-e-cu-tion log proofs have consensus
+-equivalent se-cu-rity (Corol-lary []10.7[]). 
+ []
+
+
 
 [7]
+LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10.95> not available
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 252.
+
 
 [8]
 
 [9]
 
 [10]
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 544.
+Overfull \hbox (63.35043pt too wide) in paragraph at lines 405--406
+[]$[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 B\OT1/cmr/m/n/10.95 )$\T1/cmr/m/it
+/10.95 : A de-ter-min-is-tic to-tal or-der-ing of $[]\OT1/cmr/m/n/10.95 (\OML/c
+mm/m/it/10.95 B\OT1/cmr/m/n/10.95 )$\T1/cmr/m/it/10.95 , typ-i-cally by $\OT1/c
+mr/m/n/10.95 (\OML/cmm/m/it/10.95 blue[]score; block[]hash\OT1/cmr/m/n/10.95 )$
+
+ []
+
 
 
 [11]
 
-[12]
+LaTeX Font Warning: Font shape `T1/cmr/m/scit' undefined
+(Font)              using `T1/cmr/m/scsl' instead on input line 474.
 
-[13]
 
-[14]
+LaTeX Font Warning: Font shape `T1/cmr/m/scit' undefined
+(Font)              using `T1/cmr/m/scsl' instead on input line 478.
 
-[15] (/usr/local/texlive/2025basic/texmf-dist/tex/latex/listings/lstlang1.sty
+(/usr/local/texlive/2025basic/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 869.
+nput line 488.
+
+Overfull \hbox (17.32436pt too wide) in paragraph at lines 498--499
+[]\T1/cmr/bx/n/10.95 Reorg Se-man-tics: \T1/cmr/m/n/10.95 When a re-or-ga-ni-za
+-tion oc-curs (se-lected chain changes), the \T1/cmtt/m/n/10.95 AcceptedTxList
+ []
+
+
+
+[12]
+
+[13]
+Underfull \hbox (badness 10000) in paragraph at lines 631--632
+[]|\T1/cmr/m/n/10 Block hash now in-cludes \T1/cmtt/m/n/10 exec_root\T1/cmr/m/n
+/10 ,
+ []
+
+
+
+[14]
+Overfull \hbox (11.65254pt too wide) in paragraph at lines 694--695
+\T1/cmr/m/it/10.95 computation---it is the di-rect out-put of \T1/cmtt/m/it/10.
+95 calculate_utxo_state()\T1/cmr/m/it/10.95 , specif-i-cally the \T1/cmtt/m/it/
+10.95 accepted_tx_ids
+ []
+
+
+
+[15]
+Overfull \hbox (79.06879pt too wide) in paragraph at lines 709--710
+[]\T1/cmr/m/n/10.95 Transactions from merge-set blocks, or-dered by \T1/cmtt/m/
+n/10.95 consensus_ordered_mergeset_without_selected_parent\T1/cmr/m/n/10.95 ,
+ []
+
 
 
 [16]
 
 [17]
+Underfull \hbox (badness 10000) in paragraph at lines 804--804
+[]|\T1/cmr/m/n/10 Internal
+ []
 
-[18]
 
-[19]
-Overfull \hbox (2.23746pt too wide) in paragraph at lines 1104--1105
-[]\T1/cmr/bx/n/10.95 Simple Pay-ment Ver-i-fi-ca-tion (SPV): \T1/cmr/m/n/10.95 
-A client only needs to track the chain of \T1/cmtt/m/n/10.95 mmr_root
+Underfull \hbox (badness 10000) in paragraph at lines 805--805
+[]|\T1/cmr/m/n/10 Peak Bag-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 808--809
+[]|\T1/cmr/m/n/10 Binary Merkle tree over
  []
 
 
 
+[18]
+Overfull \hbox (11.70445pt too wide) in paragraph at lines 832--833
+[]\T1/cmtt/m/n/10.95 ELOG_LEAF_V1\T1/cmr/m/n/10.95 : \T1/cmtt/m/n/10.95 0x45 0x
+4C 0x4F 0x47 0x5F 0x4C 0x45 0x41 0x46 0x5F 0x56 0x31 0x00 
+ []
+
+
+Overfull \hbox (11.70445pt too wide) in paragraph at lines 833--834
+[]\T1/cmtt/m/n/10.95 ELOG_NODE_V1\T1/cmr/m/n/10.95 : \T1/cmtt/m/n/10.95 0x45 0x
+4C 0x4F 0x47 0x5F 0x4E 0x4F 0x44 0x45 0x5F 0x56 0x31 0x00 
+ []
+
+
+Overfull \hbox (11.70445pt too wide) in paragraph at lines 835--836
+[]\T1/cmtt/m/n/10.95 ELOG_ROOT_V1\T1/cmr/m/n/10.95 : \T1/cmtt/m/n/10.95 0x45 0x
+4C 0x4F 0x47 0x5F 0x52 0x4F 0x4F 0x54 0x5F 0x56 0x31 0x00 
+ []
+
+
+Overfull \hbox (30.24171pt too wide) in paragraph at lines 838--839
+[]\T1/cmr/bx/n/10.95 Versioning: \T1/cmr/m/n/10.95 Fu-ture pro-to-col up-grades
+ \T1/cmr/m/sc/10.95 SHOULD \T1/cmr/m/n/10.95 in-cre-ment the ver-sion suf-fix (
+e.g., \T1/cmtt/m/n/10.95 ELOG_LEAF_V2\T1/cmr/m/n/10.95 )
+ []
+
+
+
+[19]
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
+put line 931.
+
+
 [20]
+Overfull \hbox (25.34406pt too wide) in paragraph at lines 1036--1037
+\T1/cmr/m/n/10.95 The fol-low-ing pseu-docode il-lus-trates how MMR com-mit-men
+t in-te-grates with the ex-ist-ing GHOSTDAG
+ []
+
+
 
 [21]
 
 [22]
+Overfull \hbox (24.37749pt too wide) in paragraph at lines 1094--1095
+[]\T1/cmr/bx/n/10.95 Consensus-Level Se-cu-rity: \T1/cmr/m/n/10.95 A wrong \T1/
+cmtt/m/n/10.95 exec_root \T1/cmr/m/n/10.95 is as se-vere as a wrong UTXO commit
+ment---
+ []
+
+
 
 [23]
-Overfull \hbox (8.99011pt too wide) in paragraph at lines 1383--1384
-[]\T1/cmr/bx/n/10.95 Elegant Bi-nary De-com-po-si-tion: \T1/cmr/m/n/10.95 Math-
-e-mat-i-cally prin-ci-pled ap-proach lever-ag-ing number-
- []
-
-
-Overfull \hbox (13.21886pt too wide) in paragraph at lines 1408--1409
-[]\T1/cmr/bx/n/10.95 KIP-6 \T1/cmr/m/n/10.95 pri-or-i-tizes \T1/cmr/m/it/10.95 
-proof ef-fi-ciency\T1/cmr/m/n/10.95 ---ensuring his-tor-i-cal claims can be ver
--i-fied with logarithmic-
- []
-
-
 
 [24]
-Underfull \hbox (badness 10000) in paragraph at lines 1455--1455
-[]|\T1/cmr/m/n/10 Efficient In-clu-sion
- []
-
-
-Underfull \hbox (badness 4391) in paragraph at lines 1456--1456
-[]|\T1/cmr/m/n/10 Proves Po-si-tion in
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1460--1460
-[]|$\OMS/cmsy/m/n/10 O\OT1/cmr/m/n/10 ([] \OML/cmm/m/it/10 D [] [] D\OT1/cmr/m/
-n/10 ) \OMS/cmsy/m/n/10 ^^B
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1477--1477
-[]|\T1/cmr/m/n/10 Batch proof op-ti-
- []
-
-Package pgfplots info on input line 1509: Using 'lua backend=false' for axis: x
-mode=log unsupported (yet).
-Package pgfplots info on input line 1509: Using 'lua backend=false' for axis: y
-mode=log unsupported (yet).
-
 
 [25]
 
 [26]
-Underfull \hbox (badness 10000) in paragraph at lines 1608--1608
-[]|\T1/cmr/m/n/10 Supports $\OMS/cmsy/m/n/10 O\OT1/cmr/m/n/10 ([] \OML/cmm/m/it
-/10 n\OT1/cmr/m/n/10 )$
+Overfull \hbox (41.71501pt too wide) in paragraph at lines 1318--1319
+[]\T1/cmr/m/n/10.95 Compute root: $[] \OT1/cmr/m/n/10.95 = []([] \OMS/cmsy/m/n/
+10.95 k [] k [][]\OT1/cmr/m/n/10.95 ([]))$ 
  []
 
 
-Underfull \hbox (badness 5331) in paragraph at lines 1612--1612
-[]|\T1/cmr/m/n/10 Implementation com-
+Overfull \hbox (6.48216pt too wide) in paragraph at lines 1323--1324
+\T1/cmr/m/n/10.95 state at $\OML/cmm/m/it/10.95 B[]$\T1/cmr/m/n/10.95 . This en
+-sures that rolling does not in-tro-duce trust as-sump-tions be-yond the blockc
+hain's
  []
 
 
 
 [27]
 
+LaTeX Font Warning: Font shape `T1/cmr/m/scit' undefined
+(Font)              using `T1/cmr/m/scsl' instead on input line 1386.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1406--1406
+[]|\T1/cmr/bx/n/10 Proof Gen-er-a-
+ []
+
+
+Underfull \hbox (badness 1365) in paragraph at lines 1410--1411
+[]|\T1/cmr/m/n/10 Pre-generated proofs re-
+ []
+
+
+
 [28]
 
 [29]
 
 [30]
-Underfull \hbox (badness 2744) in paragraph at lines 1713--1716
-[]\T1/cmr/m/n/10.95 Kaspa Im-prove-ment Pro-posal KIP-15: Se-quenc-ing Com-mit-
-ments for Trans-ac-tion
+
+[31]
+
+[32]
+
+[33]
+
+[34]
+
+[35]
+Overfull \hbox (7.89583pt too wide) in paragraph at lines 1866--1867
+[]\T1/cmr/bx/n/10.95 Simple Pay-ment Ver-i-fi-ca-tion (SPV): \T1/cmr/m/n/10.95 
+A client only needs to track the chain of \T1/cmtt/m/n/10.95 elog_root
  []
 
 
-Underfull \hbox (badness 5563) in paragraph at lines 1713--1716
-\T1/cmr/m/n/10.95 Or-der-ing. \T1/cmr/m/it/10.95 Kaspa Up-dates to Crescendo an
-d 10BPS\T1/cmr/m/n/10.95 , 2024. []$\T1/cmtt/m/n/10.95 https : / / kaspa . org 
-/
+
+[36]
+
+[37]
+Overfull \hbox (126.744pt too wide) in paragraph at lines 2003--2012
+ [][] 
  []
 
 
-Underfull \hbox (badness 3679) in paragraph at lines 1718--1721
-[]\T1/cmr/m/n/10.95 Kaspa Im-prove-ment Pro-posal KIP-6: Log-a-rith-mic Trans-a
-c-tion In-clu-sion Proofs.
+Overfull \hbox (103.19559pt too wide) in paragraph at lines 2033--2042
+ [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1723--1726
+
+[38]
+Overfull \hbox (11.85764pt too wide) in paragraph at lines 2054--2055
+[]\T1/cmr/m/n/10.95 The trade-off is fa-vor-able: for a mod-est stor-age and ne
+g-li-gi-ble per-for-mance cost, a GHOSTDAG-
+ []
+
+
+
+[39]
+
+[40]
+Overfull \hbox (1.2192pt too wide) in paragraph at lines 2154--2154
+[]|\T1/cmr/bx/n/10 Complexity| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2157--2157
+[]|\T1/cmr/m/n/10 Chain con-nec-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2159--2159
+[]|\T1/cmr/m/n/10 UTXO ex-is-
+ []
+
+
+
+[41]
+
+[42]
+Overfull \hbox (8.99011pt too wide) in paragraph at lines 2329--2330
+[]\T1/cmr/bx/n/10.95 Elegant Bi-nary De-com-po-si-tion: \T1/cmr/m/n/10.95 Math-
+e-mat-i-cally prin-ci-pled ap-proach lever-ag-ing number-
+ []
+
+
+
+[43]
+
+[44]
+Underfull \hbox (badness 10000) in paragraph at lines 2415--2416
+[]|\T1/cmr/bx/n/10 Execution-MMR
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2420--2420
+[]|\T1/cmr/m/n/10 Efficient In-clu-sion
+ []
+
+
+Underfull \hbox (badness 4391) in paragraph at lines 2421--2421
+[]|\T1/cmr/m/n/10 Proves Po-si-tion in
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2425--2425
+[]|$\OMS/cmsy/m/n/10 O\OT1/cmr/m/n/10 ([] \OML/cmm/m/it/10 D [] [] D\OT1/cmr/m/
+n/10 ) \OMS/cmsy/m/n/10 ^^B
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2442--2442
+[]|\T1/cmr/m/n/10 Batch proof op-ti-
+ []
+
+Package pgfplots info on input line 2474: Using 'lua backend=false' for axis: x
+mode=log unsupported (yet).
+Package pgfplots info on input line 2474: Using 'lua backend=false' for axis: y
+mode=log unsupported (yet).
+
+
+[45]
+
+[46]
+Underfull \hbox (badness 10000) in paragraph at lines 2573--2573
+[]|\T1/cmr/m/n/10 Supports $\OMS/cmsy/m/n/10 O\OT1/cmr/m/n/10 ([] \OML/cmm/m/it
+/10 n\OT1/cmr/m/n/10 )$
+ []
+
+
+Underfull \hbox (badness 5331) in paragraph at lines 2577--2577
+[]|\T1/cmr/m/n/10 Implementation com-
+ []
+
+
+Underfull \hbox (badness 1014) in paragraph at lines 2592--2592
+[]|\T1/cmr/m/n/10 Affects con-sen-sus ex-e-cu-
+ []
+
+
+Underfull \hbox (badness 1242) in paragraph at lines 2593--2593
+[]|\T1/cmr/m/n/10 Replaces lin-ear se-quenc-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2596--2596
+[]|\T1/cmr/m/n/10 Rolling is consensus-
+ []
+
+
+
+[47]
+
+[48]
+Overfull \hbox (4.82007pt too wide) in paragraph at lines 2624--2625
+[]\T1/cmr/m/n/10.95 Enables Ac-cepted Trans-ac-tions Archival Nodes (ATAN) to b
+oot-strap from un-trusted sources 
+ []
+
+
+Underfull \hbox (badness 7649) in paragraph at lines 2648--2648
+[]|\T1/cmr/m/n/10 Verification com-plex-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2648--2649
+[]|\T1/cmr/m/n/10 Implementation sim-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2651--2651
+[]|\T1/cmr/m/n/10 Bridge ver-i-fi-ca-tion
+ []
+
+
+Underfull \hbox (badness 2689) in paragraph at lines 2656--2656
+[]|\T1/cmr/m/n/10 Rolling/pruning com-
+ []
+
+
+Overfull \hbox (138.41998pt too wide) in paragraph at lines 2643--2659
+ [][] 
+ []
+
+
+
+[49]
+
+[50]
+
+[51]
+
+[52]
+Overfull \hbox (41.51549pt too wide) in paragraph at lines 2877--2878
+[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 B[]\OT1/cmr/m/n/10.95 )$\T1/cmr/m/n/1
+0.95 . Since $[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 B[]\OT1/cmr/m/n/10.95 )
+ = []([](\OML/cmm/m/it/10.95 B[]\OT1/cmr/m/n/10.95 ))$ \T1/cmr/m/n/10.95 and $[
+]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 B[]\OT1/cmr/m/n/10.95 )$
+ []
+
+
+
+[53]
+
+[54]
+
+[55]
+Overfull \hbox (10.80022pt too wide) in paragraph at lines 2998--2999
+[]\T1/cmr/m/it/10.95 Due to im-ple-men-ta-tion bug, miner pref-er-ence, or ma-l
+i-cious in-dexer, $[][]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 B\OT1/cmr/m/n/10
+.95 ) \OMS/cmsy/m/n/10.95 6\OT1/cmr/m/n/10.95 =
+ []
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.3014 ...ergence event could result in \$Y \times
+                                                   \epsilon$ in losses, wher...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+
+[56]
+
+LaTeX Font Warning: Font shape `T1/cmr/m/scit' undefined
+(Font)              using `T1/cmr/m/scsl' instead on input line 3046.
+
+
+Overfull \hbox (28.37912pt too wide) in paragraph at lines 3073--3074
+\T1/cmr/m/n/10.95 tions (not just in-cluded trans-ac-tions). The \T1/cmtt/m/n/1
+0.95 exec_root \T1/cmr/m/n/10.95 is de-rived from the same \T1/cmtt/m/n/10.95 a
+ccepted_tx_ids
+ []
+
+
+
+[57]
+
+[58]
+
+[59]
+
+[60]
+Underfull \hbox (badness 10000) in paragraph at lines 3183--3186
 []\T1/cmr/m/n/10.95 Herodotus Pro-to-col Doc-u-men-ta-tion: Merkle Moun-tain Ra
 nges. \T1/cmr/m/it/10.95 Herodotus
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1723--1726
+Underfull \hbox (badness 10000) in paragraph at lines 3183--3186
 \T1/cmr/m/it/10.95 Docs\T1/cmr/m/n/10.95 , 2024. []$\T1/cmtt/m/n/10.95 https : 
 / / docs . herodotus . dev / herodotus-[]docs / protocol-[]design /
  []
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 3264--3268
+\T1/cmtt/m/n/10.95 r1dr6vzfxhev / 2t4uxvsIqk0EUau6g2sw0g / 45eae33637ca92f85dd9
+f4a3a218e1bc / iota1 _
+ []
 
-[31] (./mmr_full_paper.aux)
+
+
+[61] (./mmr_full_paper.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `mmr_full_paper.out' has not changed.
-(rerunfilecheck)             Checksum: 39B5836D73599112DA9F88918745DFA3;11883.
+(rerunfilecheck)             Checksum: 9D4978DD44EB196207F56BE762315BE4;23259.
  ) 
 Here is how much of TeX's memory you used:
- 50248 strings out of 474662
- 1200204 string characters out of 5751108
- 1915714 words of memory out of 5000000
- 72346 multiletter control sequences out of 15000+600000
- 591092 words of font info for 109 fonts, out of 8000000 for 9000
+ 50803 strings out of 474662
+ 1208872 string characters out of 5751108
+ 1999703 words of memory out of 5000000
+ 72593 multiletter control sequences out of 15000+600000
+ 596520 words of font info for 124 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
  84i,19n,93p,1611b,2383s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </Users/arthur/Library/texlive/2025basic/texmf-var/fonts/pk/ljfour/jknappen/
-ec/ecti0800.600pk> </Users/arthur/Library/texlive/2025basic/texmf-var/fonts/pk/
+ec/ecbx0600.600pk> </Users/arthur/Library/texlive/2025basic/texmf-var/fonts/pk/
 ljfour/jknappen/ec/ecbx0800.600pk> </Users/arthur/Library/texlive/2025basic/tex
-mf-var/fonts/pk/ljfour/jknappen/ec/ecbx0600.600pk> </Users/arthur/Library/texli
-ve/2025basic/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0900.600pk> </Users/arth
-ur/Library/texlive/2025basic/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx0900.600
+mf-var/fonts/pk/ljfour/jknappen/ec/ecti0800.600pk> </Users/arthur/Library/texli
+ve/2025basic/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx0900.600pk> </Users/arth
+ur/Library/texlive/2025basic/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0700.600
 pk> </Users/arthur/Library/texlive/2025basic/texmf-var/fonts/pk/ljfour/jknappen
-/ec/eccc1095.600pk> </Users/arthur/Library/texlive/2025basic/texmf-var/fonts/pk
-/ljfour/jknappen/ec/ecrm0800.600pk> </Users/arthur/Library/texlive/2025basic/te
-xmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0600.600pk> </Users/arthur/Library/texl
-ive/2025basic/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1095.600pk> </Users/art
-hur/Library/texlive/2025basic/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.60
+/ec/ecrm0800.600pk> </Users/arthur/Library/texlive/2025basic/texmf-var/fonts/pk
+/ljfour/jknappen/ec/ectt0900.600pk> </Users/arthur/Library/texlive/2025basic/te
+xmf-var/fonts/pk/ljfour/jknappen/ec/ecit1095.600pk> </Users/arthur/Library/texl
+ive/2025basic/texmf-var/fonts/pk/ljfour/jknappen/ec/ecsc1095.600pk> </Users/art
+hur/Library/texlive/2025basic/texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1095.60
 0pk> </Users/arthur/Library/texlive/2025basic/texmf-var/fonts/pk/ljfour/jknappe
-n/ec/ecbx1200.600pk> </Users/arthur/Library/texlive/2025basic/texmf-var/fonts/p
-k/ljfour/jknappen/ec/ecti1095.600pk> </Users/arthur/Library/texlive/2025basic/t
-exmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095.600pk> </Users/arthur/Library/tex
-live/2025basic/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </Users/ar
-thur/Library/texlive/2025basic/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.6
+n/ec/ecbi1095.600pk> </Users/arthur/Library/texlive/2025basic/texmf-var/fonts/p
+k/ljfour/jknappen/ec/ecrm0600.600pk> </Users/arthur/Library/texlive/2025basic/t
+exmf-var/fonts/pk/ljfour/jknappen/ec/ectt1095.600pk> </Users/arthur/Library/tex
+live/2025basic/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.600pk> </Users/ar
+thur/Library/texlive/2025basic/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.6
 00pk> </Users/arthur/Library/texlive/2025basic/texmf-var/fonts/pk/ljfour/jknapp
-en/ec/ecrm0900.600pk> </Users/arthur/Library/texlive/2025basic/texmf-var/fonts/
-pk/ljfour/jknappen/ec/tcrm0600.600pk> </Users/arthur/Library/texlive/2025basic/
-texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1000.600pk> </Users/arthur/Library/te
-xlive/2025basic/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </Users/a
-rthur/Library/texlive/2025basic/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1000.
+en/ec/ecti1095.600pk> </Users/arthur/Library/texlive/2025basic/texmf-var/fonts/
+pk/ljfour/jknappen/ec/ecbx1095.600pk> </Users/arthur/Library/texlive/2025basic/
+texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </Users/arthur/Library/te
+xlive/2025basic/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.600pk> </Users/a
+rthur/Library/texlive/2025basic/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0900.
 600pk> </Users/arthur/Library/texlive/2025basic/texmf-var/fonts/pk/ljfour/jknap
-pen/ec/ecti1200.600pk> </Users/arthur/Library/texlive/2025basic/texmf-var/fonts
-/pk/ljfour/jknappen/ec/tcrm0800.600pk> </Users/arthur/Library/texlive/2025basic
-/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </Users/arthur/Library/t
-exlive/2025basic/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1728.600pk></usr/loc
-al/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr
-/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
-/usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pf
-b></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6
-.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-mi7.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmmi8.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmmi9.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmr10.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmr5.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmr6.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmr7.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025basic/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2025basic/texmf-dist/
-fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on mmr_full_paper.pdf (31 pages, 529146 bytes).
+pen/ec/tcrm0600.600pk> </Users/arthur/Library/texlive/2025basic/texmf-var/fonts
+/pk/ljfour/jknappen/ec/ectt1000.600pk> </Users/arthur/Library/texlive/2025basic
+/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1000.600pk> </Users/arthur/Library/t
+exlive/2025basic/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </Users/
+arthur/Library/texlive/2025basic/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1000
+.600pk> </Users/arthur/Library/texlive/2025basic/texmf-var/fonts/pk/ljfour/jkna
+ppen/ec/ecti1200.600pk> </Users/arthur/Library/texlive/2025basic/texmf-var/font
+s/pk/ljfour/jknappen/ec/tcrm0800.600pk> </Users/arthur/Library/texlive/2025basi
+c/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </Users/arthur/Library/
+texlive/2025basic/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1728.600pk></usr/lo
+cal/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
+r/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
+</usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.
+pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
+i5.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmmi6.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmmi7.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmmi8.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi9.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmr10.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr5.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2025basic/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025basic/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2025basic/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025basic/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025basic/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025basic/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2025basic
+/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
+Output written on mmr_full_paper.pdf (61 pages, 758077 bytes).
 PDF statistics:
- 1689 PDF objects out of 1728 (max. 8388607)
- 783 compressed objects within 8 object streams
- 243 named destinations out of 1000 (max. 500000)
- 573 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2703 PDF objects out of 2984 (max. 8388607)
+ 1471 compressed objects within 15 object streams
+ 542 named destinations out of 1000 (max. 500000)
+ 973 words of extra memory for PDF output out of 10000 (max. 10000000)
 
