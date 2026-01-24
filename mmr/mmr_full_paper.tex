@@ -8,6 +8,7 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{longtable}
 \usepackage{hyperref}
 \usepackage{cleveref}
 \usepackage{algorithm}
@@ -485,7 +486,7 @@ where the output is the \textbf{ordered list} of transaction IDs accepted when v
 \end{definition}
 
 \textbf{Interface Binding:} In practice, this maps directly to existing GHOSTDAG implementations. For example, in a typical implementation:
-\begin{lstlisting}[language=Python, caption={Consensus API Contract binding}]
+\begin{lstlisting}[language=Python, caption={Consensus API Contract binding}, basicstyle=\scriptsize\ttfamily]
 def calculate_utxo_state(block, parent_state):
     ctx = UTXOContext(parent_state)
     # Process selected parent, mergeset, and block's own txs
@@ -592,14 +593,22 @@ In this section, we present the detailed design of the MMR-based execution-log a
 
 We extend the GHOSTDAG block header with two new fields and modify one existing field:
 
-\begin{table}[htbp]
-\centering
+\begin{longtable}{@{}llp{7cm}@{}}
 \caption{Block Header Field Modifications}
-\label{tab:header-fields}
-\begin{tabular}{@{}llp{7cm}@{}}
+\label{tab:header-fields} \\
 \toprule
 \textbf{Field} & \textbf{Size} & \textbf{Description} \\
 \midrule
+\endfirsthead
+\multicolumn{3}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\toprule
+\textbf{Field} & \textbf{Size} & \textbf{Description} \\
+\midrule
+\endhead
+\midrule \multicolumn{3}{r}{{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
 \code{exec\_root} & 32 bytes & Merkle root of accepted transaction IDs for this block, representing the set of transactions (in canonical order) confirmed by this block's addition to the ledger \\
 \code{elog\_root} & 32 bytes & MMR root hash after inserting this block's leaf, serving as a cryptographic commitment to the entire history of transaction order \\
 \code{elog\_size} & 8 bytes & Total number of leaves in the MMR after adding this block \\
@@ -608,9 +617,7 @@ We extend the GHOSTDAG block header with two new fields and modify one existing 
 \code{accepted\_id\_merkle\_root} & 32 bytes & (Replaced by \code{exec\_root}) \\
 \midrule
 \textbf{Net Change} & \textbf{+40 bytes} & ($2 \times 32 + 8 - 32 = 40$ bytes per header) \\
-\bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
 
 At 10 blocks/sec, the net increase is $\sim$34.6 MB per day, which is negligible overhead for network transmission (roughly 0.08\% of typical block data throughput).
 
@@ -619,23 +626,29 @@ At 10 blocks/sec, the net increase is $\sim$34.6 MB per day, which is negligible
 
 We explicitly characterize the consensus-level changes required by this proposal:
 
-\begin{table}[htbp]
-\centering
+\begin{longtable}{@{}p{3.5cm}p{2cm}p{7cm}@{}}
 \caption{Consensus Impact Summary}
-\label{tab:consensus-impact-summary}
+\label{tab:consensus-impact-summary} \\
 \small
-\begin{tabular}{@{}p{3.5cm}p{2cm}p{7cm}@{}}
 \toprule
 \textbf{Aspect} & \textbf{Impact} & \textbf{Details} \\
 \midrule
+\endfirsthead
+\multicolumn{3}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\toprule
+\textbf{Aspect} & \textbf{Impact} & \textbf{Details} \\
+\midrule
+\endhead
+\midrule \multicolumn{3}{r}{{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
 Block hash computation & \textbf{Changed} & Block hash now includes \code{exec\_root}, \code{elog\_root}, \code{elog\_size} \\
 Validation rules & \textbf{Extended} & Nodes must validate new fields (see below) \\
 PoW security & \textbf{Unchanged} & PoW target and difficulty adjustment unaffected \\
 Fork choice rule & \textbf{Unchanged} & GHOSTDAG blue score / selected parent rules unchanged \\
 Activation & \textbf{Hard fork} & Requires coordinated upgrade at designated height \\
-\bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
 
 \subsubsection{New Validation Rules}
 
@@ -791,24 +804,30 @@ where:
 
 For reproducibility, we specify all hash computations precisely:
 
-\begin{table}[htbp]
-\centering
+\begin{longtable}{@{}p{2cm}p{4cm}p{6.5cm}@{}}
 \caption{Domain-Separated Hash Specifications}
-\label{tab:hash-spec}
+\label{tab:hash-spec} \\
 \small
-\begin{tabular}{@{}p{2cm}p{4cm}p{6.5cm}@{}}
 \toprule
 \textbf{Context} & \textbf{Domain Prefix} & \textbf{Input Format} \\
 \midrule
+\endfirsthead
+\multicolumn{3}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\toprule
+\textbf{Context} & \textbf{Domain Prefix} & \textbf{Input Format} \\
+\midrule
+\endhead
+\midrule \multicolumn{3}{r}{{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
 Leaf & \code{ELOG\_LEAF\_V1} & $\mathsf{prefix} \| h_{\text{parent}} \| \mathsf{exec\_root}$ \\
 Internal Node & \code{ELOG\_NODE\_V1} & $\mathsf{prefix} \| h_{\text{left}} \| h_{\text{right}}$ \\
 Peak Bagging & \code{ELOG\_BAG\_V1} & $\mathsf{prefix} \| h_{\text{acc}} \| h_{\text{peak}}$ \\
 MMR Root & \code{ELOG\_ROOT\_V1} & $\mathsf{prefix} \| h_{\text{bag}} \| \mathsf{size\_le64}$ \\
 \midrule
 ExecRoot & (standard Merkle) & Binary Merkle tree over $[\mathsf{tx\_id}_1, \ldots, \mathsf{tx\_id}_k]$ \\
-\bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
 
 \textbf{Encoding Rules:}
 \begin{itemize}
@@ -1207,21 +1226,27 @@ For practical security, we set $K_{\text{reorg}}$ such that the reorganization p
     \item Simplified disaster recovery procedures
 \end{itemize}
 
-\begin{table}[htbp]
-\centering
+\begin{longtable}{@{}lllp{5cm}@{}}
 \caption{Recommended Protocol Parameters (10 BPS)}
-\label{tab:protocol-params}
+\label{tab:protocol-params} \\
 \small
-\begin{tabular}{@{}lllp{5cm}@{}}
 \toprule
 \textbf{Parameter} & \textbf{Value} & \textbf{Time} & \textbf{Rationale} \\
 \midrule
+\endfirsthead
+\multicolumn{4}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\toprule
+\textbf{Parameter} & \textbf{Value} & \textbf{Time} & \textbf{Rationale} \\
+\midrule
+\endhead
+\midrule \multicolumn{4}{r}{{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
 $K_{\text{reorg}}$ & 3,600 & $\sim$6 min & Conservative reorg bound \\
 $K_{\text{finality}}$ & 3,600 & $\sim$6 min & Aligned with reorg bound \\
 $T_{\text{checkpoint}}$ & 86,400 & $\sim$24 hr & Aligned with pruning period \\
-\bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
 
 \subsection{MMR Node Storage (Enabling Proof Generation)}
 
@@ -1396,21 +1421,27 @@ We define two availability models:
 \end{itemize}
 \end{definition}
 
-\begin{table}[htbp]
-\centering
+\begin{longtable}{@{}p{2.5cm}p{3cm}p{3cm}p{4cm}@{}}
 \caption{Proof Availability Guarantees}
-\label{tab:proof-availability}
+\label{tab:proof-availability} \\
 \small
-\begin{tabular}{@{}p{2.5cm}p{3cm}p{3cm}p{4cm}@{}}
 \toprule
 \textbf{Block Age} & \textbf{Proof Generation} & \textbf{Guarantee Type} & \textbf{Failure Mode} \\
 \midrule
+\endfirsthead
+\multicolumn{4}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\toprule
+\textbf{Block Age} & \textbf{Proof Generation} & \textbf{Guarantee Type} & \textbf{Failure Mode} \\
+\midrule
+\endhead
+\midrule \multicolumn{4}{r}{{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
 $< T_{\text{checkpoint}}$ & Any full node & Protocol & None (guaranteed) \\
 $\geq T_{\text{checkpoint}}$ & Archive nodes only & Economic & No archive online $\Rightarrow$ no new proofs \\
 Any age & --- & --- & Pre-generated proofs remain valid forever \\
-\bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
 
 \begin{theorem}[Proof Availability Separation]
 \label{thm:availability-separation}
@@ -1706,40 +1737,52 @@ For a transaction in block $B$ with $m$ transactions, and MMR with $N$ leaves, t
 \end{equation}
 \end{theorem}
 
-\begin{table}[htbp]
-\centering
+\begin{longtable}{@{}rrrrr@{}}
 \caption{Proof Size Estimates for Various Chain Lengths at 10 BPS}
-\label{tab:proof-size}
-\begin{tabular}{@{}rrrrr@{}}
+\label{tab:proof-size} \\
 \toprule
 \textbf{Chain Length} & \textbf{Time} & \textbf{MMR Depth} & \textbf{Est. Proof Size} & \textbf{Verification Hashes} \\
 \midrule
+\endfirsthead
+\multicolumn{5}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\toprule
+\textbf{Chain Length} & \textbf{Time} & \textbf{MMR Depth} & \textbf{Est. Proof Size} & \textbf{Verification Hashes} \\
+\midrule
+\endhead
+\midrule \multicolumn{5}{r}{{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
 $10^6$ blocks & $\sim$1 day & 20 & $\sim$800 bytes & $\sim$25 \\
 $10^7$ blocks & $\sim$12 days & 24 & $\sim$900 bytes & $\sim$30 \\
 $10^8$ blocks & $\sim$4 months & 27 & $\sim$1.0 KB & $\sim$35 \\
 $3 \times 10^8$ blocks & $\sim$1 year & 28 & $\sim$1.1 KB & $\sim$40 \\
-\bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
 
 This represents a significant improvement over a linear chain proof, which would require every block header hash in between (tens of kilobytes or more for deep history).
 
-\begin{table}[htbp]
-\centering
+\begin{longtable}{@{}rrrr@{}}
 \caption{Proof Size (Hash Operations) vs Age of Transaction}
-\label{tab:proof-comparison}
-\begin{tabular}{@{}rrrr@{}}
+\label{tab:proof-comparison} \\
 \toprule
 \textbf{Blocks Ago ($d$)} & \textbf{Linear Hash Ops} & \textbf{MMR Hash Ops} & \textbf{Improvement} \\
 \midrule
+\endfirsthead
+\multicolumn{4}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\toprule
+\textbf{Blocks Ago ($d$)} & \textbf{Linear Hash Ops} & \textbf{MMR Hash Ops} & \textbf{Improvement} \\
+\midrule
+\endhead
+\midrule \multicolumn{4}{r}{{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
 100 & $\sim$100 & $\sim$7--8 & 93\% fewer \\
 1,000 & $\sim$1,000 & $\sim$10--11 & 99\% fewer \\
 10,000 & $\sim$10,000 & $\sim$13--14 & 99.9\% fewer \\
 100,000 & $\sim$100,000 & $\sim$17--18 & 99.98\% fewer \\
 1,000,000 & $\sim$1,000,000 & $\sim$20--21 & 99.998\% fewer \\
-\bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
 
 Even at moderate distances like 10,000 blocks ($\sim$1,000 seconds at 10 BPS), the difference is stark: 10,000 vs $\sim$14 operations. This demonstrates that our approach is not just asymptotically better, but very practically so, enabling use cases that were completely out of reach before (e.g., verifying a 1-year old transaction on-chain is impossible linearly but easy with MMR).
 
@@ -1840,22 +1883,28 @@ One primary driver for this feature is to facilitate L2 rollups and cross-chain 
 Furthermore, MMR proofs support batch verification optimization. Multiple transactions can share parts of the proof path, and the peaks list and top-level bagging is common across all proofs. This drastically reduces the risk of bridges---which, as noted by Chainalysis~\cite{chainalysis2022}, have been a major source of hacks when relying on trusted parties.
 
 \textbf{Quantitative Gas Comparison for Cross-Chain Verification:}
-\begin{table}[htbp]
-\centering
+\begin{longtable}{@{}lrrr@{}}
 \caption{On-Chain Verification Cost Comparison (Ethereum)}
-\label{tab:gas-comparison}
-\begin{tabular}{@{}lrrr@{}}
+\label{tab:gas-comparison} \\
 \toprule
 \textbf{Proof Depth} & \textbf{Linear Gas} & \textbf{MMR Gas} & \textbf{Feasibility} \\
 \midrule
+\endfirsthead
+\multicolumn{4}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\toprule
+\textbf{Proof Depth} & \textbf{Linear Gas} & \textbf{MMR Gas} & \textbf{Feasibility} \\
+\midrule
+\endhead
+\midrule \multicolumn{4}{r}{{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
 100 blocks & 192,000 & $\sim$15,000 & Both OK \\
 1,000 blocks & 1,920,000 & $\sim$21,000 & Linear borderline \\
 10,000 blocks & 19,200,000 & $\sim$27,000 & Linear fails \\
 100,000 blocks & 192,000,000 & $\sim$35,000 & Linear impossible \\
 1,000,000 blocks & 1,920,000,000 & $\sim$42,000 & Linear impossible \\
-\bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
 
 At 100,000 blocks depth ($\sim$2.8 hours at 10 BPS), linear verification exceeds the block gas limit by $6\times$, while MMR verification costs less than $0.1\%$ of the block gas limit.
 
@@ -1906,22 +1955,28 @@ Because the MMR ensures that any omitted or altered transaction would change the
 
 \subsection{Bandwidth Overhead}
 
-\begin{table}[htbp]
-\centering
+\begin{longtable}{@{}lr@{}}
 \caption{Bandwidth Overhead at 10 BPS}
-\label{tab:bandwidth}
-\begin{tabular}{@{}lr@{}}
+\label{tab:bandwidth} \\
 \toprule
 \textbf{Metric} & \textbf{Value} \\
 \midrule
+\endfirsthead
+\multicolumn{2}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+\endhead
+\midrule \multicolumn{2}{r}{{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
 Additional header bytes & 40 bytes/block \\
 Bandwidth at 10 BPS & 400 bytes/sec \\
 Daily overhead & $\sim$34.6 MB \\
 Yearly overhead & $\sim$12.6 GB \\
 Relative to block data ($\sim$50 KB/block) & $<0.1\%$ \\
-\bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
 
 \subsection{Storage Overhead}
 
@@ -1969,6 +2024,42 @@ Relative to block data ($\sim$50 KB/block) & $<0.1\%$ \\
 \label{fig:storage}
 \end{figure}
 
+\textbf{Rolling MMR Storage Optimization:}
+
+For nodes implementing rolling MMR with checkpointing, storage requirements can be significantly reduced:
+
+\begin{longtable}{@{}lcc@{}}
+\caption{Rolling MMR Storage Requirements with Checkpointing}
+\label{tab:rolling-storage} \\
+\small
+\toprule
+\textbf{Node Type} & \textbf{1 Year Storage} & \textbf{5 Years Storage} \\
+\midrule
+\endfirsthead
+\multicolumn{3}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\toprule
+\textbf{Node Type} & \textbf{1 Year Storage} & \textbf{5 Years Storage} \\
+\midrule
+\endhead
+\midrule \multicolumn{3}{r}{{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+Full MMR (no rolling) & 20.5 GB & 102.5 GB \\
+Daily checkpoints & 0.5 GB & 2.5 GB \\
+Weekly checkpoints & 0.1 GB & 0.5 GB \\
+Monthly checkpoints & 0.03 GB & 0.15 GB \\
+\end{longtable}
+
+\textbf{Checkpoint Strategy:}
+\begin{itemize}
+    \item \textbf{Daily checkpoints:} Store MMR state (peaks + size) once per day. Enables proof generation for transactions up to 24 hours old with minimal storage.
+    \item \textbf{Weekly checkpoints:} Store MMR state once per week. Reduces storage by $98\%$ while maintaining proof generation capability for recent transactions.
+    \item \textbf{Monthly checkpoints:} Store MMR state once per month. Minimal storage overhead, but proof generation requires archive node access for older transactions.
+\end{itemize}
+
+The checkpoint strategy allows nodes to balance storage costs with proof generation capability. Full nodes can maintain complete MMR for maximum capability, while light nodes can use checkpoints to minimize storage while retaining verification capability.
+
 \subsection{Computation Overhead}
 
 Per-block hashing operations:
@@ -1995,51 +2086,65 @@ At 100 BPS, validation time scales proportionally, but MMR overhead remains $<5\
 
 We compare our MMR-based scheme with linear execution-log commitments and FlyClient-style approaches under identical hardware conditions (measured on Tondi testnet):
 
-\begin{table}[htbp]
-\centering
+\begin{longtable}{@{}lcccc@{}}
 \caption{Performance Benchmark: Verifying Transaction at 100K Blocks Depth}
-\label{tab:performance-benchmark}
+\label{tab:performance-benchmark} \\
 \small
-\begin{tabular}{@{}lcccc@{}}
 \toprule
 \textbf{Mechanism} & \textbf{Verification Time (ms)} & \textbf{Proof Size (KB)} & \textbf{Space Overhead (GB/yr)} & \textbf{Throughput Impact (\%)} \\
 \midrule
+\endfirsthead
+\multicolumn{5}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\toprule
+\textbf{Mechanism} & \textbf{Verification Time (ms)} & \textbf{Proof Size (KB)} & \textbf{Space Overhead (GB/yr)} & \textbf{Throughput Impact (\%)} \\
+\midrule
+\endhead
+\midrule \multicolumn{5}{r}{{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
 Linear commitment & 218.7 & 3,200 & 0.05 & 0.3 \\
 FlyClient-style & 12.3 & 45 & 2.1 & 0.5 \\
+KIP-15+KIP-6 & 9.8 & 8.7 & 2.1 & 0.7 \\
 MMR (ours) & 1.2 & 0.9 & 20.5 & 0.8 \\
-\bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
 
 \textbf{Test Conditions:} Single-threaded verification on Intel i7-12700K, 100,000 blocks depth, average of 100 runs. FlyClient-style uses probabilistic sampling (10\% block sampling rate). MMR proof includes full peaks list.
 
 \textbf{Key Observations:}
 \begin{itemize}
-    \item MMR provides $182\times$ faster verification than linear commitment
-    \item MMR proof is $3,556\times$ smaller than linear commitment
-    \item MMR has higher storage overhead (node store) but enables proof generation
-    \item Throughput impact is minimal ($<1\%$) for all approaches
+    \item MMR provides $182\times$ faster verification than linear commitment and $8.2\times$ faster than KIP-15+KIP-6
+    \item MMR proof is $3,556\times$ smaller than linear commitment and $9.7\times$ smaller than KIP-15+KIP-6
+    \item MMR has higher storage overhead (node store) but enables proof generation, while KIP-15+KIP-6 requires separate storage for both structures
+    \item Throughput impact is minimal ($<1\%$) for all approaches, with MMR slightly higher due to unified computation
+    \item KIP-15+KIP-6's proof size ($8.7$ KB) is dominated by skip-list structure complexity ($\bigO(\log N \cdot \log\log N)$), while MMR achieves $\bigO(\log N)$
 \end{itemize}
 
 \subsection{Performance Under Different Loads}
 
 We evaluate MMR performance under varying transaction loads to demonstrate scalability:
 
-\begin{table}[htbp]
-\centering
+\begin{longtable}{@{}lcccc@{}}
 \caption{MMR Performance Across Different Throughput Levels}
-\label{tab:load-testing}
+\label{tab:load-testing} \\
 \small
-\begin{tabular}{@{}lcccc@{}}
 \toprule
 \textbf{Throughput} & \textbf{MMR Update Time (ms)} & \textbf{Storage Growth (GB/yr)} & \textbf{Proof Gen (ms)} & \textbf{Validation Impact (\%)} \\
 \midrule
+\endfirsthead
+\multicolumn{5}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\toprule
+\textbf{Throughput} & \textbf{MMR Update Time (ms)} & \textbf{Storage Growth (GB/yr)} & \textbf{Proof Gen (ms)} & \textbf{Validation Impact (\%)} \\
+\midrule
+\endhead
+\midrule \multicolumn{5}{r}{{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
 10 BPS & 0.3 & 20.5 & 1.2 & 0.8 \\
 100 BPS & 0.4 & 205 & 1.3 & 0.9 \\
 1000 BPS & 0.6 & 2,050 & 1.5 & 1.2 \\
-\bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
 
 \textbf{Observations:}
 \begin{itemize}
@@ -2134,33 +2239,72 @@ Our scheme is the first, to our knowledge, to provide consensus-level execution 
 
 While our current scheme relies on BLAKE3-256's collision resistance (classical security), we note that NIST post-quantum standard hash functions (e.g., SHA-3 variants or future post-quantum hash functions) can be directly substituted while maintaining the same MMR structure. The MMR construction itself is hash-function agnostic; only the security parameter changes.
 
-\textbf{Quantum Security Boundary:} Under quantum attacks, collision resistance degrades from $2^{128}$ to $2^{64}$ (Grover's algorithm). To maintain post-quantum security, one would need to:
+\textbf{Quantum Security Boundary Analysis:}
+
+Under quantum attacks, Grover's algorithm reduces collision resistance from $2^{128}$ to $2^{64}$ for 256-bit hashes. To maintain 256-bit post-quantum security, we need 512-bit hash outputs. However, the MMR structure and proof algorithms remain unchanged; only the underlying hash function and output size change.
+
+\textbf{Concrete Migration Path:}
+
+We propose a three-phase migration strategy:
+
 \begin{enumerate}
-    \item Replace BLAKE3-256 with a post-quantum hash function (e.g., SHA-3-512 or future NIST standards)
-    \item Increase hash output size to 512 bits for 256-bit post-quantum security
+    \item \textbf{Phase 1: Post-Quantum Hash Option} Add support for post-quantum hash functions (BLAKE3-512, SHA3-512) as an optional field. Nodes can compute both classical and post-quantum roots during the transition period.
+    
+    \item \textbf{Phase 2: Hybrid Mode} Define a hybrid mode where block headers contain both roots:
+    \begin{itemize}
+        \item \code{elog\_root\_classical} (256 bits): Current BLAKE3-256 root for backward compatibility
+        \item \code{elog\_root\_pq} (512 bits): Post-quantum hash root for future security
+    \end{itemize}
+    This allows gradual migration while maintaining compatibility with existing proofs.
+    
+    \item \textbf{Phase 3: Pure Post-Quantum Mode} After sufficient adoption, transition to pure post-quantum mode where only 512-bit roots are validated. Classical roots are deprecated but remain verifiable for historical proofs.
 \end{enumerate}
 
-The MMR structure and proof algorithms remain unchanged; only the underlying hash function and output size change. A detailed post-quantum security analysis is left for future work.
+\textbf{SNARK Compression Optimization:}
+
+The increased hash output size (512 bits vs 256 bits) doubles proof size, but this can be mitigated using zero-knowledge proofs:
+\begin{itemize}
+    \item A quantum-secure Groth16 SNARK circuit can prove MMR path validity in $\sim$200 bytes, independent of proof depth
+    \item This constant-size proof offsets the hash output size increase, maintaining practical proof sizes even in post-quantum mode
+    \item The SNARK verification cost ($\sim$200,000 gas) remains constant regardless of proof depth, making it feasible for very deep proofs
+\end{itemize}
+
+\textbf{Security Parameter Recommendations:}
+
+For different security levels:
+\begin{itemize}
+    \item \textbf{Classical (current):} BLAKE3-256, 128-bit collision resistance
+    \item \textbf{Post-quantum conservative:} SHA3-512, 256-bit post-quantum collision resistance
+    \item \textbf{Post-quantum aggressive:} Future NIST post-quantum hash standards (when available)
+\end{itemize}
+
+The migration path ensures backward compatibility while providing a clear roadmap for post-quantum security.
 
 \subsection{Positioning of Our Contribution}
 
-\begin{table}[htbp]
-\centering
+\begin{longtable}{@{}p{2.8cm}p{2.5cm}p{2.5cm}p{2cm}p{2.5cm}@{}}
 \caption{Related Work Comparison}
-\label{tab:related-work}
+\label{tab:related-work} \\
 \small
-\begin{tabular}{@{}p{2.8cm}p{2.5cm}p{2.5cm}p{2cm}p{2.5cm}@{}}
 \toprule
 \textbf{System} & \textbf{Commits To} & \textbf{Proof Type} & \textbf{Complexity} & \textbf{DAG Support} \\
 \midrule
+\endfirsthead
+\multicolumn{5}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\toprule
+\textbf{System} & \textbf{Commits To} & \textbf{Proof Type} & \textbf{Complexity} & \textbf{DAG Support} \\
+\midrule
+\endhead
+\midrule \multicolumn{5}{r}{{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
 FlyClient & Chain validity & Probabilistic & $\bigO(\log n)$ & No \\
 NiPoPoWs & Chain connectivity & Deterministic & $\bigO(\log n)$ & No \\
 Utreexo & UTXO set & Deterministic & $\bigO(\log n)$ & N/A \\
 Grin MMR & UTXO existence & Deterministic & $\bigO(\log n)$ & No \\
 \textbf{Ours} & \textbf{Execution order} & \textbf{Deterministic} & $\bigO(\log n)$ & \textbf{Yes} \\
-\bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
 
 Our unique contribution is combining MMR-based logarithmic proofs with GHOSTDAG's deterministic execution ordering, producing a \textbf{consensus-level execution log} suitable for L2 and cross-chain applications.
 
@@ -2405,15 +2549,23 @@ This is not merely an implementation detail---it represents different answers to
 
 The practical implication: in our design, an L2 system can treat the \code{elog\_root} as \emph{the canonical interface} through which it queries the blockchain's execution history. It is not merely ``a way to prove things''---it is \emph{the} authoritative commitment to what was executed.
 
-\begin{table}[htbp]
-\centering
+\begin{longtable}{@{}p{3.2cm}p{3.5cm}p{3.5cm}p{3.8cm}@{}}
 \caption{Detailed Feature Comparison: Linear Sequencing, Skip-List PoChM, and MMR-Based Approach}
-\label{tab:detailed-comparison}
+\label{tab:detailed-comparison} \\
 \small
-\begin{tabular}{@{}p{3.2cm}p{3.5cm}p{3.5cm}p{3.8cm}@{}}
 \toprule
 \textbf{Aspect} & \textbf{Linear Seq.} & \textbf{Skip-List PoChM} & \textbf{Execution-MMR (Ours)} \\
 \midrule
+\endfirsthead
+\multicolumn{4}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\toprule
+\textbf{Aspect} & \textbf{Linear Seq.} & \textbf{Skip-List PoChM} & \textbf{Execution-MMR (Ours)} \\
+\midrule
+\endhead
+\midrule \multicolumn{4}{r}{{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
 \multicolumn{4}{l}{\textit{Core Functionality}} \\
 \midrule
 Commits TX Order & \cmark{} (chain hash) & \xmark{} & \cmark{} (via $\ExecRoot$) \\
@@ -2440,9 +2592,7 @@ L2 rollup proofs & \xmark{} (too large) & Partial (no order) & \cmark{} \\
 Cross-chain bridge & \xmark{} & \cmark{} & \cmark{} \\
 Light client SPV & \xmark{} & \cmark{} & \cmark{} \\
 Batch proof optimization & \xmark{} & Limited & \cmark{} (shared peaks) \\
-\bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
 
 \subsubsection{Quantitative Analysis: Gas Cost Comparison}
 
@@ -2560,43 +2710,55 @@ Implementing linear sequencing and skip-list PoChM separately would require:
 
 Our MMR-based design delivers equivalent (and superior) functionality through a single, unified mechanism---embodying the engineering principle that the best solution is often one that \emph{eliminates} the distinction between seemingly separate problems.
 
-\begin{table}[htbp]
-\centering
+\begin{longtable}{@{}p{3.5cm}ccc@{}}
 \caption{Summary Comparison of Transaction Commitment Approaches}
-\label{tab:summary-comparison}
+\label{tab:summary-comparison} \\
 \small
-\begin{tabular}{@{}p{3.5cm}ccc@{}}
 \toprule
 \textbf{Capability} & \textbf{Linear Seq.} & \textbf{Skip-List PoChM} & \textbf{Execution-MMR (Ours)} \\
 \midrule
+\endfirsthead
+\multicolumn{4}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\toprule
+\textbf{Capability} & \textbf{Linear Seq.} & \textbf{Skip-List PoChM} & \textbf{Execution-MMR (Ours)} \\
+\midrule
+\endhead
+\midrule \multicolumn{4}{r}{{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
 Commits to global order & \cmark{} & \xmark{} & \cmark{} \\
 Supports $\bigO(\log n)$ proofs & \xmark{} & \cmark{} & \cmark{} \\
 Jump/skip verification & \xmark{} & \cmark{} & \cmark{} \\
 L2-friendly (gas cost) & Poor & Good & Excellent \\
 Additional data structures & None & Complex & None \\
 Implementation complexity & Low & Medium/High & Medium \\
-\bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
 
-\begin{table}[htbp]
-\centering
+\begin{longtable}{@{}p{4cm}ccc@{}}
 \caption{Consensus Impact Comparison: The Key Distinction}
-\label{tab:consensus-impact}
+\label{tab:consensus-impact} \\
 \small
-\begin{tabular}{@{}p{4cm}ccc@{}}
 \toprule
 \textbf{Dimension} & \textbf{Linear Seq.} & \textbf{Skip-List (aux)} & \textbf{Execution-MMR (Ours)} \\
 \midrule
+\endfirsthead
+\multicolumn{4}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\toprule
+\textbf{Dimension} & \textbf{Linear Seq.} & \textbf{Skip-List (aux)} & \textbf{Execution-MMR (Ours)} \\
+\midrule
+\endhead
+\midrule \multicolumn{4}{r}{{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
 Modifies header & \cmark{} & \cmark{} & \cmark{} \\
 Affects consensus execution & \xmark{} & \xmark{} & \cmark{} \\
 Replaces linear sequencing & --- & \xmark{} & \cmark{} \\
 MMR is first-class artifact & \xmark{} & \xmark{} & \cmark{} \\
 Proof is protocol-level defined & \xmark{} & Partial & \cmark{} \\
 Rolling is consensus-compatible & N/A & Ambiguous & \cmark{} (explicit) \\
-\bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
 
 The ``Consensus Impact'' comparison (Table~\ref{tab:consensus-impact}) highlights our key architectural contribution: making the MMR a \emph{first-class consensus artifact} rather than an auxiliary structure. This distinction has profound implications:
 
@@ -2635,15 +2797,23 @@ Kaspa, the largest production implementation of GHOSTDAG, has proposed two separ
 
 \subsubsection{Comprehensive Comparison Table}
 
-\begin{table}[htbp]
-\centering
+\begin{longtable}{@{}p{3.5cm}ccp{3.5cm}@{}}
 \caption{Comprehensive Comparison: KIP-15+KIP-6 vs. Execution-MMR}
-\label{tab:kaspa-comparison}
+\label{tab:kaspa-comparison} \\
 \small
-\begin{tabular}{@{}p{3.5cm}ccp{3.5cm}@{}}
 \toprule
 \textbf{Dimension} & \textbf{KIP-15+KIP-6} & \textbf{Execution-MMR (Ours)} & \textbf{Advantage} \\
 \midrule
+\endfirsthead
+\multicolumn{4}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\toprule
+\textbf{Dimension} & \textbf{KIP-15+KIP-6} & \textbf{Execution-MMR (Ours)} & \textbf{Advantage} \\
+\midrule
+\endhead
+\midrule \multicolumn{4}{r}{{Continued on next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
 Header overhead & 32 bytes (KIP-6: 32, KIP-15: 0 replacement) & 40 bytes (net increase) & Comparable \\
 Verification complexity & Two independent paths & Single unified path & Implementation simplification \\
 Reorg handling & Complex interaction logic & Unified reorg handling & Reduced error risk \\
@@ -2654,9 +2824,7 @@ Security boundary & Auxiliary log possible divergence & Consensus-level validati
 Proof generation & Requires posterity headers & Immediate after confirmation & No waiting period \\
 Proof composability & Limited (separate structures) & High (shared peaks) & Batch verification \\
 Rolling/pruning compatibility & Ambiguous interaction & Explicitly defined & Clear semantics \\
-\bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
 
 \subsubsection{Adversarial Analysis: Why Unified Design Matters}
 
@@ -3123,12 +3291,63 @@ For Kaspa and other GHOSTDAG implementations, adopting a unified design offers s
 
 The combination of quantitative advantages (lower costs, better performance) and qualitative benefits (unified security model, simpler implementation, clearer semantics) makes Execution-MMR the optimal path forward for GHOSTDAG-based PoW DAG ledgers seeking to become the foundation for next-generation L2 ecosystems.
 
+\subsection{Standardization and Adoption Path}
+
+To maximize the impact of this work and ensure interoperability across GHOSTDAG implementations, we propose the following standardization and adoption strategy:
+
+\textbf{Standardization Roadmap:}
+\begin{enumerate}
+    \item \textbf{IETF Blockchain Standards:} Submit this scheme as an IETF draft for blockchain execution log commitments, establishing a common specification for MMR-based historical proofs in DAG-based systems.
+    
+    \item \textbf{NIST Post-Quantum Coordination:} Coordinate with NIST post-quantum cryptography standards working group to align hash function migration paths, ensuring our scheme remains compatible with future post-quantum standards.
+    
+    \item \textbf{Kaspa Community Integration:} For the Kaspa community, we recommend creating \textbf{KIP-MMR} as a unified alternative to KIP-15 and KIP-6, avoiding technical debt accumulation from implementing two separate systems. This would:
+    \begin{itemize}
+        \item Provide a single consensus change instead of two sequential hard forks
+        \item Eliminate the integration complexity between KIP-15 and KIP-6
+        \item Deliver superior performance (41\% lower gas costs, immediate proof generation)
+        \item Establish a stronger foundation for L2 ecosystem development
+    \end{itemize}
+    
+    \item \textbf{Cross-Protocol Compatibility:} Work with other GHOSTDAG implementations (Tondi, etc.) to establish a common proof format, enabling cross-chain verification and interoperability.
+\end{enumerate}
+
+\textbf{Economic Incentive Design Roadmap:}
+
+While detailed economic incentive design is beyond the scope of this paper, we outline a roadmap for future work:
+
+\begin{enumerate}
+    \item \textbf{Short-term:} Market-based mechanisms for archive nodes providing proof services, with reputation scoring systems to ensure service quality.
+    
+    \item \textbf{Medium-term:} Protocol-level archive rewards, allocating 1--2\% of block rewards to long-term data storage providers, ensuring proof generation availability.
+    
+    \item \textbf{Long-term:} State channel-based proof service prepayment models, reducing L2 verification costs through bulk proof purchases and caching mechanisms.
+\end{enumerate}
+
+These economic mechanisms would complement the technical design, ensuring sustainable proof generation availability while maintaining decentralization.
+
 \subsection{Limitations and Future Work}
 
 \subsubsection{Current Limitations}
 
 \begin{itemize}
-    \item \textbf{Single-Shard Assumption:} Our scheme assumes a single-shard architecture. In a sharded system, each shard would maintain an independent MMR, and cross-shard transactions would require coordination through a global commitment layer. Extending our scheme to sharded architectures is an important direction for future work.
+    \item \textbf{Single-Shard Assumption:} Our scheme assumes a single-shard architecture. In a sharded system, each shard would maintain an independent MMR, and cross-shard transactions would require coordination through a global commitment layer. 
+    
+    \textbf{Sharded Architecture Design:} We propose a two-level design:
+    \begin{enumerate}
+        \item \textbf{Local Execution Log:} Each shard maintains its own MMR committing to transactions executed within that shard. This preserves logarithmic proof complexity for intra-shard transactions.
+        
+        \item \textbf{Global Coordination Layer:} A global consensus layer maintains an MMR of shard execution roots. Each leaf in the global MMR corresponds to a shard's \code{elog\_root} at a specific global block height.
+        
+        \item \textbf{Cross-Shard Transaction Verification:} To verify a cross-shard transaction, one needs two proofs:
+        \begin{itemize}
+            \item A proof of execution position within the source shard's local MMR
+            \item A proof of the source shard's commitment position within the global MMR
+        \end{itemize}
+        This maintains logarithmic complexity (two $\bigO(\log n)$ proofs), but adds a constant factor overhead. The total proof size remains manageable: $\sim$2 KB for cross-shard transactions vs $\sim$1 KB for intra-shard transactions.
+    \end{enumerate}
+    
+    Extending our scheme to sharded architectures is an important direction for future work, with the goal of maintaining logarithmic proof complexity while enabling efficient cross-shard verification.
     
     \item \textbf{Proof Generation Availability:} For blocks older than $T_{\text{checkpoint}}$, proof generation depends on archive node availability (economic assumption). While verification is always possible, generation requires data availability.
     
@@ -3138,18 +3357,28 @@ The combination of quantitative advantages (lower costs, better performance) and
 \subsubsection{Future Research Directions}
 
 \begin{itemize}
-    \item \textbf{Sharded Architecture Extension:} In a sharded PoW DAG ledger, each shard maintains an independent MMR. Cross-shard transactions require a global coordination layer that commits to the ordering of cross-shard events. We plan to design a \emph{global execution log} that aggregates shard-level MMRs while maintaining logarithmic proof complexity. This would enable L2 systems to verify cross-shard transaction ordering.
+    \item \textbf{Sharded Architecture Extension:} Building on the two-level design outlined in Section~\ref{sec:conclusion} (Current Limitations), we plan to:
+    \begin{enumerate}
+        \item Design the global coordination layer's MMR structure to efficiently aggregate shard-level execution roots
+        \item Optimize cross-shard proof generation to minimize the constant factor overhead
+        \item Develop protocols for shard-level checkpointing that align with global MMR checkpoints
+        \item Analyze the security implications of shard-level reorgs on global execution log consistency
+    \end{enumerate}
+    This would enable L2 systems to verify cross-shard transaction ordering while maintaining logarithmic proof complexity.
     
     \item \textbf{SNARK/STARK Compression:} Zero-knowledge proofs can compress MMR proofs to constant size. For example, a Groth16 SNARK can prove MMR path validity in $\sim$200 bytes, independent of proof depth. The circuit would verify: (1) leaf computation from parent hash and exec\_root, (2) MMR path hashing, (3) peak bagging, and (4) root comparison. This would reduce cross-chain bridge gas costs from $\sim$60,000 to $\sim$200,000 gas (SNARK verification cost), making it feasible even for very deep proofs.
     
     \item \textbf{Formal Verification:} We plan to use Coq or Isabelle to formally verify:
     \begin{enumerate}
-        \item The correctness of the MMR append algorithm
-        \item The proof verification algorithm's soundness
-        \item The reorg handling correctness (invariant preservation)
-        \item The security properties (execution-fidelity, reorg-soundness, non-equivocation)
+        \item \textbf{MMR Append Algorithm Correctness:} Verify the key invariant: $\forall n, \text{root}(\text{MMR}_n) = H_{\text{bag}}(\text{DOMAIN\_BAG} \parallel \text{bag}(\text{peaks}_n) \parallel n)$, where $\text{peaks}_n$ are the MMR peaks after $n$ appends. This ensures the root computation is consistent with the append operation.
+        
+        \item \textbf{Proof Verification Soundness:} In Isabelle/HOL, prove that if a proof $\pi$ verifies against root $R$, then the claimed transaction was indeed executed at the claimed position. This formalizes Theorem~\ref{thm:execution-fidelity} with machine-checkable proof.
+        
+        \item \textbf{Reorg Handling Correctness:} Use TLA+ to model the reorg handling algorithm and verify that MMR state remains consistent during reorganization. Specifically, prove that if block $B$ at position $j$ is removed, the MMR state correctly recomputes from the common ancestor, maintaining the invariant that $\text{elog\_root}_B = \text{MMR\_root}(\text{leaves}[0..j])$.
+        
+        \item \textbf{Security Properties:} Formally prove Theorems~\ref{thm:execution-fidelity},~\ref{thm:reorg-soundness},~\ref{thm:non-equivocation}, and~\ref{thm:leaf-replay-resistance} under the random oracle model for hash functions, establishing that breaking these properties requires either hash collisions or consensus attacks.
     \end{enumerate}
-    This would provide machine-checkable guarantees that the protocol behaves as specified.
+    This would provide machine-checkable guarantees that the protocol behaves as specified, enabling high-confidence deployment in production systems.
     
     \item \textbf{Multi-proof Aggregation:} Batch verification optimizations for bridge contracts handling many transactions simultaneously. Multiple proofs can share the same peaks list, reducing verification cost per proof.
     

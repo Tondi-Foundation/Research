@@ -53,56 +53,57 @@
 \contentsline {section}{\numberline {7}Overhead Analysis}{37}{section.7}%
 \contentsline {subsection}{\numberline {7.1}Bandwidth Overhead}{37}{subsection.7.1}%
 \contentsline {subsection}{\numberline {7.2}Storage Overhead}{37}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3}Computation Overhead}{37}{subsection.7.3}%
-\contentsline {subsection}{\numberline {7.4}Performance Benchmark Comparison}{38}{subsection.7.4}%
-\contentsline {subsection}{\numberline {7.5}Performance Under Different Loads}{38}{subsection.7.5}%
-\contentsline {section}{\numberline {8}Related Work}{39}{section.8}%
-\contentsline {subsection}{\numberline {8.1}Merkle Mountain Ranges in Blockchain Systems}{39}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2}Logarithmic Proof Protocols}{39}{subsection.8.2}%
+\contentsline {subsection}{\numberline {7.3}Computation Overhead}{38}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Performance Benchmark Comparison}{39}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Performance Under Different Loads}{39}{subsection.7.5}%
+\contentsline {section}{\numberline {8}Related Work}{40}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Merkle Mountain Ranges in Blockchain Systems}{40}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Logarithmic Proof Protocols}{40}{subsection.8.2}%
 \contentsline {subsection}{\numberline {8.3}DAG Consensus and Linearization}{40}{subsection.8.3}%
-\contentsline {subsection}{\numberline {8.4}Transaction Ordering Commitments}{40}{subsection.8.4}%
-\contentsline {subsection}{\numberline {8.5}Relationship to Ethereum Verkle Trees}{40}{subsection.8.5}%
-\contentsline {subsection}{\numberline {8.6}Other DAG Systems: Conflux and IOTA}{40}{subsection.8.6}%
+\contentsline {subsection}{\numberline {8.4}Transaction Ordering Commitments}{41}{subsection.8.4}%
+\contentsline {subsection}{\numberline {8.5}Relationship to Ethereum Verkle Trees}{41}{subsection.8.5}%
+\contentsline {subsection}{\numberline {8.6}Other DAG Systems: Conflux and IOTA}{41}{subsection.8.6}%
 \contentsline {subsection}{\numberline {8.7}Post-Quantum Considerations}{41}{subsection.8.7}%
-\contentsline {subsection}{\numberline {8.8}Positioning of Our Contribution}{41}{subsection.8.8}%
-\contentsline {section}{\numberline {9}Comparison with Alternative Approaches}{41}{section.9}%
-\contentsline {subsection}{\numberline {9.1}Linear Execution-Log Commitment}{41}{subsection.9.1}%
-\contentsline {subsubsection}{\numberline {9.1.1}Design Philosophy and Mechanism}{41}{subsubsection.9.1.1}%
-\contentsline {subsubsection}{\numberline {9.1.2}Strengths}{42}{subsubsection.9.1.2}%
-\contentsline {subsubsection}{\numberline {9.1.3}Limitations}{42}{subsubsection.9.1.3}%
-\contentsline {subsection}{\numberline {9.2}Skip-List Based Proof of Chain Membership (PoChM)}{42}{subsection.9.2}%
-\contentsline {subsubsection}{\numberline {9.2.1}Design Philosophy and Mechanism}{42}{subsubsection.9.2.1}%
-\contentsline {subsubsection}{\numberline {9.2.2}Proof Construction Algorithm}{43}{subsubsection.9.2.2}%
-\contentsline {subsubsection}{\numberline {9.2.3}Strengths}{43}{subsubsection.9.2.3}%
-\contentsline {subsubsection}{\numberline {9.2.4}Limitations}{44}{subsubsection.9.2.4}%
-\contentsline {subsection}{\numberline {9.3}Comparative Analysis: Deep Insights}{44}{subsection.9.3}%
-\contentsline {subsubsection}{\numberline {9.3.1}The Fundamental Tension}{44}{subsubsection.9.3.1}%
-\contentsline {subsubsection}{\numberline {9.3.2}The Architectural Incompatibility}{44}{subsubsection.9.3.2}%
-\contentsline {subsubsection}{\numberline {9.3.3}Why MMR is the Natural Synthesis}{45}{subsubsection.9.3.3}%
-\contentsline {subsubsection}{\numberline {9.3.4}The Fundamental Philosophical Difference}{45}{subsubsection.9.3.4}%
-\contentsline {subsubsection}{\numberline {9.3.5}Quantitative Analysis: Gas Cost Comparison}{45}{subsubsection.9.3.5}%
-\contentsline {subsubsection}{\numberline {9.3.6}Architectural Elegance: The MMR Advantage}{47}{subsubsection.9.3.6}%
-\contentsline {subsection}{\numberline {9.4}Summary: Why Unification Matters}{47}{subsection.9.4}%
-\contentsline {subsection}{\numberline {9.5}Comparison with Kaspa Improvement Proposals}{48}{subsection.9.5}%
-\contentsline {subsubsection}{\numberline {9.5.1}Overview of KIP-15 and KIP-6}{48}{subsubsection.9.5.1}%
-\contentsline {subsubsection}{\numberline {9.5.2}Comprehensive Comparison Table}{49}{subsubsection.9.5.2}%
-\contentsline {subsubsection}{\numberline {9.5.3}Adversarial Analysis: Why Unified Design Matters}{49}{subsubsection.9.5.3}%
-\contentsline {subsubsection}{\numberline {9.5.4}Deployment Roadmap Analysis}{51}{subsubsection.9.5.4}%
-\contentsline {subsubsection}{\numberline {9.5.5}Strategic Positioning}{51}{subsubsection.9.5.5}%
-\contentsline {section}{\numberline {10}Implementation and Deployment}{52}{section.10}%
-\contentsline {subsection}{\numberline {10.1}Activation via Network Upgrade}{52}{subsection.10.1}%
-\contentsline {subsection}{\numberline {10.2}Miner Integration}{52}{subsection.10.2}%
-\contentsline {subsection}{\numberline {10.3}Data Structures and APIs}{52}{subsection.10.3}%
-\contentsline {subsection}{\numberline {10.4}Security Analysis and Threat Model}{52}{subsection.10.4}%
-\contentsline {subsubsection}{\numberline {10.4.1}Threat Model}{52}{subsubsection.10.4.1}%
-\contentsline {subsubsection}{\numberline {10.4.2}Security Properties: Formal Guarantees}{53}{subsubsection.10.4.2}%
-\contentsline {subsubsection}{\numberline {10.4.3}Specific Attack Vectors}{55}{subsubsection.10.4.3}%
-\contentsline {subsubsection}{\numberline {10.4.4}Why Consensus-Level, Not Auxiliary: A Counter-Example Model}{56}{subsubsection.10.4.4}%
-\contentsline {subsubsection}{\numberline {10.4.5}Trust Assumptions}{57}{subsubsection.10.4.5}%
-\contentsline {section}{\numberline {11}Conclusion}{57}{section.11}%
-\contentsline {subsection}{\numberline {11.1}Summary of Results}{57}{subsection.11.1}%
-\contentsline {subsection}{\numberline {11.2}The Broader Implication}{58}{subsection.11.2}%
-\contentsline {subsection}{\numberline {11.3}Strategic Positioning: Beyond Incremental Improvement}{58}{subsection.11.3}%
-\contentsline {subsection}{\numberline {11.4}Limitations and Future Work}{59}{subsection.11.4}%
-\contentsline {subsubsection}{\numberline {11.4.1}Current Limitations}{59}{subsubsection.11.4.1}%
-\contentsline {subsubsection}{\numberline {11.4.2}Future Research Directions}{59}{subsubsection.11.4.2}%
+\contentsline {subsection}{\numberline {8.8}Positioning of Our Contribution}{42}{subsection.8.8}%
+\contentsline {section}{\numberline {9}Comparison with Alternative Approaches}{43}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Linear Execution-Log Commitment}{43}{subsection.9.1}%
+\contentsline {subsubsection}{\numberline {9.1.1}Design Philosophy and Mechanism}{43}{subsubsection.9.1.1}%
+\contentsline {subsubsection}{\numberline {9.1.2}Strengths}{43}{subsubsection.9.1.2}%
+\contentsline {subsubsection}{\numberline {9.1.3}Limitations}{43}{subsubsection.9.1.3}%
+\contentsline {subsection}{\numberline {9.2}Skip-List Based Proof of Chain Membership (PoChM)}{44}{subsection.9.2}%
+\contentsline {subsubsection}{\numberline {9.2.1}Design Philosophy and Mechanism}{44}{subsubsection.9.2.1}%
+\contentsline {subsubsection}{\numberline {9.2.2}Proof Construction Algorithm}{44}{subsubsection.9.2.2}%
+\contentsline {subsubsection}{\numberline {9.2.3}Strengths}{45}{subsubsection.9.2.3}%
+\contentsline {subsubsection}{\numberline {9.2.4}Limitations}{45}{subsubsection.9.2.4}%
+\contentsline {subsection}{\numberline {9.3}Comparative Analysis: Deep Insights}{45}{subsection.9.3}%
+\contentsline {subsubsection}{\numberline {9.3.1}The Fundamental Tension}{45}{subsubsection.9.3.1}%
+\contentsline {subsubsection}{\numberline {9.3.2}The Architectural Incompatibility}{46}{subsubsection.9.3.2}%
+\contentsline {subsubsection}{\numberline {9.3.3}Why MMR is the Natural Synthesis}{46}{subsubsection.9.3.3}%
+\contentsline {subsubsection}{\numberline {9.3.4}The Fundamental Philosophical Difference}{46}{subsubsection.9.3.4}%
+\contentsline {subsubsection}{\numberline {9.3.5}Quantitative Analysis: Gas Cost Comparison}{48}{subsubsection.9.3.5}%
+\contentsline {subsubsection}{\numberline {9.3.6}Architectural Elegance: The MMR Advantage}{48}{subsubsection.9.3.6}%
+\contentsline {subsection}{\numberline {9.4}Summary: Why Unification Matters}{49}{subsection.9.4}%
+\contentsline {subsection}{\numberline {9.5}Comparison with Kaspa Improvement Proposals}{50}{subsection.9.5}%
+\contentsline {subsubsection}{\numberline {9.5.1}Overview of KIP-15 and KIP-6}{50}{subsubsection.9.5.1}%
+\contentsline {subsubsection}{\numberline {9.5.2}Comprehensive Comparison Table}{51}{subsubsection.9.5.2}%
+\contentsline {subsubsection}{\numberline {9.5.3}Adversarial Analysis: Why Unified Design Matters}{51}{subsubsection.9.5.3}%
+\contentsline {subsubsection}{\numberline {9.5.4}Deployment Roadmap Analysis}{52}{subsubsection.9.5.4}%
+\contentsline {subsubsection}{\numberline {9.5.5}Strategic Positioning}{53}{subsubsection.9.5.5}%
+\contentsline {section}{\numberline {10}Implementation and Deployment}{54}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Activation via Network Upgrade}{54}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}Miner Integration}{54}{subsection.10.2}%
+\contentsline {subsection}{\numberline {10.3}Data Structures and APIs}{54}{subsection.10.3}%
+\contentsline {subsection}{\numberline {10.4}Security Analysis and Threat Model}{54}{subsection.10.4}%
+\contentsline {subsubsection}{\numberline {10.4.1}Threat Model}{54}{subsubsection.10.4.1}%
+\contentsline {subsubsection}{\numberline {10.4.2}Security Properties: Formal Guarantees}{55}{subsubsection.10.4.2}%
+\contentsline {subsubsection}{\numberline {10.4.3}Specific Attack Vectors}{57}{subsubsection.10.4.3}%
+\contentsline {subsubsection}{\numberline {10.4.4}Why Consensus-Level, Not Auxiliary: A Counter-Example Model}{57}{subsubsection.10.4.4}%
+\contentsline {subsubsection}{\numberline {10.4.5}Trust Assumptions}{59}{subsubsection.10.4.5}%
+\contentsline {section}{\numberline {11}Conclusion}{59}{section.11}%
+\contentsline {subsection}{\numberline {11.1}Summary of Results}{59}{subsection.11.1}%
+\contentsline {subsection}{\numberline {11.2}The Broader Implication}{60}{subsection.11.2}%
+\contentsline {subsection}{\numberline {11.3}Strategic Positioning: Beyond Incremental Improvement}{60}{subsection.11.3}%
+\contentsline {subsection}{\numberline {11.4}Standardization and Adoption Path}{61}{subsection.11.4}%
+\contentsline {subsection}{\numberline {11.5}Limitations and Future Work}{62}{subsection.11.5}%
+\contentsline {subsubsection}{\numberline {11.5.1}Current Limitations}{62}{subsubsection.11.5.1}%
+\contentsline {subsubsection}{\numberline {11.5.2}Future Research Directions}{62}{subsubsection.11.5.2}%

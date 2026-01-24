@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.15)  24 JAN 2026 21:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.15)  24 JAN 2026 21:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1569,19 +1569,27 @@ A client only needs to track the chain of \T1/cmtt/m/n/10.95 elog_root
 [36]
 
 [37]
-Overfull \hbox (126.744pt too wide) in paragraph at lines 2003--2012
- [][] 
- []
-
-
-Overfull \hbox (103.19559pt too wide) in paragraph at lines 2033--2042
+Overfull \hbox (126.744pt too wide) in paragraph at lines 2033--2043
  [][] 
  []
 
 
 
 [38]
-Overfull \hbox (11.85764pt too wide) in paragraph at lines 2054--2055
+Overfull \hbox (8.05608pt too wide) in paragraph at lines 2053--2054
+[]\T1/cmr/m/n/10.95 KIP-15+KIP-6's proof size ($\OT1/cmr/m/n/10.95 8\OML/cmm/m/
+it/10.95 :\OT1/cmr/m/n/10.95 7$ \T1/cmr/m/n/10.95 KB) is dom-i-nated by skip-li
+st struc-ture com-plex-ity ($\OMS/cmsy/m/n/10.95 O\OT1/cmr/m/n/10.95 ([] \OML/c
+mm/m/it/10.95 N \OMS/cmsy/m/n/10.95 ^^A
+ []
+
+
+Overfull \hbox (103.19559pt too wide) in paragraph at lines 2065--2074
+ [][] 
+ []
+
+
+Overfull \hbox (11.85764pt too wide) in paragraph at lines 2086--2087
 []\T1/cmr/m/n/10.95 The trade-off is fa-vor-able: for a mod-est stor-age and ne
 g-li-gi-ble per-for-mance cost, a GHOSTDAG-
  []
@@ -1591,139 +1599,144 @@ g-li-gi-ble per-for-mance cost, a GHOSTDAG-
 [39]
 
 [40]
-Overfull \hbox (1.2192pt too wide) in paragraph at lines 2154--2154
+
+[41]
+Overfull \hbox (1.2192pt too wide) in paragraph at lines 2219--2219
 []|\T1/cmr/bx/n/10 Complexity| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2157--2157
+Underfull \hbox (badness 10000) in paragraph at lines 2222--2222
 []|\T1/cmr/m/n/10 Chain con-nec-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2159--2159
+Underfull \hbox (badness 10000) in paragraph at lines 2224--2224
 []|\T1/cmr/m/n/10 UTXO ex-is-
  []
 
 
 
-[41]
-
 [42]
-Overfull \hbox (8.99011pt too wide) in paragraph at lines 2329--2330
+
+[43]
+
+[44]
+Overfull \hbox (8.99011pt too wide) in paragraph at lines 2394--2395
 []\T1/cmr/bx/n/10.95 Elegant Bi-nary De-com-po-si-tion: \T1/cmr/m/n/10.95 Math-
 e-mat-i-cally prin-ci-pled ap-proach lever-ag-ing number-
  []
 
 
 
-[43]
-
-[44]
-Underfull \hbox (badness 10000) in paragraph at lines 2415--2416
+[45]
+Underfull \hbox (badness 10000) in paragraph at lines 2480--2481
 []|\T1/cmr/bx/n/10 Execution-MMR
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2420--2420
+Underfull \hbox (badness 10000) in paragraph at lines 2485--2485
 []|\T1/cmr/m/n/10 Efficient In-clu-sion
  []
 
 
-Underfull \hbox (badness 4391) in paragraph at lines 2421--2421
+Underfull \hbox (badness 4391) in paragraph at lines 2486--2486
 []|\T1/cmr/m/n/10 Proves Po-si-tion in
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2425--2425
+Underfull \hbox (badness 10000) in paragraph at lines 2490--2490
 []|$\OMS/cmsy/m/n/10 O\OT1/cmr/m/n/10 ([] \OML/cmm/m/it/10 D [] [] D\OT1/cmr/m/
 n/10 ) \OMS/cmsy/m/n/10 ^^B
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2442--2442
+Underfull \hbox (badness 10000) in paragraph at lines 2507--2507
 []|\T1/cmr/m/n/10 Batch proof op-ti-
  []
 
-Package pgfplots info on input line 2474: Using 'lua backend=false' for axis: x
-mode=log unsupported (yet).
-Package pgfplots info on input line 2474: Using 'lua backend=false' for axis: y
-mode=log unsupported (yet).
 
-
-[45]
 
 [46]
-Underfull \hbox (badness 10000) in paragraph at lines 2573--2573
+
+[47]
+Package pgfplots info on input line 2539: Using 'lua backend=false' for axis: x
+mode=log unsupported (yet).
+Package pgfplots info on input line 2539: Using 'lua backend=false' for axis: y
+mode=log unsupported (yet).
+
+
+[48]
+Underfull \hbox (badness 10000) in paragraph at lines 2638--2638
 []|\T1/cmr/m/n/10 Supports $\OMS/cmsy/m/n/10 O\OT1/cmr/m/n/10 ([] \OML/cmm/m/it
 /10 n\OT1/cmr/m/n/10 )$
  []
 
 
-Underfull \hbox (badness 5331) in paragraph at lines 2577--2577
+Underfull \hbox (badness 5331) in paragraph at lines 2642--2642
 []|\T1/cmr/m/n/10 Implementation com-
  []
 
 
-Underfull \hbox (badness 1014) in paragraph at lines 2592--2592
+Underfull \hbox (badness 1014) in paragraph at lines 2657--2657
 []|\T1/cmr/m/n/10 Affects con-sen-sus ex-e-cu-
  []
 
 
-Underfull \hbox (badness 1242) in paragraph at lines 2593--2593
+Underfull \hbox (badness 1242) in paragraph at lines 2658--2658
 []|\T1/cmr/m/n/10 Replaces lin-ear se-quenc-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2596--2596
+Underfull \hbox (badness 10000) in paragraph at lines 2661--2661
 []|\T1/cmr/m/n/10 Rolling is consensus-
  []
 
 
 
-[47]
-
-[48]
-Overfull \hbox (4.82007pt too wide) in paragraph at lines 2624--2625
+[49]
+Overfull \hbox (4.82007pt too wide) in paragraph at lines 2689--2690
 []\T1/cmr/m/n/10.95 Enables Ac-cepted Trans-ac-tions Archival Nodes (ATAN) to b
 oot-strap from un-trusted sources 
  []
 
 
-Underfull \hbox (badness 7649) in paragraph at lines 2648--2648
+
+[50]
+Underfull \hbox (badness 7649) in paragraph at lines 2713--2713
 []|\T1/cmr/m/n/10 Verification com-plex-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2648--2649
+Underfull \hbox (badness 10000) in paragraph at lines 2713--2714
 []|\T1/cmr/m/n/10 Implementation sim-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2651--2651
+Underfull \hbox (badness 10000) in paragraph at lines 2716--2716
 []|\T1/cmr/m/n/10 Bridge ver-i-fi-ca-tion
  []
 
 
-Underfull \hbox (badness 2689) in paragraph at lines 2656--2656
+Underfull \hbox (badness 2689) in paragraph at lines 2721--2721
 []|\T1/cmr/m/n/10 Rolling/pruning com-
  []
 
 
-Overfull \hbox (138.41998pt too wide) in paragraph at lines 2643--2659
+Overfull \hbox (138.41998pt too wide) in paragraph at lines 2708--2724
  [][] 
  []
 
 
 
-[49]
-
-[50]
-
 [51]
 
 [52]
-Overfull \hbox (41.51549pt too wide) in paragraph at lines 2877--2878
+
+[53]
+
+[54]
+Overfull \hbox (41.51549pt too wide) in paragraph at lines 2942--2943
 []\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 B[]\OT1/cmr/m/n/10.95 )$\T1/cmr/m/n/1
 0.95 . Since $[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 B[]\OT1/cmr/m/n/10.95 )
  = []([](\OML/cmm/m/it/10.95 B[]\OT1/cmr/m/n/10.95 ))$ \T1/cmr/m/n/10.95 and $[
@@ -1732,12 +1745,12 @@ Overfull \hbox (41.51549pt too wide) in paragraph at lines 2877--2878
 
 
 
-[53]
-
-[54]
-
 [55]
-Overfull \hbox (10.80022pt too wide) in paragraph at lines 2998--2999
+
+[56]
+
+[57]
+Overfull \hbox (10.80022pt too wide) in paragraph at lines 3063--3064
 []\T1/cmr/m/it/10.95 Due to im-ple-men-ta-tion bug, miner pref-er-ence, or ma-l
 i-cious in-dexer, $[][]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 B\OT1/cmr/m/n/10
 .95 ) \OMS/cmsy/m/n/10.95 6\OT1/cmr/m/n/10.95 =
@@ -1746,20 +1759,20 @@ i-cious in-dexer, $[][]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 B\OT1/cmr/m/n/10
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.3014 ...ergence event could result in \$Y \times
+l.3079 ...ergence event could result in \$Y \times
                                                    \epsilon$ in losses, wher...
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
 
-[56]
+[58]
 
 LaTeX Font Warning: Font shape `T1/cmr/m/scit' undefined
-(Font)              using `T1/cmr/m/scsl' instead on input line 3046.
+(Font)              using `T1/cmr/m/scsl' instead on input line 3111.
 
 
-Overfull \hbox (28.37912pt too wide) in paragraph at lines 3073--3074
+Overfull \hbox (28.37912pt too wide) in paragraph at lines 3138--3139
 \T1/cmr/m/n/10.95 tions (not just in-cluded trans-ac-tions). The \T1/cmtt/m/n/1
 0.95 exec_root \T1/cmr/m/n/10.95 is de-rived from the same \T1/cmtt/m/n/10.95 a
 ccepted_tx_ids
@@ -1767,45 +1780,62 @@ ccepted_tx_ids
 
 
 
-[57]
-
-[58]
-
 [59]
 
 [60]
-Underfull \hbox (badness 10000) in paragraph at lines 3183--3186
+Overfull \hbox (2.06155pt too wide) in paragraph at lines 3209--3210
+[]\T1/cmr/bx/n/10.95 Cross-Protocol Com-pat-i-bil-ity: \T1/cmr/m/n/10.95 Work w
+ith other GHOSTDAG im-ple-men-ta-tions (Tondi,
+ []
+
+
+
+[61]
+
+[62]
+Overfull \hbox (18.43262pt too wide) in paragraph at lines 3270--3271
+[]\T1/cmr/bx/n/10.95 MMR Ap-pend Al-go-rithm Cor-rect-ness: \T1/cmr/m/n/10.95 V
+er-ify the key in-vari-ant: $\OMS/cmsy/m/n/10.95 8\OML/cmm/m/it/10.95 n; []\OT1
+/cmr/m/n/10.95 ([][]) =
+ []
+
+
+
+[63]
+
+[64]
+Underfull \hbox (badness 10000) in paragraph at lines 3309--3312
 []\T1/cmr/m/n/10.95 Herodotus Pro-to-col Doc-u-men-ta-tion: Merkle Moun-tain Ra
 nges. \T1/cmr/m/it/10.95 Herodotus
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3183--3186
+Underfull \hbox (badness 10000) in paragraph at lines 3309--3312
 \T1/cmr/m/it/10.95 Docs\T1/cmr/m/n/10.95 , 2024. []$\T1/cmtt/m/n/10.95 https : 
 / / docs . herodotus . dev / herodotus-[]docs / protocol-[]design /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3264--3268
+Underfull \hbox (badness 10000) in paragraph at lines 3390--3394
 \T1/cmtt/m/n/10.95 r1dr6vzfxhev / 2t4uxvsIqk0EUau6g2sw0g / 45eae33637ca92f85dd9
 f4a3a218e1bc / iota1 _
  []
 
 
 
-[61] (./mmr_full_paper.aux)
+[65] (./mmr_full_paper.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `mmr_full_paper.out' has not changed.
-(rerunfilecheck)             Checksum: 9D4978DD44EB196207F56BE762315BE4;23259.
+(rerunfilecheck)             Checksum: F310CB0FA8B96B0149F292E046EBA85E;23494.
  ) 
 Here is how much of TeX's memory you used:
- 50803 strings out of 474662
- 1208872 string characters out of 5751108
- 1999703 words of memory out of 5000000
- 72593 multiletter control sequences out of 15000+600000
+ 50827 strings out of 474662
+ 1209115 string characters out of 5751108
+ 1999824 words of memory out of 5000000
+ 72596 multiletter control sequences out of 15000+600000
  596520 words of font info for 124 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
  84i,19n,93p,1611b,2383s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1865,10 +1895,10 @@ st/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025basic/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025basic/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2025basic
 /texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on mmr_full_paper.pdf (61 pages, 758077 bytes).
+Output written on mmr_full_paper.pdf (65 pages, 767837 bytes).
 PDF statistics:
- 2703 PDF objects out of 2984 (max. 8388607)
- 1471 compressed objects within 15 object streams
- 542 named destinations out of 1000 (max. 500000)
- 973 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2752 PDF objects out of 2984 (max. 8388607)
+ 1513 compressed objects within 16 object streams
+ 563 named destinations out of 1000 (max. 500000)
+ 981 words of extra memory for PDF output out of 10000 (max. 10000000)
 
