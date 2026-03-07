@@ -294,7 +294,7 @@ Unlike traditional payment channel protocols that rely on complex scripts for st
 This paper's architecture employs consensus-layer native transaction type enumeration, replacing traditional script parsing methods, achieving $\bigO(1)$ time complexity pattern matching verification. Transaction types are uniquely determined by their input/output (I/O) topology structure:
 
 \textbf{Why I/O Topology Suffices}:
-Each Eltoo transaction type has a distinct ``shape'' defined by:
+Each Elone transaction type has a distinct ``shape'' defined by:
 \begin{itemize}
     \item Which input types it consumes (Spend) or references (Ref)
     \item Which output types it produces
@@ -309,9 +309,9 @@ This shape is sufficient to classify any transaction without examining script co
 \toprule
 \textbf{Tx Type} & \textbf{Input Pattern} & \textbf{Output Pattern} & \textbf{Semantics} \\
 \midrule
-\texttt{FUND} & $\emptyset_{eltoo}$ & $\{U_{fund}, U_{state}^{(0)}\}$ & Create channel \\
+\texttt{FUND} & $\emptyset_{elone}$ & $\{U_{fund}, U_{state}^{(0)}\}$ & Create channel \\
 \texttt{UPDATE} & $\{\RefOp(U_{fund}), \Spend(U_{state}^{(n)})\}$ & $\{U_{state}^{(n')}\}$ & State iteration \\
-\texttt{SETTLE} & $\{\Spend(U_{fund}), \Spend(U_{state}^{(n)})\}$ & $\notin \calU_{eltoo}$ & Settlement \\
+\texttt{SETTLE} & $\{\Spend(U_{fund}), \Spend(U_{state}^{(n)})\}$ & $\notin \calU_{elone}$ & Settlement \\
 \texttt{SPLICE} & $\{\Spend(U_{fund}), \Spend(U_{state}^{(n)})\}$ & $\{U_{fund}', U_{state}', ...\}$ & Topology transform \\
 \bottomrule
 \end{tabular}
@@ -326,7 +326,7 @@ This shape is sufficient to classify any transaction without examining script co
     arrow/.style={->, >=Stealth, thick}
 ]
     % Validator Core
-    \node[rectangle, draw, fill=gray!10, minimum width=10.5cm, minimum height=0.7cm, rounded corners] (validator) {Eltoo Consensus Validator ($\mathcal{O}(1)$ Pattern Matching)};
+    \node[rectangle, draw, fill=gray!10, minimum width=10.5cm, minimum height=0.7cm, rounded corners] (validator) {Elone Consensus Validator ($\mathcal{O}(1)$ Pattern Matching)};
     
     % Types
     \node[box, fill=orange!10, below=1cm of validator.south west, anchor=west, xshift=0.3cm] (fund) {\textbf{FUND}\\Create Channel};
@@ -353,7 +353,7 @@ $$\forall \tau_{update}: U_{state}^{(n)} \xrightarrow{\tau} U_{state}^{(n')} \im
 This formula states that for any update transaction $\tau_{update}$, if it transforms state UTXO from version $n$ to version $n'$, then $n'$ must be strictly greater than $n$. This constraint fundamentally prevents state rollback attacks.
 
 \begin{proof}
-The consensus validator \texttt{EltooBlockValidator} performs the following atomic checks:
+The consensus validator \texttt{EloneBlockValidator} performs the following atomic checks:
 
 \begin{enumerate}
     \item \textbf{Parsing Phase}: Extract $U_{state}^{(n)}$ from $\tau_{update}$ inputs, extract $U_{state}^{(n')}$ from outputs
@@ -371,7 +371,7 @@ Therefore, state monotonicity is doubly guaranteed by consensus rules and the UT
 
 \subsubsection{Consensus Verification Performance Analysis}
 
-Transaction types are identified via pattern matching ($\bigO(1)$), monotonicity is checked via integer comparison ($\bigO(1)$), and signatures are verified via aggregation ($\bigO(1)$ amortized with batch verification). The only $\bigO(\log N)$ component is UTXO set lookup, which is unavoidable in any UTXO-based system. Thus, the \textbf{Eltoo-specific} verification overhead is $\bigO(1)$, while total verification complexity (including UTXO lookup) is $\bigO(\log N)$. Compared to Script-based solutions' $\bigO(\text{script\_size} + \log N)$, we eliminate the script interpretation overhead entirely.
+Transaction types are identified via pattern matching ($\bigO(1)$), monotonicity is checked via integer comparison ($\bigO(1)$), and signatures are verified via aggregation ($\bigO(1)$ amortized with batch verification). The only $\bigO(\log N)$ component is UTXO set lookup, which is unavoidable in any UTXO-based system. Thus, the \textbf{Elone-specific} verification overhead is $\bigO(1)$, while total verification complexity (including UTXO lookup) is $\bigO(\log N)$. Compared to Script-based solutions' $\bigO(\text{script\_size} + \log N)$, we eliminate the script interpretation overhead entirely.
 
 \textbf{Measured Performance} (based on testnet data, December 2025):
 
@@ -392,7 +392,7 @@ Splice Verification & 0.28 ms & Value conservation + topology integrity \\
 \end{table}
 
 \begin{corollary}[Scalability]
-Due to constant-level verification complexity, full nodes can verify blocks containing 10,000+ Eltoo transactions within 1 second.
+Due to constant-level verification complexity, full nodes can verify blocks containing 10,000+ Elone transactions within 1 second.
 \end{corollary}
 
 \subsubsection{Ref-UTXO Atomicity and Ordering in GhostDAG}
@@ -408,7 +408,7 @@ Let $\prec_{DAG}$ be the total order computed by GhostDAG. For any transaction p
 \end{definition}
 
 \textbf{DAG Ordering Explanation}:
-Unlike Bitcoin's linear blockchain, GhostDAG produces a \textit{partial order} on blocks that is then extended to a total order. This creates a unique challenge: what happens when two miners simultaneously include conflicting Eltoo transactions?
+Unlike Bitcoin's linear blockchain, GhostDAG produces a \textit{partial order} on blocks that is then extended to a total order. This creates a unique challenge: what happens when two miners simultaneously include conflicting Elone transactions?
 
 \begin{itemize}
     \item \textbf{Anticone}: Blocks that are neither ancestors nor descendants of each other. They represent concurrent mining activity.
@@ -487,12 +487,12 @@ where $\text{FundRef}$ is a special unit type with semantics $\tau \to \bot$ (no
 \end{definition}
 
 \begin{definition}[Type Inference Homomorphism]
-Define function $\Gamma: \mathcal{I}^* \times \mathcal{O}^* \to \mathcal{T}_{Eltoo} \cup \{\bot\}$, which maps transaction I/O topology to semantic types in $\bigO(1)$ time complexity:
+Define function $\Gamma: \mathcal{I}^* \times \mathcal{O}^* \to \mathcal{T}_{Elone} \cup \{\bot\}$, which maps transaction I/O topology to semantic types in $\bigO(1)$ time complexity:
 $$
 \Gamma(In, Out) = \begin{cases} 
-  \texttt{FUND} & \text{if } Out \cong \{\text{ChannelFund}, \text{ChannelState}\} \land In \cap \mathcal{I}_{eltoo} = \emptyset \\ 
+  \texttt{FUND} & \text{if } Out \cong \{\text{ChannelFund}, \text{ChannelState}\} \land In \cap \mathcal{I}_{elone} = \emptyset \\ 
   \texttt{UPDATE} & \text{if } In \cong \{\text{FundRef}, \text{StateSpend}\} \land Out \cong \{\text{ChannelState}\} \\ 
-  \texttt{SETTLE} & \text{if } In \cong \{\text{FundSpend}, \text{StateSpend}\} \land Out \cap \mathcal{O}_{eltoo} = \emptyset \\ 
+  \texttt{SETTLE} & \text{if } In \cong \{\text{FundSpend}, \text{StateSpend}\} \land Out \cap \mathcal{O}_{elone} = \emptyset \\ 
   \texttt{SPLICE} & \text{if } In \cong \{\text{FundSpend}, \text{StateSpend}\} \land Out \cap \{\text{ChannelFund}\} \neq \emptyset \\
   \bot & \text{otherwise}
 \end{cases}
@@ -501,15 +501,15 @@ $$
 
 \textbf{Pattern Matching Rules}:
 \begin{itemize}
-    \item \textbf{FUND}: Input contains no Eltoo types, output contains Fund + State UTXOs
+    \item \textbf{FUND}: Input contains no Elone types, output contains Fund + State UTXOs
     \item \textbf{UPDATE}: Input is ``Ref Fund + Spend State'', output is new State UTXO
-    \item \textbf{SETTLE}: Input is ``Spend Fund + Spend State'', output contains no Eltoo types (funds distributed to participants)
+    \item \textbf{SETTLE}: Input is ``Spend Fund + Spend State'', output contains no Elone types (funds distributed to participants)
     \item \textbf{SPLICE}: Same input as SETTLE, but output contains new Fund UTXO (topology reconfiguration)
     \item \textbf{$\bot$}: Matches no pattern, transaction rejected
 \end{itemize}
 
 \begin{theorem}[Compile-Time Safety Guarantee]
-Under Rust's type system guarantees, there are no Eltoo transactions in ``undefined states.'' Due to Rust enum's \textbf{exhaustiveness check}, the compiler forces handling of all $\Gamma$ matching branches. Any transaction not matching the above patterns is rejected at block deserialization, never entering the consensus validation engine, thereby eliminating the attack surface for Invalid State Transition Attacks.
+Under Rust's type system guarantees, there are no Elone transactions in ``undefined states.'' Due to Rust enum's \textbf{exhaustiveness check}, the compiler forces handling of all $\Gamma$ matching branches. Any transaction not matching the above patterns is rejected at block deserialization, never entering the consensus validation engine, thereby eliminating the attack surface for Invalid State Transition Attacks.
 \end{theorem}
 
 \begin{table}[htbp]
@@ -520,10 +520,10 @@ Under Rust's type system guarantees, there are no Eltoo transactions in ``undefi
 \toprule
 \textbf{Type Theory Concept} & \textbf{Rust Implementation} & \textbf{Consensus Semantics} \\
 \midrule
-Sum Type $\mathcal{I}$ & \texttt{enum EltooInput} & Input variant classification \\
-Sum Type $\mathcal{O}$ & \texttt{enum EltooOutput} & Output variant classification \\
-$\Gamma$ function & \texttt{EltooTxType::classify()} & $\bigO(1)$ pattern matching \\
-$\bot$ case & \texttt{ConsensusError::InvalidEltooTxType} & Reject invalid transactions \\
+Sum Type $\mathcal{I}$ & \texttt{enum EloneInput} & Input variant classification \\
+Sum Type $\mathcal{O}$ & \texttt{enum EloneOutput} & Output variant classification \\
+$\Gamma$ function & \texttt{EloneTxType::classify()} & $\bigO(1)$ pattern matching \\
+$\bot$ case & \texttt{ConsensusError::InvalidEloneTxType} & Reject invalid transactions \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -629,7 +629,7 @@ The transition function is deterministic (single-valued partial function).
 $$\forall \tau \in \Sigma: \sum_{U \in \text{inputs}(\tau)} V(U) = \sum_{U \in \text{outputs}(\tau)} V(U) + \text{fee}(\tau)$$
 \end{theorem}
 
-\textit{Interpretation}: Funds cannot be created or destroyed---only transferred. The total value entering a transaction (from spent UTXOs) equals the total value exiting (to new UTXOs) plus the miner fee. This is the UTXO model's fundamental conservation law, inherited and enforced by the Eltoo protocol.
+\textit{Interpretation}: Funds cannot be created or destroyed---only transferred. The total value entering a transaction (from spent UTXOs) equals the total value exiting (to new UTXOs) plus the miner fee. This is the UTXO model's fundamental conservation law, inherited and enforced by the Elone protocol.
 
 \subsection{Evolution of Conditional Payment Primitives: From HTLC to PTLC}
 
@@ -801,8 +801,8 @@ We formalize the channel state machine using TLA+ (Temporal Logic of Actions) to
 \end{itemize}
 
 \begin{lstlisting}[language=TLA, caption={TLA+ Specification of Channel Monotonicity}, label={lst:tla_spec}]
----------------- MODULE EltooChannel ----------------
-(* This module specifies a single Eltoo payment channel *)
+---------------- MODULE EloneChannel ----------------
+(* This module specifies a single Elone payment channel *)
 
 VARIABLES state, seq_num, phase
 
@@ -939,7 +939,7 @@ Bitcoin requires 6 confirmations ($\sim$60 minutes) for comparable security. Gho
 \textbf{System} & \textbf{Time to Finality} \\
 \midrule
 Bitcoin (6 blocks) & $\sim 60$ minutes \\
-\textbf{Native Eltoo (10 DAA)} & $\mathbf{\sim 3}$ \textbf{seconds} \\
+\textbf{Elone (10 DAA)} & $\mathbf{\sim 3}$ \textbf{seconds} \\
 \bottomrule
 \end{tabular}
 \end{table}

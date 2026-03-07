@@ -13,7 +13,7 @@ The reference implementation adopts a layered architecture to ensure separation 
 \toprule
 \textbf{Layer} & \textbf{Responsibility} & \textbf{Key Components} \\
 \midrule
-Consensus & Validation Rules & \code{EltooBlockValidator} \\
+Consensus & Validation Rules & \code{EloneBlockValidator} \\
 UTXO & State Materialization & \code{RefOpUTXO}, \code{StateUTXO} \\
 Protocol & State Machine & \code{ChannelStateMachine} \\
 Application & User Interface & Wallet, RPC API \\
@@ -75,7 +75,7 @@ Application & User Interface & Wallet, RPC API \\
 The consensus layer uses algebraic data types to classify transactions:
 
 \begin{lstlisting}[caption={Rust Enum for Transaction Types}, float=!htb]
-enum EltooTxType {
+enum EloneTxType {
     FUND { participants: Vec<PublicKey>, cap: u64 },
     UPDATE { ref_fund: OutPoint, seq: u64 },
     SETTLE { ref_fund: OutPoint, final_state: StateCommit },
@@ -84,7 +84,7 @@ enum EltooTxType {
 \end{lstlisting}
 
 \subsubsection{Validation Pipeline}
-The \code{EltooBlockValidator} enforces state monotonicity (Theorem~\ref{thm:isolation}) and reference existence:
+The \code{EloneBlockValidator} enforces state monotonicity (Theorem~\ref{thm:isolation}) and reference existence:
 
 \begin{lstlisting}[caption={Monotonicity Validation Logic}, float=!htb]
 fn validate_update(tx: &UpdateTx) -> Result<()> {
@@ -126,9 +126,9 @@ impl ChannelStateMachine {
 To support registry-free discovery, we implement a lightweight indexer:
 
 \begin{lstlisting}[caption={UTXO Indexer Structure}, float=!htb]
-struct EltooIndexer {
+struct EloneIndexer {
     // Fast O(1) lookups
-    utxo_index: HashMap<OutPoint, EltooUTXO>,
+    utxo_index: HashMap<OutPoint, EloneUTXO>,
     // Channel lifecycle tracking
     channel_index: HashMap<ChannelID, ChannelUTXOs>,
     // Bloom filter for rapid ownership checks
@@ -172,7 +172,7 @@ $$ \forall m: \operatorname{Verify}(\operatorname{Sign}^A(m), m)_B = \mathtt{FAL
 \begin{lstlisting}[caption={PSTT Envelope Structure}, float=!htb]
 pub struct PSTT {
     pub policy: PolicyFlags,
-    pub payload: Option<EltooTxPayload>,
+    pub payload: Option<EloneTxPayload>,
     pub partial_sigs: Vec<PartialSignature>,
     pub final_sig: Option<SchnorrSignature>,
 }

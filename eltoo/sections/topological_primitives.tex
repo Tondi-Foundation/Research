@@ -158,7 +158,7 @@ where $\delta_{\mathrm{fee}} \geq 0$ represents the transaction fee paid to mine
 \begin{algorithmic}[1]
 \Require Parent ID $\mathrm{ID}_p$, Fork OutPoint $\mathrm{OP}$, Index $j$, Participants $K$
 \Ensure Unique Sub-channel ID
-\State $D \gets \text{b"Eltoo\_V2\_SubChannel"}$ \Comment{Domain Separator}
+\State $D \gets \text{b"Elone\_V2\_SubChannel"}$ \Comment{Domain Separator}
 \State $R \gets \text{MerkleRoot}(K)$
 \State $\mathrm{ID}_{\mathrm{child}} \gets \text{BLAKE3}(D \parallel \mathrm{ID}_p \parallel \mathrm{OP} \parallel j \parallel R)$
 \State \Return $\mathrm{ID}_{\mathrm{child}}$

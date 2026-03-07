@@ -56,7 +56,7 @@ Table~\ref{tab:arch-comparison} presents a comprehensive comparison.
 \scriptsize
 \begin{tabularx}{\linewidth}{@{}l X X X@{}}
 \toprule
-\textbf{Feature} & \textbf{Lightning} & \textbf{BIP-118} & \textbf{Native Eltoo} \\
+\textbf{Feature} & \textbf{Lightning} & \textbf{BIP-118} & \textbf{Elone} \\
 \midrule
 Consensus & None & Soft Fork & \textbf{Native} \\
 State Rep. & Script+HTLC & Script & \textbf{UTXO Enum} \\
@@ -84,7 +84,7 @@ where $|\cdot|$ denotes the size in bits.
 
 This linear entropy growth leads to \textbf{watchtower inflation} and \textbf{catastrophic recovery failure} (toxic waste). In contrast, our architecture utilizes UTXO atomicity for protocol-level state replacement, collapsing entropy to a constant:
 \begin{equation}
-H_{\mathrm{NativeEltoo}}(t) \approx \mathrm{size}(\mathrm{State}_{\mathrm{curr}}) + \mathrm{size}(\mathrm{Fund}) \approx \mathcal{O}(1)
+H_{\mathrm{NativeElone}}(t) \approx \mathrm{size}(\mathrm{State}_{\mathrm{curr}}) + \mathrm{size}(\mathrm{Fund}) \approx \mathcal{O}(1)
 \end{equation}
 
 \begin{figure}[htbp]
@@ -121,22 +121,22 @@ H_{\mathrm{NativeEltoo}}(t) \approx \mathrm{size}(\mathrm{State}_{\mathrm{curr}}
     % Divider
     \draw[gray!40, thick, dashed] (4, -0.5) -- (4, 4.5);
 
-    % --- Right: Native Eltoo (Low Entropy) ---
-    \node[font=\bfseries] at (6.5, 4.5) {Native Eltoo: $\mathcal{O}(1)$ Entropy};
+    % --- Right: Elone (Low Entropy) ---
+    \node[font=\bfseries] at (6.5, 4.5) {Elone: $\mathcal{O}(1)$ Entropy};
     
     \node[state, fill=yellow!10] (fund) at (6.5, 3) {Fund UTXO};
     \node[active] (esn) at (6.5, 1) {$S_n$};
     
-    \node[validator] (v_eltoo) at (8.5, 2) {Valid-\\ator};
+    \node[validator] (v_elone) at (8.5, 2) {Valid-\\ator};
     
     % Dependencies (Clean)
     \draw[arrow, blue, dashed] (esn) -- node[left, font=\tiny] {RefOp} (fund);
-    \draw[arrow, blue] (v_eltoo) |- (esn);
+    \draw[arrow, blue] (v_elone) |- (esn);
     
     \node[below=0.2cm of esn, text=blue!70, font=\tiny] {Only check latest};
 
 \end{tikzpicture}
-\caption{Verification Causality Graph. Lightning validators (left) face linear complexity due to historical dependencies. Native Eltoo validators (right) only verify the latest state against the static Fund anchor.}
+\caption{Verification Causality Graph. Lightning validators (left) face linear complexity due to historical dependencies. Elone validators (right) only verify the latest state against the static Fund anchor.}
 \label{fig:verification_causality}
 \end{figure}
 
@@ -150,5 +150,5 @@ $$ \mathcal{R}(\Pi) \propto \frac{1}{H(\Pi)} $$
 \begin{proof}[Proof (Sketch)]
 State recovery requires reconstructing the verifiable channel state from available data. For protocols with $H = \mathcal{O}(t)$ (e.g., Lightning), losing any single revocation key from the history compromises recovery. The probability of successful recovery given random data loss of fraction $p$ is approximately $(1-p)^t$, which decreases exponentially with $t$.
 
-For Native Eltoo with $H = \mathcal{O}(1)$, only the current state and fund anchor are required. The recovery probability is $(1-p)^{O(1)} \approx 1$ for small $p$, independent of channel history length.
+For Elone with $H = \mathcal{O}(1)$, only the current state and fund anchor are required. The recovery probability is $(1-p)^{O(1)} \approx 1$ for small $p$, independent of channel history length.
 \end{proof}

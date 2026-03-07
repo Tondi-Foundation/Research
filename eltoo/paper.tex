@@ -138,7 +138,7 @@
 \newcommand{\Nodes}{\mathrm{Nodes}}
 
 % ============ Document Info ============
-\title{Native Eltoo: A Consensus-Embedded Protocol for High-Frequency Payment Networks}
+\title{Elone: A Consensus-Embedded Protocol for High-Frequency Payment Networks}
 \author{
     Arthur Zhang\thanks{Corresponding author: Arthur Zhang (arthur@tondi.org)} \\
     \textit{Tondi Foundation}
@@ -162,7 +162,7 @@ Payment Channel Networks (PCN) constitute a Layer 2 scaling solution for blockch
 
 \textbf{Background and Problem Definition:} Existing PCN schemes (such as the Lightning Network) exhibit two categories of structural limitations: (1) the expressiveness of the Script Layer is constrained, making it difficult to natively support complex state transition semantics; (2) linear topology structures lead to low capital utilization and excessive state management complexity. While the original Eltoo protocol proposed a state replacement mechanism to supersede the penalty mode, its implementation depends on the not-yet-activated \texttt{SIGHASH\_ANYPREVOUT} soft fork (BIP-118) and presents security concerns such as replay attacks.
 
-\textbf{Technical Contributions:} This paper proposes a general-purpose scaling architecture based on native Eltoo semantics. The main contributions include:
+\textbf{Technical Contributions:} This paper proposes a general-purpose scaling architecture based on Elone semantics. The main contributions include:
 \begin{enumerate}
     \item \textbf{Dual-Track UTXO Model:} Decomposing channel state into a static fund anchor (Fund UTXO) and a dynamic state pointer (State UTXO) along two orthogonal dimensions, achieving separation of concerns between value transfer and state transitions;
     \item \textbf{Reference-Based UTXO Primitive:} Defining a read-only reference operator $\RefOp: \calU \to \calU^{readonly}$, enabling state update transactions to access fund anchor metadata without consuming that UTXO;
@@ -172,7 +172,7 @@ Payment Channel Networks (PCN) constitute a Layer 2 scaling solution for blockch
 
 \textbf{Theoretical Results:} This paper proves the existence of a bijective mapping between UTXO sets and channel state sets (Theorem 8), thereby eliminating dependency on off-chain registries. Under DAG-structured consensus protocols, state verification complexity is $\bigO(1)$, with settlement latency reaching sub-second levels.
 
-\textbf{Keywords:} Payment Channel Networks, State Channels, Eltoo Protocol, UTXO Model, Finite State Machine, Formal Verification, Layer 2 Scaling
+\textbf{Keywords:} Payment Channel Networks, State Channels, Elone Protocol, UTXO Model, Finite State Machine, Formal Verification, Layer 2 Scaling
 \end{abstract}
 
 \newpage
@@ -254,10 +254,10 @@ Replace penalty-based revocation with monotonic state supersession. Any party ca
 \end{itemize}
 
 \textbf{Principle 4: Deterministic State Execution}
-Traditional contract execution relies on ex post enforcement (through arbitration), introducing cost and time uncertainty. The Native Eltoo achieves ex ante enforcement through consensus rules:
+Traditional contract execution relies on ex post enforcement (through arbitration), introducing cost and time uncertainty. The Elone achieves ex ante enforcement through consensus rules:
 \begin{align*}
 \text{Traditional Mode: } & \text{Contract} \xrightarrow{\text{Dispute}} \text{Arbitration} \xrightarrow{\text{Judgment}} \text{Enforcement} \\
-\text{The Native Eltoo: } & \text{State\_UTXO} \xrightarrow{\tau_{\text{settle}}} \text{Value\_Distribution} \quad (\text{deterministic execution})
+\text{The Elone: } & \text{State\_UTXO} \xrightarrow{\tau_{\text{settle}}} \text{Value\_Distribution} \quad (\text{deterministic execution})
 \end{align*}
 
 \textbf{Principle 5: Minimal External Dependency}
@@ -272,7 +272,7 @@ Fund UTXO serves as the sole cryptographic anchor, making channel existence self
 
 \subsection{Trust Model Analysis}
 
-Blockchain system security is often described as ``trust minimization.'' The Native Eltoo further pursues \textbf{trust elimination}---making certain types of trust assumptions unnecessary through protocol design:
+Blockchain system security is often described as ``trust minimization.'' The Elone further pursues \textbf{trust elimination}---making certain types of trust assumptions unnecessary through protocol design:
 
 \begin{table}[htbp]
 \centering
@@ -280,7 +280,7 @@ Blockchain system security is often described as ``trust minimization.'' The Nat
 \caption{Trust Model Comparison}
 \begin{tabular}{@{}p{4cm}p{2.5cm}p{2.8cm}p{3.5cm}@{}}
 \toprule
-\textbf{Trust Assumption} & \textbf{Traditional PCN} & \textbf{The Native Eltoo} & \textbf{Elimination Mechanism} \\
+\textbf{Trust Assumption} & \textbf{Traditional PCN} & \textbf{The Elone} & \textbf{Elimination Mechanism} \\
 \midrule
 Channel registry availability & Required & Not required & Fund UTXO as sole anchor \\
 Watchtower continuous online & Strong dependency & Weak dependency & Long-period timelocks + state replacement \\
@@ -289,7 +289,7 @@ Script interpreter correctness & Required & Not required & Consensus-layer nativ
 \end{tabular}
 \end{table}
 
-The core insight of The Native Eltoo is: by pushing complexity down to the protocol layer, a simpler trust model can be achieved at the application layer.
+The core insight of The Elone is: by pushing complexity down to the protocol layer, a simpler trust model can be achieved at the application layer.
 
 % ============ Section 1: Related Work ============
 \newpage

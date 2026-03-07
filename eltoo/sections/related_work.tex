@@ -1,6 +1,6 @@
 \section{Related Work and Technical Background}
 
-This section provides a comprehensive analysis of the evolution of payment channel protocols, identifies the structural defects inherent in existing solutions, and establishes the technical foundation for The Native Eltoo. For formal definitions of cryptographic primitives and notation conventions, readers are referred to Appendix~\ref{appendix:glossary}.
+This section provides a comprehensive analysis of the evolution of payment channel protocols, identifies the structural defects inherent in existing solutions, and establishes the technical foundation for The Elone. For formal definitions of cryptographic primitives and notation conventions, readers are referred to Appendix~\ref{appendix:glossary}.
 
 \subsection{Protocol Evolution: From Penalty to Replacement}
 
@@ -217,16 +217,16 @@ Script-based solutions \textbf{violate orthogonality} by encoding state logic di
 
 \subsection{Comparison of Revocation Mechanisms}
 
-Table~\ref{tab:comparison} provides a systematic comparison between the original Eltoo protocol (which depends on BIP-118) and The Native Eltoo. For clarity, we refer to The Native Eltoo as \textbf{Native Eltoo} throughout this paper, reflecting its role as a successor that achieves Eltoo's design goals through consensus-native mechanisms rather than script-level simulation.
+Table~\ref{tab:comparison} provides a systematic comparison between the original Eltoo protocol (which depends on BIP-118) and The Elone. For clarity, we refer to The Elone as \textbf{Elone} throughout this paper, reflecting its role as a successor that achieves Eltoo's design goals through consensus-native mechanisms rather than script-level simulation.
 
 \begin{table}[htbp]
 \centering
-\caption{State Revocation Mechanisms: Original Eltoo vs.\ Native Eltoo (Proposed Architecture)}
+\caption{State Revocation Mechanisms: Original Eltoo vs.\ Elone (Proposed Architecture)}
 \label{tab:comparison}
 \small
 \begin{tabularx}{\linewidth}{@{}p{2.2cm}XX@{}}
 \toprule
-\textbf{Feature} & \textbf{Original Eltoo (BIP-118)} & \textbf{Native Eltoo (This Paper)} \\
+\textbf{Feature} & \textbf{Original Eltoo (BIP-118)} & \textbf{Elone (This Paper)} \\
 \midrule
 \textbf{Core Primitive} & Script-level overwrite using \code{SIGHASH\_NOINPUT} & Consensus-layer transaction types with dual-track UTXO model \\
 \addlinespace
@@ -243,16 +243,16 @@ Table~\ref{tab:comparison} provides a systematic comparison between the original
 
 \textbf{Key Architectural Differences:}
 \begin{itemize}
-    \item \textbf{Abstraction Level:} Original Eltoo operates at the script layer, encoding state machine logic in spending conditions. Native Eltoo operates at the transaction type layer, where state transitions are first-class operations.
+    \item \textbf{Abstraction Level:} Original Eltoo operates at the script layer, encoding state machine logic in spending conditions. Elone operates at the transaction type layer, where state transitions are first-class operations.
     
-    \item \textbf{Security Model:} Original Eltoo's security depends on correct application-layer key management. Native Eltoo's security is enforced by consensus rules---applications cannot violate invariants even if buggy.
+    \item \textbf{Security Model:} Original Eltoo's security depends on correct application-layer key management. Elone's security is enforced by consensus rules---applications cannot violate invariants even if buggy.
     
-    \item \textbf{Deployment Path:} Original Eltoo requires a Bitcoin soft fork (BIP-118) with uncertain timeline. Native Eltoo is designed for new chains built with native support, avoiding political obstacles.
+    \item \textbf{Deployment Path:} Original Eltoo requires a Bitcoin soft fork (BIP-118) with uncertain timeline. Elone is designed for new chains built with native support, avoiding political obstacles.
 \end{itemize}
 
 \subsection{Proposed Solution: UTXO-Native Semantics}
 
-The defects enumerated above motivate our core architectural decision: rather than simulating Eltoo semantics through script-level tricks, we propose \textbf{embedding these semantics directly into the UTXO model and transaction type system}.
+The defects enumerated above motivate our core architectural decision: rather than simulating Elone semantics through script-level tricks, we propose \textbf{embedding these semantics directly into the UTXO model and transaction type system}.
 
 \textbf{Design Philosophy.} The key insight is that payment channel operations are not arbitrary computations---they follow a small, well-defined set of patterns. By making these patterns \textit{first-class citizens} of the transaction model, we can:
 \begin{enumerate}
@@ -263,12 +263,12 @@ The defects enumerated above motivate our core architectural decision: rather th
 
 \textbf{Transaction Type System.} We introduce a typed transaction model where each transaction declares its semantic intent:
 \begin{itemize}
-    \item \textbf{Type Enforcement:} For all transactions $\tau$ in the Eltoo transaction set $\mathcal{T}_{\mathrm{Eltoo}}$, the inputs \rfc{must} be of type \code{ELTOO\_STATE}. This is not a script-level check but a consensus-level type constraint.
+    \item \textbf{Type Enforcement:} For all transactions $\tau$ in the Elone transaction set $\mathcal{T}_{\mathrm{Elone}}$, the inputs \rfc{must} be of type \code{ELONE\_STATE}. This is not a script-level check but a consensus-level type constraint.
     
-    \item \textbf{Replay Isolation:} Because \code{ELTOO\_STATE} UTXOs can only be spent by Eltoo update transactions, and standard UTXOs cannot be inputs to such transactions, replay attacks are \textit{physically impossible} at the type level---no key management discipline required.
+    \item \textbf{Replay Isolation:} Because \code{ELONE\_STATE} UTXOs can only be spent by Elone update transactions, and standard UTXOs cannot be inputs to such transactions, replay attacks are \textit{physically impossible} at the type level---no key management discipline required.
 \end{itemize}
 
-\textbf{FSM vs.\ Arbitrary Recursion.} The Eltoo state machine follows strict monotonicity: each update transaction carries a sequence number $n$, and valid transitions require $n' > n$. This constraint is enforced by consensus:
+\textbf{FSM vs.\ Arbitrary Recursion.} The Elone state machine follows strict monotonicity: each update transaction carries a sequence number $n$, and valid transitions require $n' > n$. This constraint is enforced by consensus:
 $$\forall \tau_{\text{update}}: \tau_{\text{update}}.\text{output\_seq} > \tau_{\text{update}}.\text{input\_seq}$$
 
 This monotonicity property \textit{mathematically precludes} arbitrary recursive covenants. The state can only move forward, never loop or branch arbitrarily. We gain the benefits of state replacement without opening the door to Turing-complete on-chain computation.
@@ -280,7 +280,7 @@ This reduces verification complexity from $\bigO(\text{script\_size})$ to $\bigO
 
 \subsection{Axiom System}
 
-The Native Eltoo is built upon a minimal set of axioms that capture the essential properties of sound payment channel operation. These axioms serve as the foundation for formal verification and guide implementation decisions.
+The Elone is built upon a minimal set of axioms that capture the essential properties of sound payment channel operation. These axioms serve as the foundation for formal verification and guide implementation decisions.
 
 \begin{table}[htbp]
 \centering
@@ -315,7 +315,7 @@ The Native Eltoo is built upon a minimal set of axioms that capture the essentia
 
 \subsection{DAG Consensus Compatibility}
 
-The Native Eltoo is designed for deployment on GhostDAG-based consensus protocols~\cite{sompolinsky2015ghostdag, kaspa2021}. This choice is not incidental but architecturally motivated by the synergy between DAG properties and payment channel requirements.
+The Elone is designed for deployment on GhostDAG-based consensus protocols~\cite{sompolinsky2015ghostdag, kaspa2021}. This choice is not incidental but architecturally motivated by the synergy between DAG properties and payment channel requirements.
 
 \textbf{Why GhostDAG?} Traditional blockchain consensus produces a single chain of blocks, where concurrent blocks become ``orphans'' that are discarded. GhostDAG instead organizes blocks into a Directed Acyclic Graph, where concurrent blocks can \textit{all} contribute to consensus.
 
@@ -369,7 +369,7 @@ $$\Omega = \mathcal{L} \times \mathcal{T} \times \mathcal{C}$$
 \addlinespace
 \textbf{Lightning Network} & Sub-second (off-chain) & Low (bilateral lockup) & Watchtower availability \\
 \addlinespace
-\textbf{Native Eltoo (Proposed)} & Sub-second (off-chain) & High (pooled via factories) & Consensus-enforced invariants \\
+\textbf{Elone (Proposed)} & Sub-second (off-chain) & High (pooled via factories) & Consensus-enforced invariants \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -378,7 +378,7 @@ $$\Omega = \mathcal{L} \times \mathcal{T} \times \mathcal{C}$$
 
 Channel factories address this by \textbf{pooling capital} among multiple participants. However, on Bitcoin, factory operations are expensive due to high on-chain fees and slow confirmation. This limits practical factory sizes.
 
-\textbf{Native Eltoo's Economic Advantage.} Our architecture enables larger, more dynamic channel factories through:
+\textbf{Elone's Economic Advantage.} Our architecture enables larger, more dynamic channel factories through:
 \begin{enumerate}
     \item \textbf{Low-cost reconfiguration:} Factory membership changes require only $\bigO(1)$ on-chain operations, not $\bigO(n)$ bilateral channel updates.
     \item \textbf{Fast finality:} GhostDAG's sub-second confirmation enables rapid factory operations without long waiting periods.

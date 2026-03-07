@@ -88,87 +88,87 @@
 \contentsline {subsection}{\numberline {8.5}Partially Signed Transaction Template (PSTT)}{48}{subsection.8.5}%
 \contentsline {subsubsection}{\numberline {8.5.1}Domain Separation}{49}{subsubsection.8.5.1}%
 \contentsline {subsubsection}{\numberline {8.5.2}PSTT Envelope}{49}{subsubsection.8.5.2}%
-\contentsline {subsection}{\numberline {8.6}Implementation Statistics}{49}{subsection.8.6}%
-\contentsline {section}{\numberline {9}Attack Surface Analysis and Defense}{50}{section.9}%
-\contentsline {subsection}{\numberline {9.1}Attack Classification}{50}{subsection.9.1}%
-\contentsline {subsection}{\numberline {9.2}State Rollback Attack Analysis}{50}{subsection.9.2}%
-\contentsline {subsubsection}{\numberline {9.2.1}Attack Vector}{50}{subsubsection.9.2.1}%
-\contentsline {subsubsection}{\numberline {9.2.2}Defense Mechanisms}{50}{subsubsection.9.2.2}%
-\contentsline {subsection}{\numberline {9.3}Topology Obfuscation}{50}{subsection.9.3}%
-\contentsline {subsubsection}{\numberline {9.3.1}Mitigation}{50}{subsubsection.9.3.1}%
-\contentsline {subsection}{\numberline {9.4}PTLC Hijacking}{51}{subsection.9.4}%
-\contentsline {subsubsection}{\numberline {9.4.1}Defense Strategy}{51}{subsubsection.9.4.1}%
-\contentsline {subsection}{\numberline {9.5}Resource Exhaustion via Channel Proliferation}{51}{subsection.9.5}%
-\contentsline {subsubsection}{\numberline {9.5.1}Economic Countermeasures: State Rent}{51}{subsubsection.9.5.1}%
-\contentsline {subsection}{\numberline {9.6}Cross-Channel Replay}{51}{subsection.9.6}%
-\contentsline {subsubsection}{\numberline {9.6.1}Domain Separation}{51}{subsubsection.9.6.1}%
-\contentsline {subsection}{\numberline {9.7}Pinning Attack Analysis}{51}{subsection.9.7}%
-\contentsline {subsubsection}{\numberline {9.7.1}Mechanism Comparison}{51}{subsubsection.9.7.1}%
-\contentsline {subsection}{\numberline {9.8}Griefing Attack Cost Analysis}{52}{subsection.9.8}%
-\contentsline {subsection}{\numberline {9.9}Security Summary}{52}{subsection.9.9}%
-\contentsline {section}{\numberline {10}Application Scenarios}{53}{section.10}%
-\contentsline {subsection}{\numberline {10.1}DeFi Liquidity Mesh}{53}{subsection.10.1}%
-\contentsline {subsubsection}{\numberline {10.1.1}Problem Statement}{53}{subsubsection.10.1.1}%
-\contentsline {subsubsection}{\numberline {10.1.2}Proposed Solution: Dynamic Liquidity Grid}{53}{subsubsection.10.1.2}%
-\contentsline {subsection}{\numberline {10.2}Micropayment Streaming}{53}{subsection.10.2}%
-\contentsline {subsection}{\numberline {10.3}Decentralized Exchange (DEX)}{54}{subsection.10.3}%
-\contentsline {subsection}{\numberline {10.4}Gaming and Virtual Economies}{54}{subsection.10.4}%
-\contentsline {paragraph}{MMORPG Economy}{54}{section*.52}%
-\contentsline {subsection}{\numberline {10.5}IoT Microtransactions}{54}{subsection.10.5}%
-\contentsline {subsection}{\numberline {10.6}CDN Incentivization}{54}{subsection.10.6}%
-\contentsline {subsection}{\numberline {10.7}Supply Chain Finance}{54}{subsection.10.7}%
-\contentsline {subsection}{\numberline {10.8}Summary}{54}{subsection.10.8}%
-\contentsline {section}{\numberline {11}Evaluation and Performance Analysis}{55}{section.11}%
-\contentsline {subsection}{\numberline {11.1}Experimental Setup}{55}{subsection.11.1}%
-\contentsline {subsection}{\numberline {11.2}Transaction Validation Performance}{55}{subsection.11.2}%
-\contentsline {subsubsection}{\numberline {11.2.1}Single Transaction Latency}{55}{subsubsection.11.2.1}%
-\contentsline {subsubsection}{\numberline {11.2.2}Batch Verification}{55}{subsubsection.11.2.2}%
-\contentsline {subsection}{\numberline {11.3}Storage Efficiency}{56}{subsection.11.3}%
-\contentsline {subsubsection}{\numberline {11.3.1}State Storage Cost}{56}{subsubsection.11.3.1}%
-\contentsline {subsection}{\numberline {11.4}Network Discovery Performance}{56}{subsection.11.4}%
-\contentsline {subsection}{\numberline {11.5}Towards Asynchronous Payments: Ark Integration}{56}{subsection.11.5}%
-\contentsline {subsubsection}{\numberline {11.5.1}Merkleized State}{56}{subsubsection.11.5.1}%
-\contentsline {subsubsection}{\numberline {11.5.2}Native Lift \& Finalize}{57}{subsubsection.11.5.2}%
-\contentsline {subsection}{\numberline {11.6}Performance Summary}{57}{subsection.11.6}%
-\contentsline {section}{\numberline {12}Privacy and Anonymity Framework}{58}{section.12}%
-\contentsline {subsection}{\numberline {12.1}Threat Model and Anonymity Set}{58}{subsection.12.1}%
-\contentsline {subsection}{\numberline {12.2}Payment Layer Privacy Analysis}{58}{subsection.12.2}%
-\contentsline {subsubsection}{\numberline {12.2.1}PTLC vs.\ HTLC}{58}{subsubsection.12.2.1}%
-\contentsline {subsection}{\numberline {12.3}Network Layer Privacy: Onion Routing}{58}{subsection.12.3}%
-\contentsline {subsubsection}{\numberline {12.3.1}Onion Packet Structure}{59}{subsubsection.12.3.1}%
-\contentsline {subsection}{\numberline {12.4}Privacy-Performance Tradeoff}{59}{subsection.12.4}%
-\contentsline {subsection}{\numberline {12.5}Stealth Addresses}{59}{subsection.12.5}%
-\contentsline {subsection}{\numberline {12.6}Summary}{60}{subsection.12.6}%
-\contentsline {section}{\numberline {13}Market Design and Incentive Mechanisms}{61}{section.13}%
-\contentsline {subsection}{\numberline {13.1}CSP Fee Structure}{61}{subsection.13.1}%
-\contentsline {subsection}{\numberline {13.2}Liquidity Provider Economics}{61}{subsection.13.2}%
-\contentsline {subsection}{\numberline {13.3}Anti-Collusion: L1 Fallback}{62}{subsection.13.3}%
-\contentsline {subsection}{\numberline {13.4}Dynamic Fee Adjustment}{62}{subsection.13.4}%
-\contentsline {subsection}{\numberline {13.5}Incentive Compatibility}{62}{subsection.13.5}%
-\contentsline {subsection}{\numberline {13.6}Summary}{63}{subsection.13.6}%
-\contentsline {section}{\numberline {14}Conclusion and Future Work}{64}{section.14}%
-\contentsline {subsection}{\numberline {14.1}Summary of Contributions}{64}{subsection.14.1}%
-\contentsline {subsubsection}{\numberline {14.1.1}Theoretical Foundations}{64}{subsubsection.14.1.1}%
-\contentsline {subsubsection}{\numberline {14.1.2}System Architecture}{64}{subsubsection.14.1.2}%
-\contentsline {subsubsection}{\numberline {14.1.3}Empirical Validation}{64}{subsubsection.14.1.3}%
-\contentsline {subsection}{\numberline {14.2}Paradigm Shifts}{64}{subsection.14.2}%
-\contentsline {subsection}{\numberline {14.3}Limitations and Mitigation Strategies}{64}{subsection.14.3}%
-\contentsline {subsection}{\numberline {14.4}Future Research Directions}{65}{subsection.14.4}%
-\contentsline {subsubsection}{\numberline {14.4.1}Short-Term Extensions}{65}{subsubsection.14.4.1}%
-\contentsline {subsubsection}{\numberline {14.4.2}Long-Term Vision}{65}{subsubsection.14.4.2}%
-\contentsline {subsection}{\numberline {14.5}Open Questions}{65}{subsection.14.5}%
-\contentsline {subsection}{\numberline {14.6}Broader Impact}{65}{subsection.14.6}%
-\contentsline {paragraph}{Scalability}{65}{section*.68}%
-\contentsline {paragraph}{Decentralization}{65}{section*.69}%
-\contentsline {paragraph}{Privacy}{65}{section*.70}%
-\contentsline {subsection}{\numberline {14.7}Concluding Remarks}{66}{subsection.14.7}%
-\contentsline {section}{\numberline {A}Glossary and Preliminaries}{67}{appendix.A}%
-\contentsline {subsection}{\numberline {A.1}Ledger Model and Transaction Structure}{67}{subsection.A.1}%
-\contentsline {subsection}{\numberline {A.2}Payment Channel Fundamentals}{67}{subsection.A.2}%
-\contentsline {subsection}{\numberline {A.3}Conditional Payment Primitives}{67}{subsection.A.3}%
-\contentsline {subsection}{\numberline {A.4}Cryptographic Foundations}{67}{subsection.A.4}%
-\contentsline {subsection}{\numberline {A.5}Timelock Mechanisms}{68}{subsection.A.5}%
-\contentsline {subsection}{\numberline {A.6}Directed Acyclic Graph Consensus}{69}{subsection.A.6}%
-\contentsline {subsection}{\numberline {A.7}Finite State Machine Foundations}{69}{subsection.A.7}%
-\contentsline {subsection}{\numberline {A.8}Covenants and Script Extensions}{69}{subsection.A.8}%
-\contentsline {subsection}{\numberline {A.9}Notation Conventions}{69}{subsection.A.9}%
+\contentsline {subsection}{\numberline {8.6}Implementation Statistics}{50}{subsection.8.6}%
+\contentsline {section}{\numberline {9}Attack Surface Analysis and Defense}{51}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Attack Classification}{51}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}State Rollback Attack Analysis}{51}{subsection.9.2}%
+\contentsline {subsubsection}{\numberline {9.2.1}Attack Vector}{51}{subsubsection.9.2.1}%
+\contentsline {subsubsection}{\numberline {9.2.2}Defense Mechanisms}{51}{subsubsection.9.2.2}%
+\contentsline {subsection}{\numberline {9.3}Topology Obfuscation}{51}{subsection.9.3}%
+\contentsline {subsubsection}{\numberline {9.3.1}Mitigation}{51}{subsubsection.9.3.1}%
+\contentsline {subsection}{\numberline {9.4}PTLC Hijacking}{52}{subsection.9.4}%
+\contentsline {subsubsection}{\numberline {9.4.1}Defense Strategy}{52}{subsubsection.9.4.1}%
+\contentsline {subsection}{\numberline {9.5}Resource Exhaustion via Channel Proliferation}{52}{subsection.9.5}%
+\contentsline {subsubsection}{\numberline {9.5.1}Economic Countermeasures: State Rent}{52}{subsubsection.9.5.1}%
+\contentsline {subsection}{\numberline {9.6}Cross-Channel Replay}{52}{subsection.9.6}%
+\contentsline {subsubsection}{\numberline {9.6.1}Domain Separation}{52}{subsubsection.9.6.1}%
+\contentsline {subsection}{\numberline {9.7}Pinning Attack Analysis}{52}{subsection.9.7}%
+\contentsline {subsubsection}{\numberline {9.7.1}Mechanism Comparison}{52}{subsubsection.9.7.1}%
+\contentsline {subsection}{\numberline {9.8}Griefing Attack Cost Analysis}{54}{subsection.9.8}%
+\contentsline {subsection}{\numberline {9.9}Security Summary}{54}{subsection.9.9}%
+\contentsline {section}{\numberline {10}Application Scenarios}{55}{section.10}%
+\contentsline {subsection}{\numberline {10.1}DeFi Liquidity Mesh}{55}{subsection.10.1}%
+\contentsline {subsubsection}{\numberline {10.1.1}Problem Statement}{55}{subsubsection.10.1.1}%
+\contentsline {subsubsection}{\numberline {10.1.2}Proposed Solution: Dynamic Liquidity Grid}{55}{subsubsection.10.1.2}%
+\contentsline {subsection}{\numberline {10.2}Micropayment Streaming}{55}{subsection.10.2}%
+\contentsline {subsection}{\numberline {10.3}Decentralized Exchange (DEX)}{56}{subsection.10.3}%
+\contentsline {subsection}{\numberline {10.4}Gaming and Virtual Economies}{56}{subsection.10.4}%
+\contentsline {paragraph}{MMORPG Economy}{56}{section*.52}%
+\contentsline {subsection}{\numberline {10.5}IoT Microtransactions}{56}{subsection.10.5}%
+\contentsline {subsection}{\numberline {10.6}CDN Incentivization}{56}{subsection.10.6}%
+\contentsline {subsection}{\numberline {10.7}Supply Chain Finance}{56}{subsection.10.7}%
+\contentsline {subsection}{\numberline {10.8}Summary}{56}{subsection.10.8}%
+\contentsline {section}{\numberline {11}Evaluation and Performance Analysis}{57}{section.11}%
+\contentsline {subsection}{\numberline {11.1}Experimental Setup}{57}{subsection.11.1}%
+\contentsline {subsection}{\numberline {11.2}Transaction Validation Performance}{57}{subsection.11.2}%
+\contentsline {subsubsection}{\numberline {11.2.1}Single Transaction Latency}{57}{subsubsection.11.2.1}%
+\contentsline {subsubsection}{\numberline {11.2.2}Batch Verification}{57}{subsubsection.11.2.2}%
+\contentsline {subsection}{\numberline {11.3}Storage Efficiency}{58}{subsection.11.3}%
+\contentsline {subsubsection}{\numberline {11.3.1}State Storage Cost}{58}{subsubsection.11.3.1}%
+\contentsline {subsection}{\numberline {11.4}Network Discovery Performance}{58}{subsection.11.4}%
+\contentsline {subsection}{\numberline {11.5}Towards Asynchronous Payments: Ark Integration}{58}{subsection.11.5}%
+\contentsline {subsubsection}{\numberline {11.5.1}Merkleized State}{58}{subsubsection.11.5.1}%
+\contentsline {subsubsection}{\numberline {11.5.2}Native Lift \& Finalize}{59}{subsubsection.11.5.2}%
+\contentsline {subsection}{\numberline {11.6}Performance Summary}{59}{subsection.11.6}%
+\contentsline {section}{\numberline {12}Privacy and Anonymity Framework}{60}{section.12}%
+\contentsline {subsection}{\numberline {12.1}Threat Model and Anonymity Set}{60}{subsection.12.1}%
+\contentsline {subsection}{\numberline {12.2}Payment Layer Privacy Analysis}{60}{subsection.12.2}%
+\contentsline {subsubsection}{\numberline {12.2.1}PTLC vs.\ HTLC}{60}{subsubsection.12.2.1}%
+\contentsline {subsection}{\numberline {12.3}Network Layer Privacy: Onion Routing}{60}{subsection.12.3}%
+\contentsline {subsubsection}{\numberline {12.3.1}Onion Packet Structure}{61}{subsubsection.12.3.1}%
+\contentsline {subsection}{\numberline {12.4}Privacy-Performance Tradeoff}{61}{subsection.12.4}%
+\contentsline {subsection}{\numberline {12.5}Stealth Addresses}{61}{subsection.12.5}%
+\contentsline {subsection}{\numberline {12.6}Summary}{62}{subsection.12.6}%
+\contentsline {section}{\numberline {13}Market Design and Incentive Mechanisms}{63}{section.13}%
+\contentsline {subsection}{\numberline {13.1}CSP Fee Structure}{63}{subsection.13.1}%
+\contentsline {subsection}{\numberline {13.2}Liquidity Provider Economics}{63}{subsection.13.2}%
+\contentsline {subsection}{\numberline {13.3}Anti-Collusion: L1 Fallback}{64}{subsection.13.3}%
+\contentsline {subsection}{\numberline {13.4}Dynamic Fee Adjustment}{64}{subsection.13.4}%
+\contentsline {subsection}{\numberline {13.5}Incentive Compatibility}{64}{subsection.13.5}%
+\contentsline {subsection}{\numberline {13.6}Summary}{65}{subsection.13.6}%
+\contentsline {section}{\numberline {14}Conclusion and Future Work}{66}{section.14}%
+\contentsline {subsection}{\numberline {14.1}Summary of Contributions}{66}{subsection.14.1}%
+\contentsline {subsubsection}{\numberline {14.1.1}Theoretical Foundations}{66}{subsubsection.14.1.1}%
+\contentsline {subsubsection}{\numberline {14.1.2}System Architecture}{66}{subsubsection.14.1.2}%
+\contentsline {subsubsection}{\numberline {14.1.3}Empirical Validation}{66}{subsubsection.14.1.3}%
+\contentsline {subsection}{\numberline {14.2}Paradigm Shifts}{66}{subsection.14.2}%
+\contentsline {subsection}{\numberline {14.3}Limitations and Mitigation Strategies}{66}{subsection.14.3}%
+\contentsline {subsection}{\numberline {14.4}Future Research Directions}{67}{subsection.14.4}%
+\contentsline {subsubsection}{\numberline {14.4.1}Short-Term Extensions}{67}{subsubsection.14.4.1}%
+\contentsline {subsubsection}{\numberline {14.4.2}Long-Term Vision}{67}{subsubsection.14.4.2}%
+\contentsline {subsection}{\numberline {14.5}Open Questions}{67}{subsection.14.5}%
+\contentsline {subsection}{\numberline {14.6}Broader Impact}{67}{subsection.14.6}%
+\contentsline {paragraph}{Scalability}{67}{section*.68}%
+\contentsline {paragraph}{Decentralization}{67}{section*.69}%
+\contentsline {paragraph}{Privacy}{67}{section*.70}%
+\contentsline {subsection}{\numberline {14.7}Concluding Remarks}{68}{subsection.14.7}%
+\contentsline {section}{\numberline {A}Glossary and Preliminaries}{69}{appendix.A}%
+\contentsline {subsection}{\numberline {A.1}Ledger Model and Transaction Structure}{69}{subsection.A.1}%
+\contentsline {subsection}{\numberline {A.2}Payment Channel Fundamentals}{69}{subsection.A.2}%
+\contentsline {subsection}{\numberline {A.3}Conditional Payment Primitives}{69}{subsection.A.3}%
+\contentsline {subsection}{\numberline {A.4}Cryptographic Foundations}{69}{subsection.A.4}%
+\contentsline {subsection}{\numberline {A.5}Timelock Mechanisms}{70}{subsection.A.5}%
+\contentsline {subsection}{\numberline {A.6}Directed Acyclic Graph Consensus}{71}{subsection.A.6}%
+\contentsline {subsection}{\numberline {A.7}Finite State Machine Foundations}{71}{subsection.A.7}%
+\contentsline {subsection}{\numberline {A.8}Covenants and Script Extensions}{71}{subsection.A.8}%
+\contentsline {subsection}{\numberline {A.9}Notation Conventions}{71}{subsection.A.9}%

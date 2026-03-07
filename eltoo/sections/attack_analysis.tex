@@ -120,9 +120,9 @@ In legacy LN, attackers use Child-Pays-For-Parent (CPFP) or RBF rules to ``pin''
         \node[text=red, font=\tiny] at ($(pool1.west) + (-0.2, 0)$) {$\times$};
     \end{scope}
 
-    % --- Right: Native Eltoo STPC ---
+    % --- Right: Elone STPC ---
     \begin{scope}[xshift=6.5cm, local bounding box=right]
-        \node[font=\bfseries] at (0, 2.0) {Native Eltoo: STPC};
+        \node[font=\bfseries] at (0, 2.0) {Elone: STPC};
         
         % Mempool Area
         \node[mempool] (pool2) at (0,0) {};
@@ -164,7 +164,7 @@ where $\lambda_{\mathrm{block}}$ is the block arrival rate ($\sim$1 block/second
 Spam States & $\mathcal{O}(N) \times \mathrm{Fee}$ & $\mathcal{O}(1)$ Verify \\
 Force Close & $1 \times \mathrm{Fee}$ & $1 \times \mathrm{Fee}$ \\
 Fund Lock & Capital Opportunity Cost & Capital Opportunity Cost \\
-Time Cost & Days (Legacy) & \textbf{Seconds (Native Eltoo)} \\
+Time Cost & Days (Legacy) & \textbf{Seconds (Elone)} \\
 \bottomrule
 \end{tabularx}
 \end{table}

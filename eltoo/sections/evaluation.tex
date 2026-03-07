@@ -33,11 +33,11 @@ We compare the proposed native validation against legacy script interpretation.
     \addplot[fill=blue!30] coordinates {
         (FUND,145) (UPDATE,156) (SETTLE,197) (SPLICE,348)
     };
-    % Native Eltoo Data
+    % Elone Data
     \addplot[fill=green!50] coordinates {
         (FUND,45) (UPDATE,38) (SETTLE,52) (SPLICE,67)
     };
-    \legend{Legacy Script, Native Eltoo (Native)}
+    \legend{Legacy Script, Elone (Native)}
 \end{axis}
 \end{tikzpicture}
 \caption{Validation Latency Comparison. Native type enumeration achieves $\approx 3\text{--}5\times$ speedup by eliminating Script VM overhead.}
@@ -81,7 +81,7 @@ Using Schnorr batch verification, throughput increases significantly:
 \small
 \begin{tabularx}{\linewidth}{@{}l r r r@{}}
 \toprule
-\textbf{Component} & \textbf{Legacy LN} & \textbf{Native Eltoo} & \textbf{Reduction} \\
+\textbf{Component} & \textbf{Legacy LN} & \textbf{Elone} & \textbf{Reduction} \\
 \midrule
 Fund UTXO & 120~B & 120~B & 0\% \\
 Latest State & 256~B & 256~B & 0\% \\
