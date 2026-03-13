@@ -22,6 +22,7 @@ topics:
   - Elone
 artifacts:
   source_tex: paper.tex
+  compiled_pdf: Elone_Prism_Proof_First_Merkleized_Channels.pdf
 build:
   working_directory: /Users/arthur/RustroverProjects/Research/elone_merkle
   command: pdflatex -interaction=nonstopmode -halt-on-error -output-directory=/tmp/elone-merkle-paper-build paper.tex
@@ -29,9 +30,9 @@ related_codebases:
   - path: /Users/arthur/RustroverProjects/Tondi
     relationship: protocol design source and implementation context
 summary: >
-  This paper turns the March 2026 Elone Merkle design memorandum into an
-  academic protocol draft. Under the name Elone Prism, it proposes a
+  This paper turns the March 2026 Elone Merkle design memorandum into a
+  formalized protocol-design draft. Under the name Elone Prism, it proposes a
   commitment-native channel architecture with dual-subtree state commitments,
-  exact partition conservation, deterministic settlement, proof-first
-  witnesses, and a migration path away from plaintext-authoritative channel
-  state.
+  explicit partition assignment, exact partition conservation, deterministic
+  settlement, proof-first witnesses, a state-package recovery model, and a
+  benchmark agenda for the systems questions that remain open.

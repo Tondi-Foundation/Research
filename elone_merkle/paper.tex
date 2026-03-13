@@ -119,9 +119,9 @@ Existing off-chain channel systems often conflate three logically distinct conce
 
 \textbf{Technical Contributions:} We make seven contributions. First, we define a \textbf{dual-subtree state commitment model} with separate balance and PTLC subtrees plus an optional aggregate root, together with a canonical \code{state\_header\_commitment}. Second, we introduce a \textbf{sponsor-paid fee model} in which channel value never pays fees. Third, we formalize \textbf{partition conservation}: exact conservation of channel-owned value and fee extraction exclusively from sponsor-owned value. Fourth, we distinguish \textbf{deterministic unilateral settlement} from \textbf{explicitly authorized cooperative settlement}, thereby repairing the output-authorization boundary of settlement flows. Fifth, we propose a \textbf{proof-first witness and storage model} in which local authority is expressed through roots, proofs, signatures, and encrypted leaf bundles rather than long-lived plaintext state. Sixth, we define \textbf{transition-footprint semantics} and show why proof-first validation is locality-preserving rather than full-state-reconstructive. Seventh, we characterize the \textbf{state package} as the correct recovery object: richer than a bare root, leaner than a permanent plaintext dump.
 
-\textbf{Theoretical Results:} We prove that partition conservation implies zero channel-paid fees and that deterministic settlement descriptors yield a unique unilateral settlement output set, up to canonical serialization. We also show that proof-first verification is naturally local in the touched state footprint and that a bare state root is insufficient for unilateral recovery. These results replace fee-cap reasoning with a stronger invariant over value partitions and replace plaintext-authoritative recovery with a sharper notion of recoverable protocol meaning.
+\textbf{Formal Consequences:} We show that partition conservation implies zero channel-paid fees and that deterministic settlement descriptors yield a unique unilateral settlement output set, up to canonical serialization. Under an explicit simple-proof model, we also show that proof-first verification is naturally local in the touched state footprint and that a bare state root is insufficient for unilateral recovery. These results replace fee-cap reasoning with a stronger invariant over value partitions and replace plaintext-authoritative recovery with a sharper notion of recoverable protocol meaning.
 
-\textbf{Engineering Interpretation:} This paper should be read as a March 2026 protocol proposal derived from the new Elone Merkle design memorandum. It is not a claim that the full design is already implemented. Rather, it provides a research-grade specification and migration discipline for upgrading Elone from a plaintext-assisted channel protocol to a proof-first, merkleized channel architecture.
+\textbf{Paper Type:} This draft should be read as a March 2026 protocol-design paper derived from the new Elone Merkle design memorandum. It is not a claim that the full design is already implemented, nor does it yet claim systems-level empirical closure. Rather, it provides a formalized architectural specification and migration discipline for upgrading Elone from a plaintext-assisted channel protocol to a proof-first, merkleized channel architecture.
 
 \textbf{Keywords:} Payment Channels, Merkleized Channels, Partition Conservation, Proof-First Witnesses, Deterministic Settlement, Elone Protocol
 \end{abstract}
@@ -158,6 +158,8 @@ The research question of this paper is not whether Merkle commitments can be app
 \subsection{Scope}
 
 This paper focuses on the Elone protocol family. It does not attempt a general treatment of all payment channel systems. Nor does it claim that the entire design is already implemented in production code. The intended contribution is a research-level protocol refinement and migration target for Elone itself.
+
+Accordingly, the present draft should be judged primarily as a protocol-design paper rather than as a finished systems paper. Where we introduce formal objects and propositions, the goal is to make the design auditable and extensible; where we do not yet provide empirical measurements, we say so explicitly and turn those gaps into a benchmark agenda rather than smuggling them in as implied evidence.
 
 \subsection{Why This Requires a Dedicated Elone Paper}
 
@@ -353,13 +355,13 @@ A transition $\tau: \Gamma_t \rightarrow \Gamma_{t+1}$ is \textbf{admissible} if
 
 Let $N_B = |\mathcal{B}_t|$ and $N_P = |\mathcal{P}_t|$ be the cardinalities of the balance and PTLC sets, and let $k_B = |R_B| + |W_B|$ and $k_P = |R_P| + |W_P|$ be the effective touched-leaf counts of a transition.
 
-\begin{theorem}[Witness Locality]
+\begin{proposition}[Local Verification Under a Simple Proof Model]
 Assume fixed-arity canonical Merkle trees, bounded tree-external metadata, and no requirement to reconstruct untouched leaves. Then verification work for an admissible proof-first transition is
 \[
 \mathcal{O}(k_B \log N_B + k_P \log N_P + 1),
 \]
 rather than $\mathcal{O}(N_B + N_P)$ full-state reconstruction.
-\end{theorem}
+\end{proposition}
 
 \begin{proof}
 The verifier checks proofs only for the leaves named in the transition footprint. Each balance or PTLC proof has logarithmic length in the size of its corresponding canonical tree. Untouched leaves do not appear in the witness and are not reserialized. Tree-external metadata is bounded in size by protocol design. Therefore total verification work is proportional to the number of touched leaves times logarithmic proof length, plus constant-sized metadata checks.
@@ -481,9 +483,19 @@ The academic insight here is that a proof-first channel protocol should treat \e
 % ============ Section 6 ============
 \section{Sponsor-Paid Fees and Partition Conservation}
 
+\subsection{Initialization vs.\ Post-Funding Transitions}
+
+FUND is not semantically identical to UPDATE, SETTLE, or SPLICE. FUND creates the initial channel partition from ordinary wallet-owned value. By contrast, UPDATE, SETTLE, and SPLICE transform an already existing channel partition. This distinction matters because exact channel-partition conservation is a property of \emph{post-funding channel transitions}, not of the initial funding act itself.
+
+We therefore distinguish:
+\begin{itemize}
+    \item \textbf{initialization}: FUND creates channel-owned outputs from setup-wallet value and pays fees in the ordinary wallet manner;
+    \item \textbf{post-funding transitions}: UPDATE, SETTLE, and SPLICE preserve the already created channel partition while allowing sponsor-funded publication.
+\end{itemize}
+
 \subsection{Partitioned Value Semantics}
 
-Every Elone transaction is divided into two value partitions:
+Every post-funding Elone transition is divided into two value partitions:
 \begin{itemize}
     \item the \textbf{channel partition}, consisting of channel-owned inputs and channel-owned outputs;
     \item the \textbf{sponsor partition}, consisting of ordinary wallet inputs and ordinary sponsor change outputs.
@@ -491,27 +503,58 @@ Every Elone transaction is divided into two value partitions:
 
 This division is semantic rather than script-template-based. In particular, cooperative settlement may produce ordinary address outputs that nonetheless belong to the channel partition. Therefore, partition membership cannot be determined by superficial output shape. It must be determined by commitment membership or deterministic derivation.
 
-\begin{definition}[Partition Conservation]
-Let $V_C^{in}$ and $V_C^{out}$ denote the total input and output value of the channel partition. Let $V_S^{in}$ and $V_S^{out}$ denote the corresponding values for the sponsor partition. A transaction satisfies \textbf{partition conservation} iff:
+\subsection{Partition Assignment Semantics}
+
+\begin{definition}[Partition Map]
+For each post-funding Elone transition $T$, the protocol defines a deterministic map
 \[
-V_C^{in} = V_C^{out}
+\pi_T : E(T) \rightarrow \{C, S, R\},
+\]
+where $E(T)$ is the set of transaction-relevant elements, $C$ denotes channel-owned value, $S$ denotes sponsor-owned value, and $R$ denotes reference-only elements that affect validation but do not enter value conservation.
+\end{definition}
+
+The crucial role of $\pi_T$ is to prevent partition assignment from degenerating into output-shape heuristics. The map is part of protocol semantics, not wallet convention.
+
+\begin{table}[htbp]
+\centering
+\caption{Deterministic Partition Assignment for Post-Funding Transitions}
+\label{tab:partition_assignment}
+\small
+\begin{tabularx}{\linewidth}{@{}l X X X@{}}
+\toprule
+\textbf{Tx Type} & \textbf{Channel-Owned ($C$)} & \textbf{Sponsor-Owned ($S$)} & \textbf{Reference-Only ($R$)} \\
+\midrule
+UPDATE & consumed \code{ChannelState}; created next \code{ChannelState} & sponsor wallet inputs and sponsor change outputs & \code{ChannelFundRef} context input \\
+Timed SETTLE & consumed \code{ChannelFund} and \code{ChannelState}; all outputs from descriptor derivation & optional sponsor wallet inputs and sponsor change outputs & none \\
+Coop SETTLE & consumed \code{ChannelFund} and \code{ChannelState}; outputs committed by \code{settle\_outputs\_root} & optional sponsor wallet inputs and sponsor change outputs not covered by that root & none \\
+SPLICE & all consumed and created channel-typed topology outputs designated by splice commitments & sponsor wallet inputs and sponsor change outputs & topology references with no spend value \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+FUND is exceptional. It creates the initial channel partition by moving setup-wallet value into \code{ChannelFund} and \code{ChannelState(0)} outputs. Fees are still wallet-funded, but exact conservation is not yet defined over a pre-existing channel partition because none exists before funding.
+
+\begin{definition}[Partition Conservation]
+Let $T$ be a post-funding Elone transition. Let $V_C^{in}(T)$ and $V_C^{out}(T)$ denote the total input and output value of the elements for which $\pi_T(e)=C$. Let $V_S^{in}(T)$ and $V_S^{out}(T)$ denote the corresponding totals for the elements for which $\pi_T(e)=S$. The transition satisfies \textbf{partition conservation} iff:
+\[
+V_C^{in}(T) = V_C^{out}(T)
 \]
 and
 \[
-V_S^{in} \geq V_S^{out}.
+V_S^{in}(T) \geq V_S^{out}(T).
 \]
 The fee is then defined as:
 \[
-\Fee = V_S^{in} - V_S^{out}.
+\Fee(T) = V_S^{in}(T) - V_S^{out}(T).
 \]
 \end{definition}
 
-\begin{theorem}[Channel Fee Isolation]
+\begin{proposition}[Channel Fee Isolation]
 If partition conservation holds, then channel-owned value never pays transaction fees.
-\end{theorem}
+\end{proposition}
 
 \begin{proof}
-By definition, $V_C^{in} = V_C^{out}$. Therefore no value deficit is introduced within the channel partition. Since total fee is defined entirely by the sponsor deficit $V_S^{in} - V_S^{out}$, all fees must be paid by the sponsor partition. Hence channel-paid fee is identically zero.
+By definition, $V_C^{in}(T) = V_C^{out}(T)$. Therefore no value deficit is introduced within the channel partition of $T$. Since total fee is defined entirely by the sponsor deficit $V_S^{in}(T) - V_S^{out}(T)$, all fees must be paid by the sponsor partition. Hence channel-paid fee is identically zero.
 \end{proof}
 
 \begin{corollary}
@@ -609,6 +652,8 @@ The cooperative path may intentionally expose more flexibility for address rotat
 \]
 Sponsor change outputs must remain outside this commitment.
 
+This split matches an important asymmetry already visible in the current Elone validator. Timed settle enforces commitment consistency against the on-chain state carrier, whereas cooperative settle can authorize a later mutually signed off-chain state without first publishing an intermediate UPDATE. Elone Prism does not erase that asymmetry; it makes it explicit and gives each path a distinct authorization object.
+
 \subsection{Settlement Descriptor as a Protocol Object}
 
 The settlement descriptor is the bridge between abstract state commitments and concrete value redistribution. A useful descriptor should specify:
@@ -626,6 +671,58 @@ This yields a clean academic separation:
 \end{itemize}
 
 The descriptor is thus neither a mere wallet hint nor a generic scripting language. It is a narrow authorization object whose purpose is to eliminate hidden builder discretion.
+
+\subsection{A Minimal Descriptor Calculus}
+
+To make the descriptor auditable, we define a minimal descriptor grammar:
+\[
+\Delta = (\texttt{version}, \texttt{participants}, \rho_{\mathrm{pay}}, \rho_{\mathrm{ptlc}}, \rho_{\mathrm{asset}}, \rho_{\mathrm{coop}}),
+\]
+where:
+\begin{itemize}
+    \item \texttt{participants} fixes the participant set and destination identities available to the channel;
+    \item $\rho_{\mathrm{pay}}$ maps proved balance leaves to canonical payout instructions;
+    \item $\rho_{\mathrm{ptlc}}$ specifies the PTLC emptiness or resolution predicates required before timed settlement is admissible;
+    \item $\rho_{\mathrm{asset}}$ specifies asset-aware routing and output grouping policy;
+    \item $\rho_{\mathrm{coop}}$ specifies the canonicalization rule for cooperative output commitments.
+\end{itemize}
+
+The point of this calculus is not to create a general-purpose scripting language. It is to specify precisely which degrees of freedom are allowed to influence settlement and which are not.
+
+\subsection{Descriptor Commitment and Upgrade Boundaries}
+
+The descriptor root belongs in the state header commitment because it changes the meaning of settlement, not merely its serialization. Two consequences follow:
+\begin{enumerate}
+    \item if the descriptor root changes, the channel has changed one of its authorization objects, and the change must therefore be reflected in a new authorized state header;
+    \item a state package remains recoverable across time only relative to the descriptor version committed by that package.
+\end{enumerate}
+
+This is why descriptor upgrades cannot be treated as wallet-local metadata edits. They are semantic upgrades to the settlement calculus itself.
+
+\subsection{Timed-Settle Derivation}
+
+The minimal deterministic derivation rule can be expressed as follows.
+
+\begin{lstlisting}[caption={Timed-Settle Output Derivation Sketch}, float=!htb]
+fn derive_timed_settle_outputs(
+    package: &StatePackage,
+    descriptor: &Descriptor
+) -> Result<Vec<Output>, Error> {
+    require(package.descriptor_root == descriptor.commitment());
+    require(descriptor.ptlc_rule.admits(&package.ptlc_proofs)?);
+
+    let mut outputs = vec![];
+    for leaf in package.balance_leaves.iter().sorted_by_key(canonical_key) {
+        outputs.push(descriptor.payout_rule.to_output(leaf)?);
+    }
+
+    descriptor.asset_policy.normalize(&mut outputs)?;
+    descriptor.coop_policy.assert_not_required()?;
+    canonical_serialize(outputs)
+}
+\end{lstlisting}
+
+The important fact about this pseudocode is not its surface syntax. It is that no hidden builder discretion remains once the state package and descriptor are fixed. That property is exactly what unilateral settlement needs.
 
 \subsection{SPLICE}
 
@@ -805,7 +902,60 @@ An unresolved but important question is whether proof objects themselves should 
 
 The academic point is that \emph{signature minimality} matters: once signatures absorb wallet mechanics, channel authorization and wallet execution become inseparable again.
 
-\section{Comparative Perspective}
+\section{Evaluation Agenda and Measurable Claims}
+
+\subsection{What This Draft Does and Does Not Claim}
+
+This draft now specifies the protocol objects sharply enough to support benchmarking, but it does not yet report benchmark results. That limitation matters. Without empirical measurements, Elone Prism remains a protocol thesis with formalized objects rather than a completed systems paper.
+
+\subsection{Hypotheses for Empirical Evaluation}
+
+The design yields four primary hypotheses:
+\begin{enumerate}
+    \item \textbf{Witness-size hypothesis}: proof-first witnesses become smaller than plaintext witnesses once balance/PTLC sets exceed a protocol-dependent threshold.
+    \item \textbf{Verification-locality hypothesis}: verifier work tracks touched leaves and proof overlap rather than full state cardinality.
+    \item \textbf{Recovery-object hypothesis}: a state package is materially smaller than an always-persisted plaintext snapshot while still sufficient for unilateral recovery.
+    \item \textbf{DoS-boundary hypothesis}: adversarial proof shapes can be bounded by manifest constraints and canonical proof policies.
+\end{enumerate}
+
+\subsection{Minimum Benchmark Matrix}
+
+\begin{table}[htbp]
+\centering
+\caption{Minimum Benchmark Program Required for a Systems Version of Elone Prism}
+\label{tab:evaluation_matrix}
+\small
+\begin{tabularx}{\linewidth}{@{}l X X@{}}
+\toprule
+\textbf{Dimension} & \textbf{Parameter Sweep} & \textbf{Metrics} \\
+\midrule
+State size & 32 / 128 / 512 balance leaves; 0 / 16 / 64 PTLC leaves & witness bytes, proof bytes, output bytes \\
+Verification cost & UPDATE / timed SETTLE / coop SETTLE / SPLICE & CPU time, hash count, cache-hit ratio \\
+Recovery cost & bare root vs.\ state package vs.\ encrypted plaintext snapshot & recovery latency, persisted bytes, unilateral-settle readiness \\
+Adversarial stress & worst-case touched-leaf pattern, overlapping proofs, sponsor-fee spikes & verifier slowdown, mempool rejection rate, failure classification \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Why This Matters}
+
+The benchmark agenda is not decorative. It is the empirical bridge between the protocol thesis of this paper and a systems paper claim. Until those measurements exist, locality, recoverability, and DoS resilience should be read as structured hypotheses with supporting design arguments rather than as experimentally closed results.
+
+\section{Related Work and Positioning}
+
+\subsection{Payment Channels, Update-by-Replacement, and Factories}
+
+Lightning-style payment channels frame channel security around revocation or punishment logic and off-chain state replacement \cite{poondryja2016lightning}. Eltoo reframes that lineage by using update-by-replacement and \rfc{ANYPREVOUT}-style semantics to make the latest state authoritative \cite{decker2018eltoo,bip118}. Channel factories extend the same family toward shared funding and nested topology management \cite{burchert2018factories}. Elone Prism is adjacent to this literature, but its main claim is different: the novel issue is not merely how to replace states, but how to relocate authority from plaintext snapshots to proof-carrying state packages while separating publication fees from conserved channel value.
+
+PTLC-oriented constructions and anonymous multi-hop locks extend channel expressiveness beyond HTLC-style lock semantics \cite{malavolta2019amhl}. Elone Prism does not compete with that work; rather, it asks how PTLC-bearing state should be committed, proved, and recovered once PTLC sets themselves become Merkleized protocol objects.
+
+\subsection{Merkleized State and Witness-Carrying Validation}
+
+Merkleized and proof-carrying validation ideas are well established in blockchain research. Utreexo shows how authenticated accumulators can move large validation state into compact proofs \cite{dryja2019utreexo}. Plasma-style exit systems and related off-chain constructions show how committed state and explicit exit proofs can be combined to support conditional withdrawal from shared state \cite{poon2017plasma}. Elone Prism differs in two ways. First, its witnesses are not global-state proofs but bilateral channel-transition footprints. Second, its goal is not merely stateless verification; it is to redefine the authority object used by the channel runtime itself.
+
+\subsection{Fee Sponsorship and Publication Economics}
+
+Transaction sponsorship and fee abstraction are familiar in account-abstraction systems, for example through paymaster-style relaying models such as ERC-4337 \cite{erc4337}. Elone Prism borrows the intuition that the actor paying publication cost need not be identical to the actor whose state transition is being published. Its contribution is to internalize that separation as a channel-level invariant: sponsor funding is not an implementation convenience but a partition assignment rule checked by protocol semantics.
 
 \subsection{What Elone Prism Adds Beyond Generic Merkleization}
 
@@ -880,6 +1030,21 @@ A natural policy formula is:
        &+ \texttt{consolidation\_margin}.
 \end{align*}
 
+This reserve formula becomes meaningful only under an explicit fee-spike model. Let $\lambda$ denote the prevailing fee rate and let $\lambda_{\max}$ denote the adversarial fee rate the protocol chooses to survive. Then a minimal liveness condition for unilateral publishability is:
+\[
+\texttt{emergency\_sponsor\_reserve} \geq \sum_{a \in \mathcal{A}_{\mathrm{unilateral}}} \texttt{mass}(a)\cdot \lambda_{\max} + \texttt{rebroadcast\_margin},
+\]
+where $\mathcal{A}_{\mathrm{unilateral}}$ contains every action a participant may need to publish in the worst credible recovery path.
+
+This observation is important for academic positioning. Partition conservation solves a \emph{safety} problem by forbidding channel-paid fees. It does not by itself solve the \emph{liveness} problem of getting an authorized transaction mined during fee volatility. Any mature version of Elone Prism therefore needs one of three publication strategies:
+\begin{enumerate}
+    \item \textbf{self-funded reserve}: each participant maintains a locally controlled sponsor reserve sized for $\lambda_{\max}$;
+    \item \textbf{bonded fee lane}: a pre-committed sponsor pool is reserved for emergency publication only;
+    \item \textbf{third-party sponsorship}: an external sponsor or service is authorized to pay fees without changing the channel partition.
+\end{enumerate}
+
+If none of these strategies is in place, the protocol may be safe in the narrow sense of value conservation while still failing operationally under fee spikes. That distinction should be read as a central research constraint, not an implementation footnote.
+
 \subsection{Open Question 2: Proof Size and DoS Envelope}
 
 Proof-first witnesses should not be evaluated only for correctness. They must also be benchmarked for:
@@ -921,5 +1086,57 @@ The resulting design is not merely ``more Merkleized.'' It is a cleaner separati
 The March 2026 design snapshot should therefore be understood as a decisive architectural refinement for Elone. Under the name \textbf{Elone Prism}, it is best read as the merkleized, proof-first specialization of the broader Elone program. Its academic contribution is not just a new state layout. It is the claim that channel protocols become cleaner when they are analyzed through three separations at once: authority from cache, channel value from publication fees, and deterministic settlement from cooperative flexibility.
 
 That thesis is already coherent enough to function as the main protocol line, but it becomes genuinely mature only if four engineering closures are completed: sponsor-liveness reserves, proof-size and DoS benchmarking, upgradeable settlement descriptor design, and factory-level composition semantics. Those are not peripheral implementation chores. They are the final steps required to turn Elone Prism from a sharp protocol thesis into a fully operational merkleized channel architecture.
+
+\begin{thebibliography}{99}
+
+\bibitem{poondryja2016lightning}
+Joseph Poon and Thaddeus Dryja.
+\newblock \emph{The Bitcoin Lightning Network: Scalable Off-Chain Instant Payments}.
+\newblock White paper, 2016.
+\newblock \url{https://nakamotoinstitute.org/library/lightning-network/}
+
+\bibitem{decker2018eltoo}
+Christian Decker, Rusty Russell, and Olaoluwa Osuntokun.
+\newblock \emph{eltoo: A Simple Layer2 Protocol for Bitcoin}.
+\newblock Technical report, 2018.
+\newblock \url{https://blockstream.com/eltoo.pdf}
+
+\bibitem{bip118}
+Christian Decker and Anthony Towns.
+\newblock \emph{BIP 118: SIGHASH\_ANYPREVOUT for Taproot Scripts}.
+\newblock Draft specification, 2017.
+\newblock \url{https://bips.dev/118/}
+
+\bibitem{burchert2018factories}
+Conrad Burchert, Christian Decker, and Roger Wattenhofer.
+\newblock \emph{Scalable Funding of Bitcoin Micropayment Channel Networks}.
+\newblock Royal Society Open Science, 5(8):180089, 2018.
+\newblock \url{https://royalsocietypublishing.org/doi/10.1098/rsos.180089}
+
+\bibitem{malavolta2019amhl}
+Giulio Malavolta, Pedro Moreno-Sanchez, Aniket Kate, and Matteo Maffei.
+\newblock \emph{Anonymous Multi-Hop Locks for Blockchain Scalability and Interoperability}.
+\newblock In \emph{NDSS}, 2019.
+\newblock \url{https://www.ndss-symposium.org/ndss-paper/anonymous-multi-hop-locks-for-blockchain-scalability-and-interoperability/}
+
+\bibitem{dryja2019utreexo}
+Thaddeus Dryja.
+\newblock \emph{Utreexo: A Dynamic Hash-Based Accumulator Optimized for the UTXO Set}.
+\newblock IACR ePrint 2019/611, 2019.
+\newblock \url{https://eprint.iacr.org/2019/611}
+
+\bibitem{poon2017plasma}
+Joseph Poon and Vitalik Buterin.
+\newblock \emph{Plasma: Scalable Autonomous Smart Contracts}.
+\newblock White paper, 2017.
+\newblock \url{https://plasma.io/plasma.pdf}
+
+\bibitem{erc4337}
+Vitalik Buterin, Yoav Weiss, Dror Tirosh, Shahaf Nacson, Alex Forshtat, Kristof Gazso, and Tjaden Hess.
+\newblock \emph{ERC-4337: Account Abstraction Using Alt Mempool}.
+\newblock Draft standard, 2021.
+\newblock \url{https://eips.ethereum.org/EIPS/eip-4337}
+
+\end{thebibliography}
 
 \end{document}
