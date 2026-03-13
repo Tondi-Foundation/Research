@@ -21,9 +21,13 @@ people can discover the paper without first parsing the TeX source.
 
 ## If You Are Human
 
-- Current paper directories: `elone/` for the payment-channel and
-  native-consensus architecture paper, and `mmr/` for the MMR execution-log
-  commitment paper for GHOSTDAG-based PoW DAG ledgers.
+- Current papers:
+
+| Paper | Directory | Created | Current date | Abstract-level summary |
+| --- | --- | --- | --- | --- |
+| Elone | `elone/` | 2025-12-17 | 2026-03 | A consensus-embedded payment-channel architecture built around a dual-track UTXO model, native transaction typing, and atomic channel reconfiguration. The current paper snapshot is theory-led but partially backed by code in `Tondi`: consensus tx types, SDK builders, engine/store split, and low-level RPC exist, while PTLC production execution and channel-factory lifecycle remain incomplete. |
+| MMR Execution Log | `mmr/` | 2026-01-22 | 2026-01 | A proposal for consensus-level execution-log commitments in GHOSTDAG-based PoW DAG ledgers using Merkle Mountain Ranges. The paper introduces execution-position receipts that prove actual consensus execution order and enable logarithmic verification for historical transactions, bridges, and light clients. |
+
 - Open each paper's `metadata.yaml` first if you want a fast summary, source
   path, build command, and related codebase.
 - Main editable sources: `elone/paper.tex` and `mmr/mmr_full_paper.tex`.
