@@ -1,229 +1,101 @@
 \section{Implementation Architecture}
 
-\subsection{System Architecture Overview}
+\subsection{Repository Snapshot}
 
-The reference implementation adopts a layered architecture to ensure separation of concerns.
+As of March 2026, the Elone implementation is no longer merely a design sketch: the repository already contains consensus-layer transaction types, SDK signing and transaction-building code, an off-chain engine/store boundary, and low-level node RPC support. At the same time, the implementation is not yet uniform across all layers, and several higher-layer flows remain under active stabilization. This section therefore distinguishes \textit{implemented subsystems} from \textit{unfinished integration work}.
 
 \begin{table}[htbp]
 \centering
-\caption{Layered Architecture Components}
-\label{tab:architecture}
+\caption{Current Implementation Layers}
+\label{tab:impl_layers_current}
 \small
 \begin{tabularx}{\linewidth}{@{}l l X@{}}
 \toprule
-\textbf{Layer} & \textbf{Responsibility} & \textbf{Key Components} \\
+\textbf{Layer} & \textbf{Responsibility} & \textbf{Current Components} \\
 \midrule
-Consensus & Validation Rules & \code{EloneBlockValidator} \\
-UTXO & State Materialization & \code{RefOpUTXO}, \code{StateUTXO} \\
-Protocol & State Machine & \code{ChannelStateMachine} \\
-Application & User Interface & Wallet, RPC API \\
+Consensus & Native tx model and validation & \texttt{consensus/core}, \texttt{consensus/src/processes/elone\_utxo\_validator.rs} \\
+SDK & Key aggregation, signing contexts, tx builders & \texttt{sdk/elone} \\
+Engine & Off-chain command processing and lifecycle state & \texttt{elone-core} \\
+Storage & Persistent channel/state/signature history & \texttt{elone-store} \\
+Node RPC & Serialized tx submission and channel-index queries & \texttt{rpc/core}, \texttt{rpc/service} \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[
-    scale=0.8, transform shape,
-    font=\sffamily\scriptsize,
-    utxo/.style={rectangle, draw=gray, thick, rounded corners, minimum width=1.8cm, minimum height=1cm, fill=white},
-    tx/.style={rectangle, draw=blue!80, thick, fill=blue!5, minimum width=2.2cm, minimum height=1.2cm},
-    arrow/.style={->, >=Stealth, thick}
-]
-    % Inputs
-    \node[utxo, fill=yellow!10] (fund) at (0, 3) {Fund UTXO};
-    \node[below=0.05cm of fund, font=\tiny] {$V, \mathrm{AggVK}$};
-    \node[utxo, fill=green!10] (state) at (0, 0) {State UTXO};
-    \node[below=0.05cm of state, font=\tiny] {Seq $n$};
-    \node[above=0.3cm of fund, font=\bfseries] {Inputs};
+\subsection{Consensus Layer: Implemented Native Types}
 
-    % Transactions
-    \node[tx] (update) at (4, 3) {Update Tx};
-    \node[below=0.05cm of update, font=\tiny] {$\RefOp + \Spend$};
-    \node[tx] (settle) at (4, 1) {Settle Tx};
-    \node[tx] (splice) at (4, -1) {Splice Tx};
-    \node[above=0.3cm of update, font=\bfseries] {Operations};
+The consensus layer already models Elone as native transaction families rather than script overlays. The currently implemented transaction taxonomy is expressed by a compact enumeration:
 
-    % Outputs
-    \node[utxo, fill=green!10] (newstate) at (8, 3) {New State};
-    \node[below=0.05cm of newstate, font=\tiny] {Seq $n+1$};
-    \node[utxo, fill=gray!10] (regular) at (8, 1) {Regular UTXOs};
-    \node[utxo, fill=orange!10] (newfund) at (8, -1) {New Topology};
-    \node[above=0.3cm of newstate, font=\bfseries] {Outputs};
-
-    % Routing
-    \draw[arrow, dashed, blue] (fund.east) -- node[above, font=\tiny] {Ref} (update.west);
-    \draw[arrow] (state.east) -- ++(0.5,0) |- (update.west);
-    \draw[arrow] (update.east) -- (newstate.west);
-
-    \draw[arrow, dashed, blue] (fund.east) -- ++(0.3,0) |- (settle.west);
-    \draw[arrow] (state.east) -- ++(0.3,0) |- (settle.west);
-    \draw[arrow] (settle.east) -- (regular.west);
-
-    \draw[arrow] (fund.east) -- ++(0.15,0) |- (splice.west);
-    \draw[arrow] (state.east) -- ++(0.15,0) |- (splice.west);
-    \draw[arrow] (splice.east) -- (newfund.west);
-
-\end{tikzpicture}
-\caption{Transaction Topology Flow. Dashed lines indicate non-consuming references ($\RefOp$), solid lines indicate value consumption ($\Spend$).}
-\label{fig:tx_topology}
-\end{figure}
-
-\subsection{Consensus Layer Implementation}
-
-\subsubsection{Transaction Type Enumeration}
-The consensus layer uses algebraic data types to classify transactions:
-
-\begin{lstlisting}[caption={Rust Enum for Transaction Types}, float=!htb]
-enum EloneTxType {
-    FUND { participants: Vec<PublicKey>, cap: u64 },
-    UPDATE { ref_fund: OutPoint, seq: u64 },
-    SETTLE { ref_fund: OutPoint, final_state: StateCommit },
-    SPLICE { inputs: Vec<OutPoint>, outs: Vec<TxOut> },
+\begin{lstlisting}[caption={Implemented Elone Transaction Taxonomy}, float=!htb]
+pub enum EloneTxType {
+    Fund = 0x01,
+    Update = 0x02,
+    Settle = 0x03,
+    Splice = 0x04,
 }
 \end{lstlisting}
 
-\subsubsection{Validation Pipeline}
-The \code{EloneBlockValidator} enforces state monotonicity (Theorem~\ref{thm:isolation}) and reference existence:
+Likewise, native channel inputs and outputs are materialized as typed variants of \texttt{TransactionInput} and \texttt{TransactionOutput}, including \texttt{ChannelOpenSpend}, \texttt{ChannelStateSpend}, \texttt{ChannelFundSpend}, \texttt{ChannelFundRef}, \texttt{ChannelFund}, and \texttt{ChannelState}. This is not theoretical pseudocode: these variants are present in the current consensus codebase and are consumed by the Elone validator and the channel index.
 
-\begin{lstlisting}[caption={Monotonicity Validation Logic}, float=!htb]
-fn validate_update(tx: &UpdateTx) -> Result<()> {
-    let prev = get_state_utxo(tx.input_state)?;
-    ensure!(tx.new_seq > prev.seq, "NonMonotonic");
-    verify_ref_fund_exists(tx.ref_fund)?;
-    Ok(())
-}
-\end{lstlisting}
+The current implementation also enforces concrete resource bounds:
+\begin{itemize}
+    \item $\texttt{MAX\_BALANCE\_ENTRIES} = 1024$
+    \item $\texttt{MAX\_PTLC\_ENTRIES} = 128$
+    \item $\texttt{MAX\_STATE\_INCREMENT} = 10^6$
+    \item $\texttt{MIN\_CSV\_DELAY} = 600$, $\texttt{MAX\_CSV\_DELAY} = 54000$
+    \item $\texttt{MAX\_SUBCHANNELS\_PER\_FORK} = 8$, $\texttt{MAX\_MERGE\_SUBCHANNELS} = 16$
+\end{itemize}
 
-\subsection{State Machine \& UTXO Indexing}
+These limits are operationally important because they demonstrate that the current code already contains a real anti-DoS envelope, not just a high-level design claim.
 
-\subsubsection{State Transition}
-The state machine handles local state evolution:
+\subsection{SDK and Signing Stack}
 
-\begin{lstlisting}[caption={State Transition Implementation}, float=!htb]
-impl ChannelStateMachine {
-    fn apply(&mut self, event: Event) -> Result<()> {
-        match event {
-            Event::Update { balances, ptlcs } => {
-                self.seq += 1;
-                self.balances = balances;
-                self.ptlcs = ptlcs;
-            },
-            Event::Settle => {
-                self.state = State::Settling;
-                self.timeout = now() + CSV_DELAY;
-            },
-            Event::Splice { topo } => {
-                self.execute_splice(topo)?;
-            }
-        }
-        Ok(())
-    }
-}
-\end{lstlisting}
+The SDK layer provides the most complete portion of the current implementation. In particular:
+\begin{itemize}
+    \item \texttt{EloneClientSDK} implements MuSig2 key aggregation and typed signing flows;
+    \item \texttt{EloneTxBuilder} builds FUND, UPDATE, SETTLE, and SPLICE-family transactions;
+    \item \texttt{SessionContext} binds signatures to \texttt{fund\_ref}, \texttt{chain\_id}, roots, fees, and mode-specific fields;
+    \item \texttt{secure\_channel.rs} implements nonce-reuse protection and authenticated transport helpers.
+\end{itemize}
 
-\subsubsection{Incremental Indexing}
-To support registry-free discovery, we implement a lightweight indexer:
+One important safety property already enforced by the current SDK and engine design is that off-chain state progression is modeled as a dual-sign procedure: UPDATE and SETTLE signatures are produced together, with SETTLE signed first. This is not yet a full network protocol, but it does establish the safety-critical local invariant required for non-penalty channels.
 
-\begin{lstlisting}[caption={UTXO Indexer Structure}, float=!htb]
-struct EloneIndexer {
-    // Fast O(1) lookups
-    utxo_index: HashMap<OutPoint, EloneUTXO>,
-    // Channel lifecycle tracking
-    channel_index: HashMap<ChannelID, ChannelUTXOs>,
-    // Bloom filter for rapid ownership checks
-    filter: BloomFilter,
-}
-\end{lstlisting}
+\subsection{Engine, Store, and Low-Level RPC}
 
-\subsection{Cryptographic Primitives}
+The current off-chain runtime is split into clear interfaces:
+\begin{itemize}
+    \item \texttt{elone-core} exposes a pure \texttt{ChannelEngine} with commands such as create, fund, confirm funding, request update, apply remote update, force update, settle, and splice planning;
+    \item \texttt{elone-store} provides a SQLite-backed store for channels, states, signatures, signing sessions, events, and splice history;
+    \item node RPC currently exposes only low-level methods: \texttt{elone\_submit\_channel\_tx}, \texttt{get\_channel\_chain\_state}, \texttt{get\_channel\_utxos}, and \texttt{get\_channel\_index\_tips}.
+\end{itemize}
 
-\subsubsection{MuSig2 Aggregation}
+This distinction matters. Earlier drafts of this paper treated the RPC layer as a full wallet/channel API. That is no longer accurate. The current node RPC surface accepts serialized Elone channel transaction containers and exposes public channel-index state, but it does not provide high-level wallet lifecycle methods such as ``create channel'' or ``update channel'' directly.
 
-\begin{lstlisting}[caption={MuSig2 Signature Aggregation}, float=!htb]
-fn aggregate_signatures(
-    ctx: &MuSig2Context,
-    partial_sigs: Vec<PartialSig>
-) -> Signature {
-    // Phase 1: Nonce Aggregation R = sum(R_i)
-    let R: Point = ctx.nonces.iter().sum();
-    // Phase 2: Sig Aggregation s = sum(s_i)
-    let s: Scalar = partial_sigs.iter().map(|p| p.s).sum();
-    Signature { R, s }
-}
-\end{lstlisting}
+\subsection{Implemented Gaps and Divergences}
 
-\subsection{Partially Signed Transaction Template (PSTT)}
+Although the current repository validates the architectural direction, several implementation gaps remain:
 
-For multi-party coordination, we define the PSTT standard.
+\paragraph{Funding path divergence}
+The SDK transaction builder and the simnet E2E tests still model opening as a single transaction that creates both \texttt{ChannelFund} and \texttt{ChannelState(0)}. By contrast, the current RPC service builds FUND as a \texttt{ChannelFund}-only transaction and expects \texttt{STATE0} to be created by a separate follow-up path. This is the most visible cross-layer divergence in the current code.
 
-\subsubsection{Domain Separation}
-To prevent cross-protocol replay attacks, signatures are bound to specific domains:
-$$ \sigma = \operatorname{Sign}_{sk}(\text{BLAKE3}(T_{\mathrm{dom}} \parallel m)) $$
-where $T_{\mathrm{dom}} \in \{T_{\mathrm{FUND}}, T_{\mathrm{UPDATE}}, T_{\mathrm{SETTLE}}, T_{\mathrm{SPLICE}}\}$ are unique 8-byte domain separator tags.
+\paragraph{Channel factories are partially integrated}
+The repository already contains FORK, MERGE, and REBALANCE payload builders, signing contexts, and persistence hooks. However, higher-layer lifecycle behavior is still incomplete: local tests currently fail in fork/merge/rebalance persistence and subchannel lifecycle scenarios.
 
-\begin{theorem}[Cross-Protocol Security]
-For types $A \neq B$, signature spaces are orthogonal:
-$$ \forall m: \operatorname{Verify}(\operatorname{Sign}^A(m), m)_B = \mathtt{FALSE} $$
-\end{theorem}
+\paragraph{PTLC execution remains partial}
+PTLC commitments and local PTLC state management exist, but production adaptor-signature creation and redemption-signature generation are not yet wired. In non-mock builds, those paths still return explicit ``not implemented'' errors.
 
-\subsubsection{PSTT Envelope}
+\paragraph{No full PSTT workflow}
+Earlier drafts described a dedicated Partially Signed Transaction Template (PSTT) protocol. The current repository does not yet implement such a standalone protocol. Multi-party coordination is presently modeled through typed MuSig2 \texttt{SessionContext} construction and signing backends rather than a generalized PSTT envelope.
 
-\begin{lstlisting}[caption={PSTT Envelope Structure}, float=!htb]
-pub struct PSTT {
-    pub policy: PolicyFlags,
-    pub payload: Option<EloneTxPayload>,
-    pub partial_sigs: Vec<PartialSignature>,
-    pub final_sig: Option<SchnorrSignature>,
-}
+\subsection{Current Engineering Interpretation}
 
-impl PSTT {
-    pub fn verify_domain(&self) -> Result<()> {
-        let expected = self.payload.tx_type.domain_tag();
-        for sig in &self.partial_sigs {
-            if sig.tag != expected { return Err(DomainMismatch); }
-        }
-        Ok(())
-    }
-}
-\end{lstlisting}
+The most accurate summary of the March 2026 implementation state is therefore:
+\begin{enumerate}
+    \item the consensus model is real and embedded;
+    \item the SDK signing and transaction-building stack is real;
+    \item the off-chain engine/store split is real;
+    \item the node RPC is real but intentionally low-level;
+    \item the system is still pre-production because key integration paths remain unfinished.
+\end{enumerate}
 
-\begin{table}[htbp]
-\centering
-\caption{Communication Complexity}
-\label{tab:impl-complexity}
-\small
-\begin{tabularx}{\linewidth}{@{}l X l@{}}
-\toprule
-\textbf{Protocol} & \textbf{Bandwidth} & \textbf{Rounds} \\
-\midrule
-Legacy Factory & $\mathcal{O}(N^2 \cdot |\sigma|)$ & $\mathcal{O}(N^2)$ \\
-\textbf{PSTT + MuSig2} & $\mathcal{O}(N \cdot |\sigma|)$ & $\mathcal{O}(N)$ \\
-\bottomrule
-\end{tabularx}
-\end{table}
-
-Here $N$ denotes the number of channel participants, and $|\sigma|$ the signature size (64 bytes for Schnorr).
-
-\subsection{Implementation Statistics}
-
-The core implementation is written in Rust, prioritizing correctness.
-
-\begin{table}[htbp]
-\centering
-\caption{Codebase Statistics (Rust)}
-\label{tab:loc}
-\small
-\begin{tabular}{@{}l r@{}}
-\toprule
-\textbf{Component} & \textbf{LOC (approx.)} \\
-\midrule
-Consensus Validator & 2,000 \\
-State Machine & 1,500 \\
-UTXO Indexer & 1,200 \\
-Crypto Primitives & 800 \\
-Network Protocol & 1,000 \\
-\textbf{Total Core} & \textbf{7,000} \\
-\bottomrule
-\end{tabular}
-\end{table}
+This distinction is essential for the rest of the paper. The theoretical framework remains broader than the current code snapshot, but the implementation evidence already validates the core thesis that Elone can be expressed as a native, typed, dual-track UTXO protocol rather than as a script-layer workaround.

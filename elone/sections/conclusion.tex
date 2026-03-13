@@ -10,12 +10,13 @@ We formalized the decomposition of channel state into orthogonal Fund and State 
 \subsubsection{System Architecture}
 We proposed a registry-free architecture that enables self-sovereign channel discovery. By embedding transaction type enumeration at the consensus layer, validation complexity is reduced to $\mathcal{O}(1)$. The proposed \textbf{STPC} (Single-Tip-Per-Channel) strategy effectively bounds DoS attack costs to a linear factor of the state sequence.
 
-\subsubsection{Empirical Validation}
-Our Rust reference implementation ($\sim$7,000 LOC) and benchmarks demonstrate:
+\subsubsection{Current Implementation Snapshot}
+The current Rust codebase already validates the central architectural claim of this paper: Elone can be expressed as a native, typed, dual-track UTXO protocol rather than as a script-layer workaround. The present repository snapshot supports the following narrower, implementation-accurate summary:
 \begin{itemize}
-    \item \textbf{Speed}: $3\text{--}5\times$ faster validation compared to script-based approaches.
-    \item \textbf{Efficiency}: 99.87\% reduction in storage overhead (from $\sim$288~KB to $\sim$376~B per channel with 1000 updates).
-    \item \textbf{Finality}: Sub-second settlement latency ($\sim$1.7s to $10^{-6}$ security) via GhostDAG, compared to $\sim$60 minutes for Bitcoin.
+    \item \textbf{Implemented Core}: consensus-native transaction types, typed signing contexts, SDK builders, and an off-chain engine/store boundary are all present in code.
+    \item \textbf{Implemented Submission Path}: the node already exposes a low-level RPC for serialized Elone channel transaction submission and channel-index queries.
+    \item \textbf{Partial Higher Layers}: channel-factory lifecycle flows, production PTLC execution, and cross-layer opening semantics remain incomplete.
+    \item \textbf{Status}: the implementation is substantial but still pre-production.
 \end{itemize}
 
 \subsection{Paradigm Shifts}
@@ -59,6 +60,12 @@ We analyze the trade-offs inherent in this architecture and proposed mitigations
 \textbf{UTXO Growth} & 2 UTXOs per channel (vs 1) & Enable non-consuming updates; prune settled channels. \\
 \midrule
 \textbf{Privacy} & On-chain footprint visible & Use Ephemeral IDs (Section~\ref{sec:safety}) \& Stealth Addresses. \\
+\midrule
+\textbf{Cross-Layer Divergence} & SDK and node RPC do not yet share a single uniform FUND/STATE0 opening path. & Unify channel opening semantics across consensus, SDK, engine, and RPC layers. \\
+\midrule
+\textbf{Partial PTLC Execution} & PTLC commitments exist, but production adaptor/redemption signing paths remain incomplete. & Complete production-grade PTLC cryptography and re-run end-to-end validation. \\
+\midrule
+\textbf{Channel Factory Maturity} & FORK/MERGE/REBALANCE exist architecturally, but lifecycle and persistence still need stabilization. & Fix failing lifecycle tests and validate channel-factory flows under reproducible integration scenarios. \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -67,6 +74,8 @@ We analyze the trade-offs inherent in this architecture and proposed mitigations
 
 \subsubsection{Short-Term Extensions}
 \begin{itemize}
+    \item \textbf{Implementation Convergence}: Unify SDK, engine, store, and RPC behavior around a single FUND/STATE0 opening model.
+    \item \textbf{Production PTLC Cryptography}: Replace mock-only adaptor/redemption paths with production Schnorr adaptor machinery.
     \item \textbf{Multi-Party Channels}: Combining MuSig2 with BFT protocols for $N$-party consensus.
     \item \textbf{Cross-Chain Atomic Swaps}: Utilizing adaptor signatures for heterogeneous chain interoperability.
     \item \textbf{Zero-Knowledge Privacy}: Integrating Bulletproofs for confidential balance proofs.
@@ -99,7 +108,7 @@ The shift to registry-free discovery and ephemeral identities offers a balanced 
 
 \subsection{Concluding Remarks}
 
-The dual-track state machine architecture is not merely an optimization but a re-imagining of off-chain state management. By pushing complexity to the protocol layer ($\mathcal{O}(1)$ verification, native types) and simplifying the application layer, we resolve the ``toxic waste'' and scalability bottlenecks of previous generations.
+The dual-track state machine architecture is not merely an optimization but a re-imagining of off-chain state management. By pushing complexity to the protocol layer ($\mathcal{O}(1)$ verification, native types) and simplifying the application layer, we resolve the ``toxic waste'' and scalability bottlenecks of previous generations. The March 2026 repository snapshot shows that this direction is implementable in practice, even though the system should still be regarded as an actively maturing prototype rather than a finished production network.
 
 As we move from Bitcoin's original 7 TPS to a future of infinite off-chain scalability, the most elegant solutions often come from questioning fundamental assumptions.
 
@@ -113,4 +122,3 @@ As we move from Bitcoin's original 7 TPS to a future of infinite off-chain scala
 \section*{Acknowledgments}
 
 We thank the Kaspa community for GhostDAG, the Lightning Network developers for foundational work, and the cryptography community for the Schnorr and MuSig2 primitives.
-

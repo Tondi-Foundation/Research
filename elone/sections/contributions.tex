@@ -9,8 +9,8 @@ Traditional payment channel networks are constrained by linear topologies and fa
     \item \textbf{Registry-Free Architecture}: By designing RefOp-Fund semantics, we eliminate dependencies on external state registries.
     \item \textbf{Recursive Isolation}: We formally prove the orthogonality between sub-channel security and parent channel liveness.
     \item \textbf{Topological Invariants}: We prove value conservation and state monotonicity invariants for complex networks.
-    \item \textbf{Constant-Time Verification}: We achieve $\mathcal{O}(1)$ PTLC verification by deriving keys directly from the Fund UTXO.
-    \item \textbf{Complete Protocol Specification}: We provide a consensus-layer specification ready for implementation.
+    \item \textbf{Constant-Time Classification and Bounded Verification}: We show how native transaction typing reduces transaction-family classification to $\mathcal{O}(1)$ while keeping validation cost bounded by explicit consensus resource limits.
+    \item \textbf{Specification With Partial Implementation}: We provide a consensus-layer specification that is now partially realized in Rust across consensus, SDK, engine, store, and low-level RPC layers.
 \end{enumerate}
 
 \subsection{Theoretical Significance}

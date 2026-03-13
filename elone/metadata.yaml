@@ -1,0 +1,41 @@
+schema_version: 1
+id: elone
+type: research-paper
+slug: elone
+title: "Elone: A Consensus-Embedded Protocol for High-Frequency Payment Networks"
+authors:
+  - name: Arthur Zhang
+    affiliation: Tondi Foundation
+  - name: Neo Maxwell
+    affiliation: Tondi Foundation
+  - name: Yunli Zhu
+    affiliation: DI Foundation
+  - name: Yunxuan Zheng
+    affiliation: Tondi Foundation
+date: "2026-03"
+language: en
+status: draft
+topics:
+  - payment channels
+  - layer 2
+  - UTXO
+  - state channels
+  - channel factories
+  - PTLC
+artifacts:
+  source_tex: paper.tex
+  sections_dir: sections
+  compiled_pdf: paper.pdf
+build:
+  working_directory: /Users/arthur/RustroverProjects/Research/elone
+  command: pdflatex -interaction=nonstopmode -halt-on-error -output-directory=/tmp/elone-paper-build paper.tex
+related_codebases:
+  - path: /Users/arthur/RustroverProjects/Tondi
+    relationship: implementation source of truth for current-status claims
+summary: >
+  Elone proposes a consensus-embedded payment-channel architecture built on a
+  dual-track UTXO model with native transaction typing, reference-based fund
+  access, and atomic topology reconfiguration. The March 2026 paper snapshot is
+  partially implementation-backed: consensus tx types, SDK builders,
+  engine/store split, and low-level RPC exist, while channel-factory lifecycle,
+  production PTLC execution, and PSTT-style coordination remain incomplete.

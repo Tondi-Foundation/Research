@@ -1,0 +1,35 @@
+schema_version: 1
+id: mmr-execution-log
+type: research-paper
+slug: mmr
+title: "Logarithmic Execution-Log Commitments for GHOSTDAG-based PoW DAG Ledgers via Merkle Mountain Ranges"
+authors:
+  - name: Arthur Zhang
+    affiliation: Tondi Foundation
+  - name: Neo Maxwell
+    affiliation: Tondi Foundation
+date: "2026-01"
+language: en
+status: draft
+topics:
+  - merkle mountain range
+  - GHOSTDAG
+  - PoW DAG
+  - execution proofs
+  - light clients
+  - bridges
+artifacts:
+  source_tex: mmr_full_paper.tex
+  compiled_pdf: mmr_full_paper.pdf
+build:
+  working_directory: /Users/arthur/RustroverProjects/Research/mmr
+  command: pdflatex -interaction=nonstopmode -halt-on-error -output-directory=/tmp/mmr-paper-build mmr_full_paper.tex
+related_codebases:
+  - path: /Users/arthur/RustroverProjects/Tondi
+    relationship: experimental and protocol context referenced by the paper
+summary: >
+  This paper introduces consensus-level execution-log commitments for
+  GHOSTDAG-based PoW DAG ledgers using Merkle Mountain Ranges. Its central proof
+  object is an execution position receipt that binds a transaction to actual
+  consensus execution order and enables logarithmic verification for old
+  transactions, bridges, and light clients.
