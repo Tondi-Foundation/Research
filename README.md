@@ -27,11 +27,13 @@ people can discover the paper without first parsing the TeX source.
 | --- | --- | --- | --- | --- |
 | Elone | `elone/` | 2025-12-17 | 2026-03 | A consensus-embedded payment-channel architecture built around a dual-track UTXO model, native transaction typing, and atomic channel reconfiguration. The current paper snapshot is theory-led but partially backed by code in `Tondi`: consensus tx types, SDK builders, engine/store split, and low-level RPC exist, while PTLC production execution and channel-factory lifecycle remain incomplete. |
 | MMR Execution Log | `mmr/` | 2026-01-22 | 2026-01 | A proposal for consensus-level execution-log commitments in GHOSTDAG-based PoW DAG ledgers using Merkle Mountain Ranges. The paper introduces execution-position receipts that prove actual consensus execution order and enable logarithmic verification for historical transactions, bridges, and light clients. |
+| Elone Prism | `elone_merkle/` | 2026-03-13 | 2026-03 | A dedicated Elone paper derived from the March 2026 Merkle design memorandum. It reframes Elone as a family of merkleized channels with proof-first state packages, partition conservation, deterministic settlement, and commitment-authoritative local storage. |
 
 - Open each paper's `metadata.yaml` first if you want a fast summary, source
   path, build command, and related codebase.
-- Main editable sources: `elone/paper.tex` and `mmr/mmr_full_paper.tex`.
-- Existing PDFs live beside the TeX sources: `elone/paper.pdf` and
-  `mmr/mmr_full_paper.pdf`.
+- Main editable sources: `elone/paper.tex`, `mmr/mmr_full_paper.tex`, and
+  `elone_merkle/paper.tex`.
+- Committed PDFs currently exist for `elone/` and `mmr/`; new drafts may be
+  source-only until their first checked-in build.
 - When you revise a paper, update its metadata if the title, date, status,
   summary, or build entry changes.

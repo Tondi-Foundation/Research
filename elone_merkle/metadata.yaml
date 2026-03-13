@@ -1,0 +1,37 @@
+schema_version: 1
+id: elone-prism
+type: research-paper
+slug: elone_merkle
+title: "Elone Prism: Merkleized Channels as Proof-First State Machines"
+authors:
+  - name: Arthur Zhang
+    affiliation: Tondi Foundation
+  - name: Neo Maxwell
+    affiliation: Tondi Foundation
+  - name: Yunli Zhu
+    affiliation: DI Foundation
+  - name: Yunxuan Zheng
+    affiliation: Tondi Foundation
+date: "2026-03"
+language: en
+status: draft
+topics:
+  - payment channels
+  - merkleized state
+  - partition conservation
+  - Elone
+artifacts:
+  source_tex: paper.tex
+build:
+  working_directory: /Users/arthur/RustroverProjects/Research/elone_merkle
+  command: pdflatex -interaction=nonstopmode -halt-on-error -output-directory=/tmp/elone-merkle-paper-build paper.tex
+related_codebases:
+  - path: /Users/arthur/RustroverProjects/Tondi
+    relationship: protocol design source and implementation context
+summary: >
+  This paper turns the March 2026 Elone Merkle design memorandum into an
+  academic protocol draft. Under the name Elone Prism, it proposes a
+  commitment-native channel architecture with dual-subtree state commitments,
+  exact partition conservation, deterministic settlement, proof-first
+  witnesses, and a migration path away from plaintext-authoritative channel
+  state.
