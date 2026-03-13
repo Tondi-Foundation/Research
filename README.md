@@ -18,8 +18,8 @@ people can discover the paper without first parsing the TeX source.
   numbers, verify them instead of inheriting them blindly.
 - Compile into `/tmp/...` rather than polluting the repo with fresh aux files.
 - If you are asked to publish a repository PDF, copy only the final PDF back
-  into the paper directory under a formal title-derived filename and record it
-  in `metadata.yaml`.
+  into the repository under a formal title-derived filename and record its
+  relative path in `metadata.yaml`.
 - If you add a new paper, create its directory-level `metadata.yaml` and update
   this README in the same change.
 - If you rename or add a published PDF, keep the README paper table aligned with
@@ -29,17 +29,15 @@ people can discover the paper without first parsing the TeX source.
 
 - Current papers:
 
-| Paper | Directory | Preferred PDF | Created | Current date | Abstract-level summary |
-| --- | --- | --- | --- | --- | --- |
-| Elone | `elone/` | `Elone Yellow Paper.pdf` | 2025-12-17 | 2026-03 | A consensus-embedded payment-channel architecture built around a dual-track UTXO model, native transaction typing, and atomic channel reconfiguration. The current paper snapshot is theory-led but partially backed by code in `Tondi`: consensus tx types, SDK builders, engine/store split, and low-level RPC exist, while PTLC production execution and channel-factory lifecycle remain incomplete. |
-| MMR Execution Log | `mmr/` | `Logarithmic Execution-Log Commitments.pdf` | 2026-01-22 | 2026-01 | A proposal for consensus-level execution-log commitments in GHOSTDAG-based PoW DAG ledgers using Merkle Mountain Ranges. The paper introduces execution-position receipts that prove actual consensus execution order and enable logarithmic verification for historical transactions, bridges, and light clients. |
-| Elone Prism | `elone_merkle/` | `elone_merkle/Elone_Prism_Proof_First_Merkleized_Channels.pdf` | 2026-03-13 | 2026-03 | A dedicated Elone paper derived from the March 2026 Merkle design memorandum. It now reads as a formalized protocol-design draft: proof-first merkleized channels with explicit partition assignment, deterministic settlement calculus, a state-package recovery object, and a defined benchmark agenda for the remaining systems questions. |
+| Paper | Directory | Created | Current date | Abstract-level summary |
+| --- | --- | --- | --- | --- |
+| Elone | `elone/` | 2025-12-17 | 2026-03 | A consensus-embedded payment-channel architecture built around a dual-track UTXO model, native transaction typing, and atomic channel reconfiguration. The current paper snapshot is theory-led but partially backed by code in `Tondi`: consensus tx types, SDK builders, engine/store split, and low-level RPC exist, while PTLC production execution and channel-factory lifecycle remain incomplete. |
+| MMR Execution Log | `mmr/` | 2026-01-22 | 2026-01 | A proposal for consensus-level execution-log commitments in GHOSTDAG-based PoW DAG ledgers using Merkle Mountain Ranges. The paper introduces execution-position receipts that prove actual consensus execution order and enable logarithmic verification for historical transactions, bridges, and light clients. |
+| Elone Prism | `elone_merkle/` | 2026-03-13 | 2026-03 | A dedicated Elone paper derived from the March 2026 Merkle design memorandum. It now reads as a formalized protocol-design draft: proof-first merkleized channels with explicit partition assignment, deterministic settlement calculus, a state-package recovery object, and a defined benchmark agenda for the remaining systems questions. |
 
 - Open each paper's `metadata.yaml` first if you want a fast summary, source
-  path, preferred PDF, build command, and related codebase.
+  path, build command, and related codebase.
 - Main editable sources: `elone/paper.tex`, `mmr/mmr_full_paper.tex`, and
   `elone_merkle/paper.tex`.
-- Preferred reading PDFs currently exist for `elone`, `mmr`, and
-  `elone_merkle`.
 - When you revise a paper, update its metadata if the title, date, status,
   summary, preferred PDF, or build entry changes.

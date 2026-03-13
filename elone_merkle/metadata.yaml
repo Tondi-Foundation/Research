@@ -6,12 +6,6 @@ title: "Elone Prism: Merkleized Channels as Proof-First State Machines"
 authors:
   - name: Arthur Zhang
     affiliation: Tondi Foundation
-  - name: Neo Maxwell
-    affiliation: Tondi Foundation
-  - name: Yunli Zhu
-    affiliation: DI Foundation
-  - name: Yunxuan Zheng
-    affiliation: Tondi Foundation
 date: "2026-03"
 language: en
 status: draft
@@ -22,7 +16,7 @@ topics:
   - Elone
 artifacts:
   source_tex: paper.tex
-  compiled_pdf: Elone_Prism_Proof_First_Merkleized_Channels.pdf
+  compiled_pdf: ../Elone_Prism_Proof_First_Merkleized_Channels.pdf
 build:
   working_directory: /Users/arthur/RustroverProjects/Research/elone_merkle
   command: pdflatex -interaction=nonstopmode -halt-on-error -output-directory=/tmp/elone-merkle-paper-build paper.tex
