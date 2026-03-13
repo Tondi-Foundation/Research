@@ -16,7 +16,7 @@ topics:
   - Elone
 artifacts:
   source_tex: paper.tex
-  compiled_pdf: ../Elone_Prism_Proof_First_Merkleized_Channels.pdf
+  compiled_pdf: ../Elone Prism - Proof-First Merkleized Channels.pdf
 build:
   working_directory: /Users/arthur/RustroverProjects/Research/elone_merkle
   command: pdflatex -interaction=nonstopmode -halt-on-error -output-directory=/tmp/elone-merkle-paper-build paper.tex
